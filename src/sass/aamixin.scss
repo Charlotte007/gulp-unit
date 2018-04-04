@@ -102,7 +102,12 @@ $c9:#999;
 		transition: all ease 0.7s;
 	}
 }
-
+// ie---翻转 兼容 //  backface-visibility  白屏兼容
+@mixin ieroll(){
+    backface-visibility: hidden;
+    transition: .7s;
+    transition: 0s\9;
+}
 
 // ---------透明度
 @mixin opacity($opacity) {  
