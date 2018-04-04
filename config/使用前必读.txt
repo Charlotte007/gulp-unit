@@ -1,0 +1,59 @@
+﻿1、项目文件全部src目录，
+	不要更改web下的文件，下一次运行会重新生成web下的文件，会覆盖之前文件！
+
+2、精灵图使用 伪类before实现，兼容性IE8+，更改伪类的背景颜色使用backgrouond-color
+	icon目录下的 handlebarsStr.css.handlebars 文件是精灵图样式模板，不要删除！
+	图标合并精灵图支持png,jpg,ico,gif文件，建议使用图标统一使用png格式
+	
+
+3、sass目录下的文件会统一打包到layout.css中，文件合并顺序，按照文件目录顺序合并的，
+	注意层叠样式表的优先级关系
+
+4、新功能：
+
+		base64				==> 小图转base64（小于10KB），兼容IE8+
+		
+		不同版本环境区分   	==> 根据不同环境，复制文件覆盖到项目目录( 生成的目录结构，和兼容问题已处理)
+		
+		添加复制功能		==> gulpfile.js 第100行，调用copyCommon（taskName, srcPath, destPath）即可添加，需要重新运行下gulp dev/build
+		
+5、sass功能简单扩充
+
+	不喜欢使用精灵图在HTML中添加class，可以使用  @extend className ; 比如：@extend .icon-backico;  继承class的所有css属性
+	
+	使用&符号继承上一层选择器； 比如  
+	a{
+		&.cur,
+		&:hover{
+			color:$ac;
+		}
+	}
+
+6、注意事项
+
+	项目完成 记得打包压缩  gulp build ；   // 图片压缩 文件整理 base64转码 
+	
+7、更新说明
+	
+	base64  开发环境中去掉    -->   移动到 生产环境打包中   gulp build
+	
+	修复 运行中 文件处理的错误
+	
+	
+	
+// 2018年3月更新
+
+	增加字体转换功能；（需要自己安装）
+		ttf转换为 woff =>	npm install -g  ttf2woff            仅一次全局安装即可，使用： ttf2woff fontName.ttf fontName.woff
+		ttf转化为 eot  =>   npm install -g  ttf2eot				仅一次全局安装即可，使用： ttf2eot  fontName.ttf fontName.woff
+
+	文件结构修改：（新增 Plugin ，插件目录，）
+		Plugin     项目中使用的js插件，放入目录中，去掉ESlint 代码规范的检查，提高gulp运行效率
+		
+	更新重置样式
+		global  768  1024  1200 1260  1320  1400  
+	
+  cnpm install
+gulp dev
+gulp build
+	

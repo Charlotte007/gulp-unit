@@ -1,0 +1,130 @@
+﻿/*--公共部分--*/
+
+html{
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+-webkit-font-smoothing:antialiased;
+
+-webkit-tap-highlight-color: transparent; // 消除点击高亮
+-webkit-touch-callout: none;
+touch-callout: none;
+}
+body,form,img,ul,ol,li,dl,dt,dd,p,tr,td,strong,span,pre{margin:0; padding:0; border:0; background-repeat:no-repeat;}
+h1,h2,h3,h4,h5,h6,p{ margin:0; padding:0; font-weight:normal;}
+
+// 字体
+body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; font-family: tahoma, arial, 'Hiragino Sans GB', sans-serif;}
+
+ul,li{ list-style:none;}
+em,i,b{ font-style:normal;}
+img{border:0px;max-width: 100%;}
+table {border-collapse: collapse; border-spacing: 0;}
+
+
+*, :after, :before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background-repeat: no-repeat;// 默认背景不重复
+}
+
+// -- html5
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+// -- a  点击类
+a {
+	background-color: transparent;
+	-webkit-text-decoration-skip: objects;
+	text-decoration:none; color:#333; 
+	outline:none;
+}
+a:hover{ background-repeat:no-repeat; text-decoration:none;}
+a,input[type="button"],button,label,
+input[type="submit"]{
+	cursor: pointer;
+}
+// -- sub sup
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+audio,
+video {
+  display: inline-block;
+}
+// -- 表单
+[type="checkbox"],
+[type="radio"] {
+ box-sizing: border-box; /* 1 */
+ padding: 0; /* 2 */
+}
+input,textarea,select{font-family: 'Times New Roman', Times, serif; outline:none;}
+input[type="text"],
+input[type="password"],
+input[type="button"],
+input[type="submit"],
+select,
+textarea {
+    outline-style: none;
+    -webkit-appearance: none;
+    resize: none;
+    border: none;
+	border-radius:0; 
+}
+// 自动填充的  autocomplete off/ new-password
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+
+// 常用样式  
+.clearfix:after{visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix{*zoom:1;}
+
+.clear{
+    clear: both;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
+}
+.fl { float: left; }
+.fr { float: right; }
+// 调试专用
+.show {
+  display: block !important;
+}
+.hide {
+  display: none !important;
+}
+// 动画相关  will-change:;
+.z-transition{ // 消除transition闪屏
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+}
+.z-css3{// 尽可能地使用合成属性transform和opacity来设计CSS3动画，开启硬件加速
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+// 布局类
+.commonweb{padding:0px 10px;}
+@media (max-width:320px){
+	body{min-width:320px;}
+}
+/* layout start*/

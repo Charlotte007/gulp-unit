@@ -1,0 +1,162 @@
+<header class="zk-header">
+    <div class="commonweb clearfix  zk-inner">
+        <a href="/" class="logo">
+            <img src="/res/webimages/zklogo.png" alt="中锴控股">
+        </a>
+        <a href="javascript:;" class="menu-handle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a href="javascript:;" class="search-handle"></a>
+        <a href="javascript:;" target="_blank" class="langlink">EN</a>
+        <div class="search-form">
+            <form class="clearfix">
+                <input type="text" class="keywords" placeholder="请输入搜索关键字">
+                <input type="submit" class="keysubmit" value="搜索">
+            </form>
+        </div>
+        <div class="mainnav commonweb">
+            <nav class="clearfix">
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">首页</a>
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">关于中锴</a>
+                    </h3>
+                    <div class="subnav">
+                        <a href="javascript:;">企业简介</a>
+                        <a href="javascript:;">组织架构</a>
+                        <a href="javascript:;">企业荣誉</a>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">集团业务</a>
+                    </h3>
+                    <div class="subnav">
+                        <a href="javascript:;">投资</a>
+                        <a href="javascript:;">地产</a>
+                        <a href="javascript:;">教育</a>
+                        <a href="javascript:;">建筑</a>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">招商合作</a>
+                    </h3>
+                    <div class="subnav">
+                        <a href="javascript:;">招商政策</a>
+                        <a href="javascript:;">招商条件</a>
+                        <a href="javascript:;">招商流程</a>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">英才招聘</a>
+                    </h3>
+                    <div class="subnav">
+                        <a href="javascript:;">招聘信息</a>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="title">
+                        <a href="javascript:;">联系我们</a>
+                    </h3>
+                    <div class="subnav">
+                        <a href="javascript:;">产业分布</a>
+                        <a href="javascript:;">沟通方式</a>
+                    </div>
+                </li>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    /*---- 头部JS开始 -----*/
+    $(function () {
+        $('.menu-handle').on('click', function () {
+            $(this).toggleClass('cur');
+            $('.mainnav').stop().slideToggle();
+            $('.zk-header .search-form').stop().slideUp();
+        });
+        $('.platform-wrapper .wechat').on('click', function (ev) {
+            ev.stopPropagation();
+            $('.wechat-popup').stop().fadeIn();
+        });
+        function mediaEvent() {
+            if ($(window).width() < 1200) {
+                $('.mainnav').hide();
+                $('.mainnav li').off('mouseleave mouseenter');
+                $('.mainnav li').each(function () {
+                    var _title = $(this).find('.title');
+                    var _subnav = _title.next();
+                    if (_subnav.length) {
+                        _subnav.prev().addClass('hassub');
+                        _title.find('a').off('click').on('click', function (ev) {
+                            ev.preventDefault();
+                            if (_subnav.is(':hidden')) {
+
+                                _title.addClass('roll');
+
+                                _subnav.slideDown().parent().siblings().find('.title').removeClass(
+                                    'roll').next().slideUp();
+                            } else {
+                                _subnav.slideUp().prev().removeClass('roll');
+                            };
+                        });
+                    };
+                });
+                $('.search-handle').off('click').on('click', function () {
+                    $('.menu-handle').removeClass('.cur');
+                    $('.mainnav').stop().slideUp();
+                    $('.zk-header .search-form').stop().slideToggle();
+                });
+            } else {
+                $('.mainnav').show();
+                $('.mainnav .subnav').hide();
+                $('.mainnav li .title a').off('click');
+                $('.mainnav li').hover(function () {
+                    $(this).addClass('active').find('.subnav').stop().fadeIn();
+                }, function () {
+                    $(this).removeClass('active').find('.subnav').stop().fadeOut();;
+                });
+
+                $('.search-handle').off('click').on('click', function (ev) {
+                    ev.stopPropagation();
+                    $('.zk-header .search-form').stop().fadeToggle();
+                });
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() > 32) {
+                        $('.zk-header').addClass('js-zkscrollheader');
+                    } else {
+                        $('.zk-header').removeClass('js-zkscrollheader');
+                    };
+                });
+            };
+        };
+        mediaEvent();
+        $(window).resize(mediaEvent);
+        $(document).on('click', function (ev) {
+            if ($(window).width() < 1200) {
+
+            } else {
+                if ($(ev.target).closest('.search-form').length === 0) {
+                    $('.zk-header .search-form').stop().fadeOut();
+                }
+            };
+            if ($(ev.target).closest('.wechat-popup').length === 0) {
+                $('.wechat-popup').stop().fadeOut();
+            };
+        });
+        if($('.zk-header').next().attr('class') && $('.zk-header').next().attr('class').indexOf('banner') === -1){
+            $('.zk-header').addClass('js-zkscrollheader');
+        };
+    });
+
+    /*---- 头部JS结束 -----*/
+</script>

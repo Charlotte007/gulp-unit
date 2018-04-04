@@ -1,0 +1,207 @@
+<footer class="zk-footer">
+    <div class="commonweb zk-inner clearfix">
+        <div class="quickly-links-wrapper">
+            <h3 class="m-zkft-title">快捷入口</h3>
+            <div class="quickly-links">
+                <ul class="clearfix">
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">关于中锴</a>
+                        </h3>
+
+                        <div class="subnav">
+                            <a href="javascript:;">企业简介</a>
+                            <a href="javascript:;">组织架构</a>
+                            <a href="javascript:;">企业荣誉</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">集团业务</a>
+                        </h3>
+                        <div class="subnav">
+                            <a href="javascript:;">投资</a>
+                            <a href="javascript:;">地产</a>
+                            <a href="javascript:;">教育</a>
+                            <a href="javascript:;">建筑</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">集团业务</a>
+                        </h3>
+                        <div class="subnav">
+                            <a href="javascript:;">投资</a>
+                            <a href="javascript:;">地产</a>
+                            <a href="javascript:;">教育</a>
+                            <a href="javascript:;">建筑</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">招商合作</a>
+                        </h3>
+                        <div class="subnav">
+                            <a href="javascript:;">招商政策</a>
+                            <a href="javascript:;">招商条件</a>
+                            <a href="javascript:;">招商流程</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">英才招聘</a>
+                        </h3>
+                        <div class="subnav">
+                            <a href="javascript:;">招聘信息</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h3 class="title">
+                            <a href="javascript:;">联系我们</a>
+                        </h3>
+                        <div class="subnav">
+                            <a href="javascript:;">产业分布</a>
+                            <a href="javascript:;">沟通方式</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="platform-wrapper">
+            <div class="platform">
+                <h3 class="m-zkft-title">互动平台</h3>
+                <div class="share">
+                    <a href="javascript:;" class="mail"></a>
+                    <a href="javascript:;" class="sina"></a>
+                    <a href="javascript:;" class="wechat"></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p class="code">
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备1234567号</a>
+                </p>
+                <p class="copytext">Copyright©2017 深圳中锴控股有限公司 版权所有</p>
+            </div>
+            <p class="szweb">
+                <a href="http://www.smwind.com/" target="_blank">深圳APP开发 </a>|
+                <a href="http://www.szweb.cn" target="_blank">深圳网站建设 </a>：
+                <a href="http://www.szweb.cn" target="_blank">沙漠风 </a>
+            </p>
+        </div>
+    </div>
+</footer>
+<div class="wechat-popup">
+    <div class="qrcode">
+        <img src="/res/webimages/zkqrcode.jpg">
+    </div>
+    <p class="desc">关注公众号：中锴控股集团</p>
+</div>
+<a href="javascript:;" class="zk-backtop"></a>
+
+<script>
+    /*---- 底部JS开始 -----*/
+    $(function () {
+        function footMediaEvent() {
+            if ($(window).width() < 1024) {
+                $('.quickly-links .subnav').hide();
+                $('.quickly-links .title a').off('click').on('click', function (ev) {
+                    ev.preventDefault();
+                    var _this = $(this).parent();
+                    if (_this.next().is(':hidden')) {
+                        _this.addClass('cur').next().slideDown().parent().siblings().find('.title').removeClass(
+                            'cur').next().slideUp();
+                    } else {
+                        _this.removeClass('cur').next().slideUp();
+                    };
+                });
+            } else {
+                $('.quickly-links .subnav').show();
+                $('.quickly-links .title a').off('click');
+            };
+        }
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 300) {
+                $('.hx-backtop').fadeIn();
+            } else {
+                $('.hx-backtop').fadeOut();
+            };
+        });
+        $('.hx-backtop').click(function () {
+            $('html,body').animate({
+                'scrollTop': 0
+            }, 500);
+        });
+        footMediaEvent();
+        $(window).resize(footMediaEvent);
+    });
+    setStickyFooter($('.hx-footer'));
+    function setStickyFooter($footer, $tabsArr) {
+        var MutationObserver = (function () {
+            var prefixes = ['WebKit', 'Moz', 'O', 'Ms', ''];
+            for (var i = 0; i < prefixes.length; i++) {
+                if (prefixes[i] + 'MutationObserver' in window) {
+                    return window[prefixes[i] + 'MutationObserver'];
+                };
+            };
+            return false;
+        }());
+        var target = document.body;
+        var observer;
+        var config = {
+            attributes: true,
+            childList: true,
+            characterData: true,
+            subtree: true
+        };
+        if (MutationObserver) {
+            observer = new MutationObserver(mutationObjectCallback);
+        };
+
+        function mutationObjectCallback(mutationRecordsList) {
+            stickyFooter();
+        };
+
+        function stickyFooter() {
+            if (MutationObserver) {
+                observer.disconnect();
+            };
+            var footerHeight = 0,
+                footerTop = 0,
+                $footer = $footer || $("footer");
+
+            footerHeight = $footer.outerHeight();
+            footerTop = ($(window).scrollTop() + $(window).height() - footerHeight) + "px";
+            if (($(document.body).outerHeight()) < $(window).height()) {
+                $footer.css({
+                    visibility: 'visible',
+                    position: "absolute",
+                    top: footerTop
+                });
+            } else {
+                $footer.css({
+                    visibility: 'visible',
+                    position: "static"
+                });
+            };
+            if (MutationObserver) {
+                observer.observe(target, config);
+            };
+        }
+        window.onload = function () {
+            stickyFooter();
+            if (MutationObserver) {
+                observer.observe(target, config);
+            } else {
+                setInterval(stickyFooter, 500);
+            };
+        };
+        window.onresize = function () {
+            stickyFooter();
+        };
+        if (!!$tabsArr) {
+            $tabsArr.click(stickyFooter);
+        };
+    };
+    /*---- 底部JS开始 -----*/
+</script>

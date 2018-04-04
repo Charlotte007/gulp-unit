@@ -1,0 +1,367 @@
+/* 头部css开始 */
+
+@import 'aamixin';
+body {
+    padding-top: 55px;
+}
+// 手机版基本通用的
+.zk-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    // @include bgcrgba('手机导航背景','mhderbg',rgba(0,0,0,.1));
+    // @include bgc('手机导航背景','mhderbg',#ffffff);
+    @include bgc('手机导航背景','mhderbg',#176ea5);
+    // @include bgc('pc滚动时导航背景','pchderbg',#176ea5);
+    width: 100%;
+    height: 55px;
+    padding: 10px 0;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+    .logo {
+        float: left;
+        display: block;
+        img {
+            display: block;
+            height: 35px;
+        }
+    }
+    @media (max-width:350px){
+        .logo {
+            img {
+                margin-top: 2.5px;
+                height: 30px;
+            }
+        }
+    }
+    .menu-handle {
+        position: relative;
+        top: -2.5px;
+        float: right;
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            // background: #333;
+            @include bgc('手机导航菜单','mbgnavmenu',#ffffff);
+            transition: all ease .3s;
+            transform: translate3d(0, 0+5-2px, 0);
+            &:nth-child(2) {
+                transform: translate3d(0, 14-2px, 0);
+            }
+            &:nth-child(3) {
+                transform: translate3d(0, 28-4-5+2px, 0);
+            }
+        }
+        &.cur {
+            span {
+                transform: translate3d(0, 14px, 0) rotate(45deg);
+                &:nth-child(2) {
+                    opacity: 0;
+                }
+                &:nth-child(3) {
+                    transform: translate3d(0, 10px, 0) rotate(-45deg);
+                }
+            }
+        }
+    }
+    .search-handle {
+        float: right;
+        width: 40px;
+        height: 35px;
+        margin-right: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+        @include bgimg('手机搜索按钮图标','msearchico','/res/webimages/zksearchicon.png');
+        background-size: 32px auto;
+    }
+    .langlink{
+        float: right;
+        width: 32px;
+        height: 32px;
+        margin: 1.5px 8px 0 0;
+        font-size: 16px;
+        line-height: 30px;
+        border: 1px solid #fff;
+        @include cl('其他语言版本链接文本色','fzlanglink',#ffffff);
+        text-align: center;
+        border-radius: 50%;
+    }
+    .search-form {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 55px;
+        z-index: 99;
+        width: 100%;
+        padding: 10px;
+        @include bgc('手机下拉搜索背景色','mbgsearchform',#f5f5f5);
+        font-size: 0;
+        form {
+            display: block;
+            padding-right: 60px;
+        }
+        input {
+            @include dib();
+            position: relative;
+            float: left;
+            display: block;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+        .keywords {
+            padding-left: 10px;
+        }
+        .keysubmit {
+            width: 60px;
+            right: -60px;
+            margin-left: -60px;
+        }
+    }
+    .mainnav {
+        display: none;
+        position: fixed;
+        top: 55px;
+        left: 0;
+        z-index: 98;
+        width: 100%;
+        bottom: 0;
+        padding-bottom: 100px;
+        @include bgc('手机下拉导航背景色','mbgmainnav',#ffffff);
+        border-top: 1px solid #ccc;
+        overflow-y: auto;
+        // .nav-slider {
+        //     position: relative;
+        //     height: 100%;
+        //     overflow-y: auto;
+        // }
+        li {
+            border-bottom: 1px solid #ccc;
+            a {
+                display: block;
+                font-size: 16px;
+                line-height: 48px;
+                @include cl('手机导航文本色','mfzmainnav',#333333);
+                padding-left: 20px;
+            }
+            &.cur {
+                .title {
+                    a {
+                        @include cl('手机导航选中文本色','mfzcurmainnav',#e8ae4c);
+                    }
+                }
+            }
+            .subnav {
+                display: none;
+                a {
+                    padding-left: 40px;
+                } 
+            }
+        } // 状态
+        .hassub {
+            a {
+                position: relative;
+                &:after {
+                    position: absolute;
+                    content: '';
+                    width: 50px;
+                    height: 50px;
+                    top: 0;
+                    right: 0;
+                    background: url('/res/webimages/zkupimg.png') no-repeat center;
+                    background-size: 20px;
+                    transition: all ease .3s;
+                }
+            }
+        }
+        .roll {
+            a {
+                &:after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}
+// 微信弹窗
+.wechat-popup{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    width: 240px;
+    height: 270px;
+    left: 50%;
+    top:50%;
+    margin: -135px 0 0 -120px;
+    padding: 15px;
+    @include bgc('微信弹窗背景色','bgwechatpop','#ffffff');
+    border: solid 1px #d8d8d8;
+
+    img{
+        display: block;
+        max-width: 100%;
+    }
+    .desc{
+        text-align: center;
+        padding: 8px 0;
+        font-size: 14px;
+        line-height: 24px;
+    }
+}   
+
+@media (min-width:1200px) {
+    body{
+        padding-top:0;
+    }
+    .zk-header {
+        //@include bgc('pc导航背景','pchderbg',#176ea5);
+        height: 88px;
+        padding: 32px 0 0;
+        box-shadow: none;
+        background: none;
+
+        transition: all ease .3s;
+        .zk-inner{
+            position: relative;
+        }
+        .logo {
+            float: left;
+            img {
+                height: 56px;
+            }
+        }
+        .menu-handle {
+            display: none;
+        }
+        .search-handle {
+           // float: right;
+           // width: 40px;
+            height: 45+3px;
+            margin-top: 5px;
+            margin-right: -12px;
+            @include bgimg('PC搜索按钮图标','pczksearchico','/res/webimages/zksearchico.png');
+            background-size: 16px auto;
+        }
+        .langlink{
+            float: right;
+            width: 32px;
+            height: 48px;
+            margin: 5px 15px 0 19px;
+            font-size: 16px;
+            line-height: 48px;
+            border: 0;
+            text-align: center;
+            &:hover{
+                @include cl('PC导航选中文本色','pcfzcurmainnav',#e8ae4c);
+            }
+        }
+        .search-form {
+            display: none;
+            position: absolute;
+            left: auto;
+            right: 0;
+            top: 68px;
+            z-index: 99;
+            width: 300px;
+            padding: 0;
+            background: none;
+            font-size: 0;
+            border: 1px solid #ccc;
+            form {
+                display: block;
+                padding-right: 60px;
+            }
+            .keysubmit {
+                width: 60px;
+                right: -60px;
+                margin-left: -60px;
+                // background-color:#176ea5;
+                @include bgc('PC搜索提交按钮背景色','bgpcsubmit',#176ea5);
+                @include cl('PC搜索提交按钮文本色','fzpcsubmit',#ffffff);
+            }
+        }
+        .mainnav {
+            display: none;
+            position: static;
+            float: right;
+            width: auto;
+            bottom: 0;
+            padding-top: 5px;
+            padding-bottom: 0;
+            background: none;
+            border-top: 0;
+            overflow-y: visible;
+            li {
+                position: relative;
+                float: left;
+                border-bottom: 0;
+                a {
+                    @include cl('PC导航文本色','pcfzmainnav',#ffffff);
+                    padding:0 24px;
+                }
+                &.active,
+                &:hover,
+                &.cur {
+                    .title {
+                        a {
+                            @include cl('PC导航选中文本色','pcfzcurmainnav',#e8ae4c);
+                        }
+                    }
+                }
+                .subnav {
+                    position: absolute;
+                    z-index: 99;
+                    top: 48+4px;
+                    left: -24px; 
+                    right: -24px;
+                    display: none;
+                    text-align: center;
+                    // box-shadow: 0 0 1px 3px rgba(0, 0, 0, 0.2);
+                    a {
+                        padding: 0;
+                        margin-bottom: 1px;
+                        @include cl('PC二级导航文色','fzpcsubnavbg',#ffffff);
+                       // @include bgcrgba('PC二级导航背景色','pcsubnavbg',rgba(255,255,255,.4));
+                        @include bgc('PC二级导航默认背景色','bgpcsubnav', #037fc8);
+                        &:hover{
+                            @include bgc('pc二级导航选中背景色','bgpccursubnav',#00a0e9);
+                            @include cl('pc二级导航选中文本色','fzpcsubnavcurbg',#ffffff);
+                        }
+                    } 
+                }
+            } // 状态
+            .hassub {
+                a {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    // js滚动
+    .js-zkscrollheader{
+        @include bgc('pc滚动时导航背景','pchderbg',#176ea5);
+        padding: 5px 0;
+        height: auto;
+        .logo {
+            img {
+                margin-top: 8px;
+                height: 40px;
+            }
+        }
+        .mainnav {
+            li {
+                .subnav{
+                    top: 54+2px;
+                }
+            }
+        }
+    }
+}
+@media (min-width:1260px) {
+}

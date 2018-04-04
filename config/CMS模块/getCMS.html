@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+	.title{
+        text-align: center;
+    }
+    .flexbox {
+        display: flex;
+        flex: 1;
+        padding: 20px;
+    }
+
+    .box {
+        width: 50%;
+        min-height: 200px;
+        padding: 30px;
+        box-shadow: 0 0 1px 3px rgba(0, 0, 0, .2);
+    }
+    #csstext{
+        display: flex;
+        flex: 1;
+        padding: 20px; 
+    }
+    #csstext textarea{
+        display: flex;
+        flex: 1;
+        min-height: 200px;
+        padding: 30px;
+        box-shadow: 0 0 1px 3px rgba(0, 0, 0, .2);
+    }
+    .noselect {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    #getcmsbtn{
+        color: #000;
+        display: block;
+        width: 280px;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        margin: 10px auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 0 1px 3px rgba(0, 0, 0, .1);
+    }
+</style>
+
+<body>
+    <h2 class="title noselect">CSS分离为CSS模块和CSSJSON</h2>
+	<div id="csstext" class="noselect">
+        <textarea id="cssArea" class="noselect"></textarea>
+    </div>
+    <a href="javascript:;" class="noselect" id="getcmsbtn">CSS分离为CSS模块和CSSJSON</a>
+    <div class="flexbox">
+        <div id="cssBox" class="box"></div>
+        <div id="jsonBox" class="box"></div>
+    </div>
+    <script>
+       
+        function getcssCMS(cssTar,jsonBox,cssBox) {
+            var cssJsonArr = [];
+            var valJsonArr = [];
+            var rep = cssTar.replace(/\:([^\:\;]+)\;\s{1}\/\*\s?(\{[^\*]+)\*\//g, function () {
+                var jsonItem = JSON.parse(arguments[2]);
+                cssJsonArr.push(arguments[2]);
+                return `:${jsonItem.name};`
+            });
+            document.getElementById(jsonBox).innerHTML = rep;
+            // 数组 去重
+            var newJsonArr = [];
+            for (var i = 0; i < cssJsonArr.length; i++) {
+                if (newJsonArr.indexOf(cssJsonArr[i]) === -1) {
+                    newJsonArr.push(cssJsonArr[i]);
+                }
+            }
+            document.getElementById(cssBox).innerHTML ='['+ newJsonArr+ ']';
+        }
+       
+        document.getElementById('getcmsbtn').onclick = function(){
+            var headercss = document.getElementById('cssArea').value;
+             getcssCMS(headercss,'jsonBox','cssBox');
+        };
+    </script>
+</body>
+
+</html>

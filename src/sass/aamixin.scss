@@ -1,0 +1,217 @@
+// ---- 封装的css样式，调用即可，勿删（调用：@include cssFn(argumets);）
+$ac:#bcd130;
+$c0:#000;
+$c3:#333;
+$c6:#666;
+$c9:#999;
+
+
+//----------------------------------------------
+// 模块专用
+@mixin cl($name,$key,$color){
+    color: $color;
+   /* {"title": "#{$name}","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
+}
+@mixin clrgba($name,$key,$color){
+    color: $color;
+   /* {"title": "#{$name}","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
+}
+
+@mixin bgc($name,$key,$color){
+    background-color: $color;
+    /* {"title": "#{$name}","type":"color","name": "@bgc#{$key}","value": "#{$color}"}*/
+}
+@mixin bgcrgba($name,$key,$color){
+    background-color: $color;
+    /* {"title": "#{$name}","type":"rgbcolor","name": "@bgrgb#{$key}","value": "#{$color}"}*/
+}
+
+@mixin bgimg($name,$key,$path){
+    background-image:url($path); 
+    /* {"title": "#{$name}","type":"image","name": "@img#{$key}","value": "url(#{$path})"}*/
+}
+
+// 需要短横线 ‘-’，  rgbcolor 和  color 有区别？
+
+@mixin bod($name,$key,$color,$derection:''){
+	border#{$derection}-color:$color;
+	/* {"title": "#{$name}","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
+}
+@mixin bodrgba($name,$key,$color,$derection:''){
+	border#{$derection}-color:$color;
+	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
+}
+
+// CMS 文件分离，任重道远
+
+
+// 不能使用函数 返回注释
+// @function color($name,$key,$color) {  
+//     @return $color ; /* {"title": "#{$name}","type":"color","name": "@#{$key}","value": "#{$color}"}*/
+// }
+   
+
+//------------------------------------------------ 混合： @include
+// 前缀   -- gulp中已经配置  
+@mixin css3($property, $value) {  
+    @each $prefix in -webkit-,  
+    -moz-,  
+    -ms-,  
+    -o-,  
+    '' {  
+        #{$prefix}#{$property}: $value;  
+    }  
+}  
+// 各种居中	----------  注意（定位方式，层级）
+@mixin center ($position:absolute,$zIndex:3){
+	position:$position;
+	z-index:$zIndex;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+}
+@mixin xcenter ($position:absolute,$zIndex:3){
+	position:$position;
+	z-index:$zIndex;
+	left:50%;
+	transform:translateX(-50%);
+}
+@mixin ycenter ($position:absolute,$zIndex:3){
+	position:$position;
+	z-index:$zIndex;
+	top:50%;
+	transform:translateY(-50%);
+}
+// ----------------------常用的放大效果
+@mixin imgscale (){
+	&:hover{
+		img{
+			-webkit-transform:scale(1.03,1.03);
+			-moz-transform:scale(1.03,1.03);
+			-ms-transform:scale(1.03,1.03);
+			-o-transform:scale(1.03,1.03);
+			transform:scale(1.03,1.03);
+		}
+	}
+}
+@mixin scalebox (){
+	overflow:hidden;
+	img{
+		-webkit-transition:all ease 0.7s; // Safari 和 Chrome
+		-moz-transition: all ease 0.7s;	// FF
+		-ms-transition: all ease 0.7s;//IE
+		-o-transition:all ease 0.7s;// Opera 
+		transition: all ease 0.7s;
+	}
+}
+
+
+// ---------透明度
+@mixin opacity($opacity) {  
+    opacity: $opacity;  
+    $opacity-ie: $opacity * 100;  
+    filter: alpha(opacity=$opacity-ie); //IE8  
+}  
+
+// 转inline-block
+@mixin dib() {
+    display: inline-block;
+    vertical-align: top;
+    *display: inline;
+    *zoom: 1;
+}
+
+// 单行文本省略
+@mixin ol($lh) {
+    height: $lh;
+    line-height: $lh;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+// 多行文本省略
+@mixin ml($lh, $line) {
+    height: $lh*$line;
+    line-height: $lh;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+}
+
+// placeholder 
+@mixin ph($color: #999) {
+    // 使用webkit内核的浏览器
+    &::-webkit-input-placeholder {
+        color: $color;
+    } // Firefox版本4-18
+    &:-moz-placeholder {
+        color: $color;
+    } // Firefox版本19+
+    &::-moz-placeholder {
+        color: $color;
+    } // IE浏览器
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+}
+// 文本不选中 (文字按钮或指定文本)
+@mixin noselect (){
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+//------------------- // 三角箭头
+// -- 正三角通用属性
+%triangleBase {  
+    _font-size: 0;  
+    _line-height: 0;  
+    _overflow: hidden;  
+    width: 0;  
+    height: 0;  
+      
+} 
+// --正三角正文
+@mixin san($derection:bottom, $color: #000, $width: 20px) {  // 默认值： 向下，黑色，20px
+    @extend %triangleBase;  
+    border-width: $width;  
+    //向右  
+    @if $derection==right {  
+        border-style: dashed dashed dashed solid;  
+        border-color: transparent transparent transparent $color;  
+    }  
+    //向左  
+    @if $derection==left {  
+        border-style: dashed solid dashed dashed;  
+        border-color: transparent $color transparent transparent;  
+    }  
+    //向上  
+    @if $derection==top {  
+        border-style: dashed dashed solid dashed;  
+        border-color: transparent transparent $color transparent;  
+    }  
+    //向下  
+    @if $derection==bottom {  
+        border-style: solid dashed dashed dashed;  
+        border-color: $color transparent transparent transparent;  
+    }  
+} 
+
+
+
+
+
+//-------------------------------------------------- 函数使用： color:white(0.9);}  
+// 黑 black
+@function bk($opacity) {  
+    @return rgba(0, 0, 0, $opacity)  
+}  
+// 白 white
+@function wt($opacity) {  
+    @return rgba(255, 255, 255, $opacity)  
+}  
