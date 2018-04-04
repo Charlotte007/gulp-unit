@@ -4,8 +4,6 @@ $c0:#000;
 $c3:#333;
 $c6:#666;
 $c9:#999;
-
-
 //----------------------------------------------
 // 模块专用
 @mixin cl($name,$key,$color){
@@ -121,7 +119,7 @@ $c9:#999;
     *zoom: 1;
 }
 
-// 单行文本省略
+// 单行文本省略  -- 单行文本优先使用，无兼容问题；
 @mixin ol($lh) {
     height: $lh;
     line-height: $lh;
@@ -130,7 +128,19 @@ $c9:#999;
     overflow: hidden;
 }
 
-// 多行文本省略
+// 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
+// -- 推荐左右图文，单列，max-height只是兼容辅助
+@mixin mlmax($lh, $line) {
+    max-height: $lh*$line;
+    line-height: $lh;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+}
+// -- 推荐等高列表使用，依靠高度实现布局的
 @mixin ml($lh, $line) {
     height: $lh*$line;
     line-height: $lh;
@@ -201,10 +211,6 @@ $c9:#999;
         border-color: $color transparent transparent transparent;  
     }  
 } 
-
-
-
-
 
 //-------------------------------------------------- 函数使用： color:white(0.9);}  
 // 黑 black
