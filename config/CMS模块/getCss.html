@@ -83,7 +83,7 @@
         function getcssCMS(jsonArr,cssString) {
 			var _cssStr = cssString;
 			JSON.parse(jsonArr).forEach(function(item,key){
-				var reg = new RegExp('[^\"]'+item.name+';','g');
+				var reg = new RegExp('[^\"\:]?'+item.name+';','g');
 				_cssStr = _cssStr.replace(reg,item.value+';/*'+JSON.stringify(item)+'*/');
 			});
 			document.getElementById('csstext').innerHTML = _cssStr ;
