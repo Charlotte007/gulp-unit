@@ -11,7 +11,7 @@ body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; fo
 
 img{border-style: none;max-width: 100%;}
 ul,li{ list-style:none;}
-em,i,b{ font-style:normal;}
+// em,i,b{ font-style:normal;} 编辑器不可用
 a{ text-decoration:none; color:#333;}
 a:hover{ background-repeat:no-repeat;}
 a,area{blr:expression(this.onFocus=this.blur())}
