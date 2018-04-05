@@ -1,11 +1,11 @@
-// ---- 封装的css样式，调用即可，勿删（调用：@include cssFn(argumets);）
+// ---- 封装的css样式，调用即可，勿删（调用demo：@include cssFn(argumets);）
 $ac:#bcd130;
 $c0:#000;
 $c3:#333;
 $c6:#666;
 $c9:#999;
 //----------------------------------------------
-// 模块专用
+// 模块专用： 命名 + 属性 --不能存在  @bgcolor  @bgcolorcur 的形式；注意@变量命名
 @mixin cl($name,$key,$color){
     color: $color;
    /* {"title": "#{$name}","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
@@ -29,7 +29,7 @@ $c9:#999;
     /* {"title": "#{$name}","type":"image","name": "@img#{$key}","value": "url(#{$path})"}*/
 }
 
-// 需要短横线 ‘-’，  rgbcolor 和  color 有区别？
+// 需要短横线 ‘-’，  rgbcolor 和  color 有区别？   // @include bod('手机边框','@main',#ff660,'-bottom')
 
 @mixin bod($name,$key,$color,$derection:''){
 	border#{$derection}-color:$color;
@@ -40,14 +40,10 @@ $c9:#999;
 	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
 
-// CMS 文件分离，任重道远
-
-
 // 不能使用函数 返回注释
 // @function color($name,$key,$color) {  
 //     @return $color ; /* {"title": "#{$name}","type":"color","name": "@#{$key}","value": "#{$color}"}*/
 // }
-   
 
 //------------------------------------------------ 混合： @include
 // 前缀   -- gulp中已经配置  
@@ -102,7 +98,7 @@ $c9:#999;
 		transition: all ease 0.7s;
 	}
 }
-// ie---翻转 兼容 //  backface-visibility  白屏兼容
+// ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
 @mixin ieroll(){
     backface-visibility: hidden;
     transition: .7s;

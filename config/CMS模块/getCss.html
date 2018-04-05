@@ -8,12 +8,14 @@
     <title>Document</title>
 </head>
 <style>
-	body{
-		margin:0;
-	}
-	.title{
+    body {
+        margin: 0;
+    }
+
+    .title {
         text-align: center;
     }
+
     .flexbox {
         display: flex;
         flex: 1;
@@ -23,32 +25,29 @@
     .box {
         width: 50%;
         min-height: 200px;
-       
+
         box-shadow: 0 0 1px 3px rgba(0, 0, 0, .2);
     }
-    #csstext{
-        
-        padding: 20px; 
-		 min-height: 200px;
-		box-shadow: 0 0 1px 3px rgba(0, 0, 0, .2);
-		margin:20px;
-    }
-    textarea{
+
+    textarea {
         display: flex;
         flex: 1;
-		width:100%;
+        width: 100%;
         min-height: 200px;
         padding: 30px;
-		box-sizing:border-box;
-       
+        box-sizing: border-box;
+
     }
+
     .noselect {
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
     }
-    #getcmsbtn{
+
+    .copycss,
+    #getcmsbtn {
         color: #000;
         display: block;
         width: 280px;
@@ -62,39 +61,89 @@
         text-decoration: none;
         box-shadow: 0 0 1px 3px rgba(0, 0, 0, .1);
     }
+
+    .copy-wrapper {
+        position: relative;
+        margin: 20px;
+    }
+
+    #csstext {
+        padding: 20px;
+        min-height: 200px;
+        box-shadow: 0 0 1px 3px rgba(0, 0, 0, .2);
+    }
+
+    #csstextcopy {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: -10;
+    }
 </style>
 
 <body>
     <h2 class="title noselect">CSS模块和CSSJSON还原为css</h2>
-	 <div class="flexbox">
+    <div class="flexbox">
         <div id="cssBox" class="box">
-			<textarea id="cssArea01" placeholder="填入CSSJSON" class="noselect"></textarea>
-		</div>
+            <textarea id="cssArea01" placeholder="填入CSSJSON" class="noselect"></textarea>
+        </div>
         <div id="jsonBox" class="box">
-			<textarea id="cssArea02" placeholder="填入CSS模板" class="noselect"></textarea>
-		</div>
+            <textarea id="cssArea02" placeholder="填入CSS模板" class="noselect"></textarea>
+        </div>
     </div>
-	<a href="javascript:;" class="noselect" id="getcmsbtn">CSS模块和CSSJSON还原为css</a>
-	
-	<div id="csstext"></div>
-        
-    <script>
+    <a href="javascript:;" class="noselect" id="getcmsbtn">CSS模块和CSSJSON还原为css</a>
 
-        function getcssCMS(jsonArr,cssString) {
-			var _cssStr = cssString;
-			JSON.parse(jsonArr).forEach(function(item,key){
-				var reg = new RegExp('[^\"\:]?'+item.name+';','g');
-				_cssStr = _cssStr.replace(reg,item.value+';/*'+JSON.stringify(item)+'*/');
-			});
-			document.getElementById('csstext').innerHTML = _cssStr ;
+    <div class="copy-wrapper">
+        <div id="csstext">
+            <span style="color:#999;">合并之后的css</span>
+        </div>
+        <textarea id="csstextcopy" cols="30" rows="10"></textarea>
+    </div>
+
+    <a href="javascript:;" class="copycss">复制CSS</a>
+    <script>
+        function getcssCMS(jsonArr, cssString) {
+            var _cssStr = cssString;
+            JSON.parse(jsonArr).forEach(function (item, key) {
+                var reg = new RegExp('[^\"\:]?' + item.name + '([^\;]*);', 'g');
+                /* -- 去掉 important   -- 推荐 1 -- */
+                // _cssStr = _cssStr.replace(reg, item.value + ';/*' + JSON.stringify(item) + '*/');
+
+                /* -- 保留  important   100%还原  -- 特殊 2-- */
+                _cssStr = _cssStr.replace(reg, function(){
+                    return item.value +arguments[1]+ ';/*' + JSON.stringify(item) + '*/'
+                });
+            });
+            document.getElementById('csstext').innerHTML = _cssStr;
         }
-		
-		document.getElementById('getcmsbtn').onclick = function(){
+        // default get // debug
+        // document.getElementById('cssArea01').value = localStorage.getItem('jsonArr');
+        // document.getElementById('cssArea02').value = localStorage.getItem('cssString');
+        // click
+        document.getElementById('getcmsbtn').onclick = function () {
             var jsonArr = document.getElementById('cssArea01').value;
-			var cssString = document.getElementById('cssArea02').value;
-            getcssCMS(jsonArr,cssString)
+            var cssString = document.getElementById('cssArea02').value;
+
+            getcssCMS(jsonArr, cssString);
+            // 存储
+            localStorage.setItem('jsonArr', jsonArr);
+            localStorage.setItem('cssString', cssString);
+        };
+        // 复制
+        function copyText() {
+            var text = document.getElementById("csstext").innerText;
+            var input = document.getElementById("csstextcopy");
+            input.value = text; // 修改文本框的内容
+            input.select(); // 选中文本
+            document.execCommand("copy"); // 执行浏览器复制命令
+            alert("复制成功");
+        }
+        document.getElementsByClassName('copycss')[0].onclick = function () {
+            copyText();
         };
     </script>
 </body>
-
 </html>
