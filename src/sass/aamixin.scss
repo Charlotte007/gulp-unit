@@ -106,8 +106,8 @@ $c9:#999;
 // ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
 @mixin ieroll(){
     backface-visibility: hidden;
-    transition: .7s;
-    transition: 0s\9;
+    transition:all ease 0s\9;
+	transition: .7s;
 }
 
 // ---------透明度
