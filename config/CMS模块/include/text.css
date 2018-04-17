@@ -1,35 +1,79 @@
 .casecont402 {
     background-color: @bg;
-    background-color: @bg!important;
-    background-color: @bg!important;
+    background-color: @bg  !important;
+    background-color: @bg  !important;
     color: @bg;
-    color: @bg!important;
-    color: @bg!important;
-}
-
-.casecont402 {
-    background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    background-color: @bg  !important;
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
     color: @bg  !important;
-}
-
-.casecont402 {
-    background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    background-color: @bg  !important;
-    background-color: @bg  !important;
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
     color: @bg  !important;
 }
 
 .casecont402 {
     background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
     background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+}
+
+.casecont402 {
+    background-color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
     background-color: @bg  !important;
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    color:#f2f2f2/*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
-    color: @bg  !important;
+    background-color: @bg  !important;
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+}
+
+.casecont402 {
+    background-color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+     !important;
+    background-color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+     !important;
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+     !important;
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+     !important;
+}
+
+.casecont402 {
+    background-color: #f2f2f236;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color: #f2f2f263;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color: #f2f2f2101;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2128;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2144;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2170;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+}
+
+.casecont402 {
+    background-color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color: #f2f2f2 !important;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    background-color: #f2f2f2 !important;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2 !important;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
+    color: #f2f2f2 !important;
+    /*{"title":"模块背景","type":"color","name":"@bg","value":"#f2f2f2"}*/
 }
