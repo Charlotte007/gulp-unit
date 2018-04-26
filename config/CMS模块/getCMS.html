@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>分离为CMS模块</title>
 </head>
 <style>
 	.title{
@@ -72,10 +72,23 @@
         function getcssCMS(cssTar,jsonBox,cssBox) {
             var cssJsonArr = [];
             var valJsonArr = [];
-            var rep = cssTar.replace(/\:([^\:\;]+)\;\s{1}\/\*\s?(\{[^\*]+)\*\//g, function () {
+			// 替换 : $1; => jsonItem.name // 只能匹配 单项的；不能还原多项的。。。
+			// 应该用 value =》 @name
+			// ": 1px solid#cccccc; /*{"title":"查看详情边框","type":"color","name":"@morebor","value":"#cccccc"}*/"
+            var rep = cssTar.replace(/(\:[^\:\;]+\;)\s{1}\/\*\s?(\{[^\*]+)\*\//g, function () {
                 var jsonItem = JSON.parse(arguments[2]);
                 cssJsonArr.push(arguments[2]);
-                return `:${jsonItem.name};`
+				console.log(arguments);
+				
+				//[1] " 1px solid#cccccc" 
+				
+				//[2] "{"title":"查看详情边框","type":"color","name":"@morebor","value":"#cccccc"}" 
+				
+				return arguments[1].replace(jsonItem.value,' '+jsonItem.name);
+				// 二次替换，把对应值替换为 变量
+				
+				
+                // return `:${jsonItem.name};`
             });
             document.getElementById(jsonBox).innerHTML = rep;
             // 数组 去重

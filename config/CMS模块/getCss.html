@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>获取CSS源代码</title>
 </head>
 <style>
     body {
@@ -107,16 +107,31 @@
     <script>
         function getcssCMS(jsonArr, cssString) {
             var _cssStr = cssString;
+			var _newJson = [];
             JSON.parse(jsonArr).forEach(function (item, key) {
                 var reg = new RegExp('[^\"\:]?' + item.name + '([^\;]*);', 'g');
                 /* -- 去掉 important   -- 推荐 1 -- */
                 // _cssStr = _cssStr.replace(reg, item.value + ';/*' + JSON.stringify(item) + '*/');
 
                 /* -- 保留  important   100%还原  -- 特殊 2-- */
+				
+				/* -- 如果 json多余 */
+				
+				// console.log(reg);
+				if(!reg.test(_cssStr)){
+					console.log(item);
+				}else{
+					_newJson.push(item);
+				}
+				
                 _cssStr = _cssStr.replace(reg, function(){
+					// console.log(arguments);
                     return item.value +arguments[1]+ ';/*' + JSON.stringify(item) + '*/'
                 });
+				
             });
+			console.log('-- 仅返回可以正常匹配的');
+			console.log(JSON.stringify(_newJson));
             document.getElementById('csstext').innerHTML = _cssStr;
         }
         // default get // debug

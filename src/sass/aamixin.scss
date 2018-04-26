@@ -45,6 +45,18 @@ $c9:#999;
 	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
 
+// 关于 border，可以组合应用，应减少拆分; 默认值后置，可以减少不必要重写
+
+@mixin bod($name,$key,$color,$width:'1px',$type:'solid',$derection:''){
+	border#{$derection}:$width $type $color;
+	/* {"title": "#{$name}","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
+}
+@mixin bod($name,$key,$color,$width:'1px',$type:'solid',$derection:''){
+	border#{$derection}:$width $type $color;
+	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
+}
+
+
 // 不能使用函数 返回注释
 // @function color($name,$key,$color) {  
 //     @return $color ; /* {"title": "#{$name}","type":"color","name": "@#{$key}","value": "#{$color}"}*/
@@ -136,6 +148,24 @@ $c9:#999;
 
 // 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
 // -- 推荐左右图文，单列，max-height只是兼容辅助
+
+// 小图
+@mixin clearimg1() {
+	image-rendering: -moz-crisp-edges; /* Firefox /
+	image-rendering: -o-crisp-edges; / Opera /
+	image-rendering: -webkit-optimize-contrast;/ Webkit (non-standard naming) /
+	image-rendering: crisp-edges;
+	-ms-interpolation-mode: nearest-neighbor; / IE (non-standard property) */
+}
+// 大图
+@mixin clearimg12(){
+	-ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: pixelated;
+}
+
+
 @mixin mlmax($lh, $line) {
     max-height: $lh*$line;
     line-height: $lh;
