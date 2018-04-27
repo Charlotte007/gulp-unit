@@ -5,9 +5,9 @@ gulp构建工具的日常维护
 `display: -webkit-box;`是兼容性较差，行内元素不要直接使用；首选 display: block/inline-block; 再调用`多行文本溢出省略`
 
 ```` css
-@include ml(line-height,line)     // height: lineHeight * line   固定高度  <br>
+@include ml(line-height,line)     // height: lineHeight * line   固定高度
 
-@include mlmax(line-height,line)  // max-height: lineHeight * line  限制最大高度 <br>
+@include mlmax(line-height,line)  // max-height: lineHeight * line  限制最大高度
 ````
 
 #### 3d翻转兼容IE的翻转内容白屏
