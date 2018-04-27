@@ -8,6 +8,7 @@ html{
 -webkit-tap-highlight-color: transparent; // 消除点击高亮
 -webkit-touch-callout: none;
 touch-callout: none;
+cursor:pointer;
 }
 body,form,img,ul,ol,li,dl,dt,dd,p,tr,td,strong,span,pre{margin:0; padding:0; border:0; background-repeat:no-repeat;}
 h1,h2,h3,h4,h5,h6,p{ margin:0; padding:0; font-weight:normal;}

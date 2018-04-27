@@ -146,8 +146,7 @@ $c9:#999;
     overflow: hidden;
 }
 
-// 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
-// -- 推荐左右图文，单列，max-height只是兼容辅助
+// 图片模糊处理；只是更改了边缘的计算方式，差异太大还是使用dpr倍图
 
 // 小图
 @mixin clearimg1() {
@@ -158,14 +157,15 @@ $c9:#999;
 	-ms-interpolation-mode: nearest-neighbor; / IE (non-standard property) */
 }
 // 大图
-@mixin clearimg12(){
+@mixin clearimg2(){
 	-ms-interpolation-mode: nearest-neighbor;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: -moz-crisp-edges;
     image-rendering: pixelated;
 }
 
-
+// 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
+// -- 推荐左右图文，单列，max-height只是兼容辅助
 @mixin mlmax($lh, $line) {
     max-height: $lh*$line;
     line-height: $lh;
