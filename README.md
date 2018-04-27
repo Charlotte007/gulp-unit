@@ -13,9 +13,9 @@ gulp构建工具的日常维护
 #### 3d翻转兼容IE的翻转内容白屏
 ```` css
 @mixin ieroll(){
-    backface-visibility: hidden;
+	backface-visibility: hidden;
 	transition: 0s\9; // IE过去时间重置为零
-    transition:all ease .7s;
+	transition:all ease .7s;
 }
 ````
 #### 移动端点击空白 IOS的兼容
