@@ -147,6 +147,7 @@ $c9:#999;
 }
 
 // 图片模糊处理；只是更改了边缘的计算方式，差异太大还是使用dpr倍图
+// 注意： 添加image-rendering，再改变图片的尺寸，会有图片改动的波纹
 
 // 小图
 @mixin clearimg1() {
@@ -205,12 +206,15 @@ $c9:#999;
     }
 }
 // 文本不选中 (文字按钮或指定文本)
+
+// 直接作用域全局 会导致mac表单无法选中 =》  *:not(input,select,textarea){...}
 @mixin noselect (){
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
+
 
 //------------------- // 三角箭头
 // -- 正三角通用属性

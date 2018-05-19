@@ -46,6 +46,7 @@
         user-select: none;
     }
 
+    .removeexplan,
     .copycss,
     #getcmsbtn {
         color: #000;
@@ -60,6 +61,12 @@
         border-radius: 5px;
         text-decoration: none;
         box-shadow: 0 0 1px 3px rgba(0, 0, 0, .1);
+    }
+
+    .removeexplan {
+        width: 150px;
+        margin-bottom: 30px;
+        background-color: #999;
     }
 
     .copy-wrapper {
@@ -103,35 +110,36 @@
         <textarea id="csstextcopy" cols="30" rows="10"></textarea>
     </div>
 
+    <a href="javascript:;" class="removeexplan">去除注释/*{}*/</a>
     <a href="javascript:;" class="copycss">复制CSS</a>
     <script>
         function getcssCMS(jsonArr, cssString) {
             var _cssStr = cssString;
-			var _newJson = [];
+            var _newJson = [];
             JSON.parse(jsonArr).forEach(function (item, key) {
                 var reg = new RegExp('[^\"\:]?' + item.name + '([^\;]*);', 'g');
                 /* -- 去掉 important   -- 推荐 1 -- */
                 // _cssStr = _cssStr.replace(reg, item.value + ';/*' + JSON.stringify(item) + '*/');
 
                 /* -- 保留  important   100%还原  -- 特殊 2-- */
-				
-				/* -- 如果 json多余 */
-				
-				// console.log(reg);
-				if(!reg.test(_cssStr)){
-					console.log(item);
-				}else{
-					_newJson.push(item);
-				}
-				
-                _cssStr = _cssStr.replace(reg, function(){
-					// console.log(arguments);
-                    return item.value +arguments[1]+ ';/*' + JSON.stringify(item) + '*/'
+
+                /* -- 如果 json多余 */
+
+                // console.log(reg);
+                if (!reg.test(_cssStr)) {
+                    console.log(item);
+                } else {
+                    _newJson.push(item);
+                }
+
+                _cssStr = _cssStr.replace(reg, function () {
+                    // console.log(arguments);
+                    return item.value + arguments[1] + ';/*' + JSON.stringify(item) + '*/'
                 });
-				
+
             });
-			console.log('-- 仅返回可以正常匹配的');
-			console.log(JSON.stringify(_newJson));
+            console.log('-- 仅返回可以正常匹配的');
+            console.log(JSON.stringify(_newJson));
             document.getElementById('csstext').innerHTML = _cssStr;
         }
         // default get // debug
@@ -147,6 +155,12 @@
             localStorage.setItem('jsonArr', jsonArr);
             localStorage.setItem('cssString', cssString);
         };
+        // 去除注释
+        document.getElementsByClassName('removeexplan')[0].onclick = function () {
+            var explanCss = document.getElementById('csstext').innerHTML;
+            var css = explanCss.replace(/\/\*\s?(\{[^\*]+)\*\//, '');
+            document.getElementById('csstext').innerHTML = css;
+        }
         // 复制
         function copyText() {
             var text = document.getElementById("csstext").innerText;
@@ -161,4 +175,5 @@
         };
     </script>
 </body>
+
 </html>
