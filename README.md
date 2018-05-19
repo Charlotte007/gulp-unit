@@ -15,7 +15,7 @@ gulp构建工具的日常维护
 @mixin ieroll(){
     backface-visibility: hidden;
     transition: 0s\9; // IE过渡时间重置为零
-    transition:all ease .7s;
+    transition:transform ease .7s;
 }
 ````
 #### 移动端点击空白 IOS的兼容
@@ -46,12 +46,10 @@ html{
 
 UI框架:
 + layui [http://www.layui.com/]
-
 + animate.css [https://github.com/daneden/animate.css]
 
 轮播图：
 + swiper3.4.2 [https://github.com/nolimits4web/swiper]
-
 + flexslide2.0 [https://github.com/woocommerce/FlexSlider]
 	
 地址选择器：
@@ -63,17 +61,12 @@ UI框架:
 	
 滚动效果：
 + 整屏滚动 fullpage.js [https://github.com/alvarotrigo/fullPage.js]
-
 + 滚动动效 wow + animate.css [https://github.com/matthieua/WOW]
-
 + 瀑布流加载 []
-
 + jquery懒加载插件[https://github.com/tuupola/jquery_lazyload]
-
 + seo友好的懒加载插件+响应式图片 [https://github.com/aFarkas/lazysizes]
 
 弹窗：
 + 图片整屏弹窗PhotoSwipe [https://github.com/dimsemenov/PhotoSwipe]
-
 + layui [http://layer.layui.com/]
 
