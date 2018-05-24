@@ -1,5 +1,6 @@
 // ---- 封装的css样式，调用即可，勿删（调用demo：@include cssFn(argumets);）
-$ac:#bcd130;
+
+$ac:#bcd130; // 推荐定义主题
 $c0:#000;
 $c3:#333;
 $c6:#666;
@@ -7,9 +8,23 @@ $c9:#999;
 //----------------------------------------------
 // 模块专用： 命名 + 属性 -- 注意@变量命名；实际调用 不用@，默认已配置区分前缀 @cl#{$key}
 
-// 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
-// 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
-// model.HeadOrFoot = 1 (header)  model.HeadOrFoot = 0 (content) model.HeadOrFoot = -1 (footer)
+/* 
+	+ 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
+	+ 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
+	
+	+ 添加头部底部；（控制台配置参数）
+		model.HeadOrFoot = 1(header)
+		model.HeadOrFoot = 0 (content)
+		model.HeadOrFoot = -1 (footer)
+		
+*/
+
+/**
+ * 参数说明;
+ * @param {String} $name 	参数中文说明
+ * @param {String} $key  	变量名
+ * @param {String} $color 	色值
+ */
 
 @mixin cl($name,$key,$color){
     color: $color;
@@ -19,7 +34,6 @@ $c9:#999;
     color: $color;
    /* {"title": "#{$name}","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
 }
-
 @mixin bgc($name,$key,$color){
     background-color: $color;
     /* {"title": "#{$name}","type":"color","name": "@bgc#{$key}","value": "#{$color}"}*/
@@ -56,7 +70,6 @@ $c9:#999;
 	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
 
-
 // 不能使用函数 返回注释
 // @function color($name,$key,$color) {  
 //     @return $color ; /* {"title": "#{$name}","type":"color","name": "@#{$key}","value": "#{$color}"}*/
@@ -74,6 +87,15 @@ $c9:#999;
     }  
 }  
 // 各种居中	----------  注意（定位方式，层级）
+/*
+translate导致模糊的原因： translate计算的值 最小单元为 1px，非整数，会导致模糊；
++ 使用像素
++ %提前计算，调整细节
++ inline-block 居中 hackBefore {display:inline-block;width:0;height:100%;vertical-align:middle;}
++ flex 注意兼容
++ 有固定宽高的，可以使用 margin代替
+*/
+
 @mixin center ($position:absolute,$zIndex:3){
 	position:$position;
 	z-index:$zIndex;
@@ -108,18 +130,35 @@ $c9:#999;
 @mixin scalebox (){
 	overflow:hidden;
 	img{
-		-webkit-transition:all ease 0.7s; // Safari 和 Chrome
-		-moz-transition: all ease 0.7s;	// FF
-		-ms-transition: all ease 0.7s;//IE
-		-o-transition:all ease 0.7s;// Opera 
-		transition: all ease 0.7s;
+		-webkit-transition:transform ease 0.7s; // Safari 和 Chrome
+		-moz-transition: transform ease 0.7s;	// FF
+		-ms-transition: transform ease 0.7s;//IE
+		-o-transition:transform ease 0.7s;// Opera 
+		transition: transform ease 0.7s;
 	}
 }
 // ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
+@mixin per3d(){ // 景深，观察视口
+	-webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    -o-perspective: 1200px;
+    perspective: 1200px;
+}
+@mixin st3d(){ // 3d变形开启
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
 @mixin ieroll(){
+	-webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
     backface-visibility: hidden;
-    transition:all ease 0s\9;
-	transition: .7s;
+
+    transition:transform ease 0s\9;
+	transition: .5s;
 }
 
 // ---------透明度
@@ -137,14 +176,7 @@ $c9:#999;
     *zoom: 1;
 }
 
-// 单行文本省略  -- 单行文本优先使用，无兼容问题；
-@mixin ol($lh) {
-    height: $lh;
-    line-height: $lh;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+
 
 // 图片模糊处理；只是更改了边缘的计算方式，差异太大还是使用dpr倍图
 // 注意： 添加image-rendering，再改变图片的尺寸，会有图片改动的波纹
@@ -164,6 +196,21 @@ $c9:#999;
     image-rendering: -moz-crisp-edges;
     image-rendering: pixelated;
 }
+
+// 单行文本省略  -- 单行文本优先使用，无兼容问题；
+@mixin ol($lh) {
+    height: $lh;
+    line-height: $lh;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin olh($lh) {
+	height: $lh;
+    line-height: $lh;
+}
+
 
 // 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
 // -- 推荐左右图文，单列，max-height只是兼容辅助
@@ -187,6 +234,11 @@ $c9:#999;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
+}
+@mixin ml($lh, $line) {
+	height: $lh*$line;
+    line-height: $lh;
+	-webkit-line-clamp: $line;
 }
 
 // placeholder 
@@ -252,7 +304,7 @@ $c9:#999;
     }  
 } 
 
-//-------------------------------------------------- 函数使用： color:white(0.9);}  
+//------- 函数使用： color:wt(0.9);} ------- // 
 // 黑 black
 @function bk($opacity) {  
     @return rgba(0, 0, 0, $opacity)  

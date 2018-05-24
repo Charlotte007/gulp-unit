@@ -31,10 +31,8 @@ html{
 
 @include clearimg2(); // 大图
 
-### img{max-width:100%;}处理
-	
-
 ````
+### img{max-width:100%;}处理
 
 #### 微软雅黑字体说明（方正邮件回复）
 
@@ -69,4 +67,3 @@ UI框架:
 弹窗：
 + 图片整屏弹窗PhotoSwipe [https://github.com/dimsemenov/PhotoSwipe]
 + layui [http://layer.layui.com/]
-
