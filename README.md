@@ -69,4 +69,4 @@ UI框架:
 + layui [http://layer.layui.com/]
 
 视差效果：
-+ (简单的视差滚动效果)[https://github.com/pixelcog/parallax.js] (DEMO)[http://www.jq22.com/yanshi178]
++ [简单的视差滚动效果](https://github.com/pixelcog/parallax.js) [DEMO](http://www.jq22.com/yanshi178)
