@@ -67,3 +67,6 @@ UI框架:
 弹窗：
 + 图片整屏弹窗PhotoSwipe [https://github.com/dimsemenov/PhotoSwipe]
 + layui [http://layer.layui.com/]
+
+视差效果：
++ (简单的视差滚动效果)[https://github.com/pixelcog/parallax.js] (DEMO)[http://www.jq22.com/yanshi178]
