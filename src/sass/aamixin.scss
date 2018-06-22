@@ -8,23 +8,20 @@ $c9:#999;
 //----------------------------------------------
 // 模块专用： 命名 + 属性 -- 注意@变量命名；实际调用 不用@，默认已配置区分前缀 @cl#{$key}
 
-/* 
-	+ 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
-	+ 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
-	
-	+ 添加头部底部；（控制台配置参数）
-		model.HeadOrFoot = 1(header)
-		model.HeadOrFoot = 0 (content)
-		model.HeadOrFoot = -1 (footer)
-		
-*/
 
-/**
- * 参数说明;
- * @param {String} $name 	参数中文说明
- * @param {String} $key  	变量名
- * @param {String} $color 	色值
- */
+//	+ 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
+//	+ 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
+	
+//	+ 添加头部底部；（控制台配置参数）
+//		model.HeadOrFoot = 1(header)
+//		model.HeadOrFoot = 0 (content)
+//		model.HeadOrFoot = -1 (footer)
+
+
+// 参数说明;
+// @param {String} $name 	参数中文说明
+// @param {String} $key  	变量名
+// @param {String} $color 	色值
 
 @mixin cl($name,$key,$color){
     color: $color;
@@ -87,14 +84,14 @@ $c9:#999;
     }  
 }  
 // 各种居中	----------  注意（定位方式，层级）
-/*
-translate导致模糊的原因： translate计算的值 最小单元为 1px，非整数，会导致模糊；
-+ 使用像素
-+ %提前计算，调整细节
-+ inline-block 居中 hackBefore {display:inline-block;width:0;height:100%;vertical-align:middle;}
-+ flex 注意兼容
-+ 有固定宽高的，可以使用 margin代替
-*/
+
+// translate导致模糊的原因： translate计算的值 最小单元为 1px，非整数，会导致模糊；
+// + 使用像素
+// + %提前计算，调整细节
+// + inline-block 居中 hackBefore {display:inline-block;width:0;height:100%;vertical-align:middle;}
+// + flex 注意兼容
+// + 有固定宽高的，可以使用 margin代替
+
 
 @mixin center ($position:absolute,$zIndex:3){
 	position:$position;
@@ -138,6 +135,7 @@ translate导致模糊的原因： translate计算的值 最小单元为 1px，�
 	}
 }
 // ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
+// transition时页面闪动的问题，-webkit-transform-style:preserve-3d;或-webkit-backface-visibility:hidden;
 @mixin per3d(){ // 景深，观察视口
 	-webkit-perspective: 1200px;
     -moz-perspective: 1200px;
@@ -151,12 +149,11 @@ translate导致模糊的原因： translate计算的值 最小单元为 1px，�
     transform-style: preserve-3d;
 }
 
-@mixin ieroll(){
+@mixin ieroll(){ // 
 	-webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
     backface-visibility: hidden;
-
     transition:transform ease 0s\9;
 	transition: .5s;
 }
@@ -307,9 +304,9 @@ translate导致模糊的原因： translate计算的值 最小单元为 1px，�
 //------- 函数使用： color:wt(0.9);} ------- // 
 // 黑 black
 @function bk($opacity) {  
-    @return rgba(0, 0, 0, $opacity)  
+    @return rgba(0, 0, 0, $opacity);
 }  
 // 白 white
 @function wt($opacity) {  
-    @return rgba(255, 255, 255, $opacity)  
+    @return rgba(255, 255, 255, $opacity);
 }  

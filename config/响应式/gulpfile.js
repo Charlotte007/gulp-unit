@@ -31,7 +31,7 @@ var config = {
     },
     css: {
         src: 'src/css',
-        dist: 'web/common/css'
+        dist: 'web/dist/css'
     },
     sass: {
         src: 'src/sass/*.scss',
@@ -42,14 +42,14 @@ var config = {
     },
     js: {
         src: ['src/js/*.js'],
-        dist: 'web/common/js'
+        dist: 'web/dist/js'
     },
     html: {
         src: 'src/*.html'
     },
     images: {
         src: 'src/images/*.{png,jpg,gif,ico}',
-        dist: 'web/common/images'
+        dist: 'web/dist/images'
     },
     sprite: {
         src: 'src/icon/*.{png,jpg,gif,ico}',
