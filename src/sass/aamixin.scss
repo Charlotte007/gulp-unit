@@ -232,7 +232,7 @@ $c9:#999;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
 }
-@mixin ml($lh, $line) {
+@mixin mlh($lh, $line) {
 	height: $lh*$line;
     line-height: $lh;
 	-webkit-line-clamp: $line;
