@@ -112,6 +112,30 @@ $c9:#999;
 	top:50%;
 	transform:translateY(-50%);
 }
+// hack：不定高的垂直居中；兼容 IE7+
+// html: .wrapper > [&:before]/.hack + .middle
+@mixin ymiddle (){
+	font-size:0;
+	&::before,
+	.hack{
+		width:0;
+		height:100%;
+		display: inline-block;
+		vertical-align: middle;
+		*display: inline;
+		*zoom: 1;
+	}
+	&::before{
+		content:'';
+	}
+	.middle{
+		display: inline-block;
+		vertical-align: middle;
+		*display: inline;
+		*zoom: 1;
+	}
+}
+
 // ----------------------常用的放大效果
 @mixin imgscale (){
 	&:hover{
@@ -136,6 +160,7 @@ $c9:#999;
 }
 // ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
 // transition时页面闪动的问题，-webkit-transform-style:preserve-3d;或-webkit-backface-visibility:hidden;
+
 @mixin per3d(){ // 景深，观察视口
 	-webkit-perspective: 1200px;
     -moz-perspective: 1200px;
@@ -148,7 +173,7 @@ $c9:#999;
     -ms-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
-
+// transform 抖动
 @mixin ieroll(){ // 
 	-webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
@@ -156,6 +181,15 @@ $c9:#999;
     backface-visibility: hidden;
     transition:transform ease 0s\9;
 	transition: .5s;
+}
+
+// 开启硬件加速：减少字体模糊，提高性能
+@mixin hardwareAccel(){
+	-webkit-transform: perspective(1px) translateZ(0);
+	-moz-transform: perspective(1px) translateZ(0);
+	-ms-transform: perspective(1px) translateZ(0);
+	-o-transform: perspective(1px) translateZ(0);
+	transform: perspective(1px) translateZ(0);
 }
 
 // ---------透明度
@@ -174,8 +208,8 @@ $c9:#999;
 }
 
 
-
 // 图片模糊处理；只是更改了边缘的计算方式，差异太大还是使用dpr倍图
+
 // 注意： 添加image-rendering，再改变图片的尺寸，会有图片改动的波纹
 
 // 小图
@@ -208,8 +242,7 @@ $c9:#999;
     line-height: $lh;
 }
 
-
-// 多行文本省略 -- 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
+// 多行文本省略 -- !!! 注意： display: -webkit-box;的兼容 a，span，等行内元素，需要先 display:block/inline-block
 // -- 推荐左右图文，单列，max-height只是兼容辅助
 @mixin mlmax($lh, $line) {
     max-height: $lh*$line;
@@ -223,9 +256,11 @@ $c9:#999;
 }
 // -- 推荐等高列表使用，依靠高度实现布局的
 @mixin ml($lh, $line) {
+	// display:block;  // 注意：行内元素时，-webkit-box, height不生效
+	
+	display: -webkit-box;
     height: $lh*$line;
     line-height: $lh;
-    display: -webkit-box;
     // word-break: break-all; 英文版的多行文本异常，去掉
     text-overflow: ellipsis;
     overflow: hidden;
