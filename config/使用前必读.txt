@@ -40,18 +40,17 @@
 	修复 运行中 文件处理的错误
 	
 	
-	
 // 2018年3月更新
 
 	增加字体转换功能；（需要自己安装）
-		ttf转换为 woff =>	npm install -g  ttf2woff            仅一次全局安装即可，使用： ttf2woff fontName.ttf fontName.woff
-		ttf转化为 eot  =>   npm install -g  ttf2eot				仅一次全局安装即可，使用： ttf2eot  fontName.ttf fontName.woff
+		ttf转换为 woff =>	npm install -g  ttf2woff		仅一次全局安装即可，使用： ttf2woff fontName.ttf fontName.woff
+		ttf转化为 eot  =>   npm install -g  ttf2eot		    仅一次全局安装即可，使用： ttf2eot  fontName.ttf fontName.woff
 
 	文件结构修改：（新增 Plugin ，插件目录，）
 		Plugin     项目中使用的js插件，放入目录中，去掉ESlint 代码规范的检查，提高gulp运行效率
 		
 	更新重置样式
-		global  768  1024  1200 1260  1320  1400  
+		global  768  1024  1200 1260  1320  1400
 
 8、推荐把功能模块分离出来，通过数据调用；可以实现栏目，banner，面包屑导航，副导航等
 
@@ -59,8 +58,7 @@
 	
 	重点：关心网站栏目数据，与数据填充的便利性合理性
 	
-
-	
+9、使用步骤：
   cnpm install
 gulp dev
 gulp build

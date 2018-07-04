@@ -1,15 +1,11 @@
 
 /*
-footer {
-	width:100%; // position 
-	visibility: 'hidden'; // 隐藏改变位置时，发生抖动，位置固定好之后会 显示 visible
-}
+footer {width:100%;visibility: 'hidden';}
 + 使用padding填充footer
 + 不要使用 html.body{height:100%;}；若使用需要修改代码	
 */
 setStickyFooter($('.footer'));
 /**
- * 
  * @param {jqueryDOM} $footer  footer的jqDom  默认：$('footer')
  * @param {jqueryDOM} $tabsArr 选项卡点击的jq对象 // 其他会影响到文档的高度情况自行添加 
  */
@@ -49,7 +45,7 @@ function setStickyFooter($footer, $tabsArr) { // loaded  MutationObserver resize
             footerTop = 0,
             $footer = $footer || $("footer");
 
-        footerHeight = $footer.outerHeight(); // height + padding + border
+        footerHeight = $footer.outerHeight();
         footerTop = ($(window).scrollTop() + $(window).height() - footerHeight) + "px";
         if (($(document.body).outerHeight()) < $(window).height()) {
             $footer.css({
@@ -68,7 +64,6 @@ function setStickyFooter($footer, $tabsArr) { // loaded  MutationObserver resize
             observer.observe(target, config);
         };
     }
-
     // onload
     window.onload = function () {
         stickyFooter();

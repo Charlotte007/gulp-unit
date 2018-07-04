@@ -7,7 +7,7 @@ h1,h2,h3,h4,h5,h6,p{ margin:0; padding:0; font-weight:normal;}
 h1 {font-size: 2em;margin: 0.67em 0;}
   
 // 字体
-body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; font-family: tahoma, arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
+body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; font-family: Arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
 
 img{border-style: none;max-width: 100%;}
 ul,li{ list-style:none;}
@@ -76,3 +76,4 @@ button:-moz-focusring,
 // 调试使用
 .show{display:block!important;}
 .hide{display:block!important;}
+/* layout start*/

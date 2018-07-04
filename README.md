@@ -71,6 +71,7 @@ css3动画效果：
 + [seo友好的懒加载插件+响应式图片 lazysizes.js](https://github.com/aFarkas/lazysizes)
 
 瀑布流加载：
+
 + 
 
 弹窗：
@@ -78,4 +79,5 @@ css3动画效果：
 + [layui](http://layer.layui.com/)
 
 视差效果：
+
 + [简单的视差滚动效果 parallax.js](https://github.com/pixelcog/parallax.js) [DEMO](http://www.jq22.com/yanshi178)

@@ -5,8 +5,14 @@
 </head>
 <body>
 	@@include('include/header.html')
-	<h3 class="title" style="color:#f60;">把重复的模板封装起来</h3>
-
+	<h3 class="title" style="color:#f60;">注意检查项目类型；<br>
+		+ 根目录放置正确的配置文件；<br>
+		+ 版本对应的重置样式 
+		+ box-sizing: content-box/border-box;<br>
+		+ <head>标签内的声明
+		+ JS的版本
+	</h3>
+	
 	<!-- 内部循环的使用 -->
 	@@include('include/for.html',{
 		"curIndex": 0,

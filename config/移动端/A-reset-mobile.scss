@@ -14,7 +14,7 @@ body,form,img,ul,ol,li,dl,dt,dd,p,tr,td,strong,span,pre{margin:0; padding:0; bor
 h1,h2,h3,h4,h5,h6,p{ margin:0; padding:0; font-weight:normal;}
 
 // 字体
-body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; font-family: tahoma, arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
+body,button,input,select,textarea{font-size:14px;line-height:24px;color:#333; font-family: Arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
 ul,li{ list-style:none;}
 // em,i,b{ font-style:normal;} 编辑器不可用
 img{border:0px;max-width: 100%;}
@@ -73,7 +73,7 @@ video {
  box-sizing: border-box; /* 1 */
  padding: 0; /* 2 */
 }
-input,textarea,select{font-family: 'Times New Roman', Times, serif; outline:none;}
+input,textarea,select{outline:none;}
 input[type="text"],
 input[type="password"],
 input[type="button"],
@@ -110,17 +110,6 @@ input:-webkit-autofill {
 }
 .hide {
   display: none !important;
-}
-// 动画相关  will-change:;
-.z-transition{ // 消除transition闪屏
-	-webkit-transform-style: preserve-3d;
-	-webkit-backface-visibility: hidden;
-}
-.z-css3{// 尽可能地使用合成属性transform和opacity来设计CSS3动画，开启硬件加速
-	-webkit-transform: translate3d(0, 0, 0);
-	-moz-transform: translate3d(0, 0, 0);
-	-ms-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
 }
 // 布局类
 .commonweb{padding:0px 10px;}
