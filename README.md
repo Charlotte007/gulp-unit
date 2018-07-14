@@ -1,5 +1,11 @@
 # gulp-unit
 gulp构建工具的日常维护
+### 使用
++ 根据项目类型选择配置文件 /config
++ cnpm/npm i/install
++ gulp dev
++ gulp build
+
 #### 新增多行文本溢出省略
 `去掉 word-break: break-all;`对英文排版造成的影响<br>
 `display: -webkit-box;`是兼容性较差，行内元素不要直接使用；首选 display: block/inline-block; 再调用`多行文本溢出省略`
@@ -72,7 +78,9 @@ css3动画效果：
 
 瀑布流加载：
 
-+ 
++ [masonry 响应式,无限加载,不同排序](https://github.com/desandro/masonry)
++ [Wookmark-jQuery](https://github.com/germanysbestkeptsecret/Wookmark-jQuery)
++ [辅助:imagesloaded 图片加载回调](https://github.com/desandro/imagesloaded)
 
 弹窗：
 + [图片整屏弹窗PhotoSwipe.js] (https://github.com/dimsemenov/PhotoSwipe)
