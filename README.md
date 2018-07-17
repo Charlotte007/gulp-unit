@@ -83,7 +83,7 @@ css3动画效果：
 
 弹窗：
 
-+ [图片整屏弹窗PhotoSwipe.js] (https://github.com/dimsemenov/PhotoSwipe)
++ [图片整屏弹窗PhotoSwipe.js](https://github.com/dimsemenov/PhotoSwipe)
 + [layui](http://layer.layui.com/)
 
 视差效果：
