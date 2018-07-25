@@ -229,9 +229,7 @@ $c9:#999;
 }
 
 // 单行文本省略  -- 单行文本优先使用，无兼容问题；
-@mixin ol($lh) {
-    height: $lh;
-    line-height: $lh;
+@mixin ol() {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
