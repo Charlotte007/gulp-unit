@@ -345,3 +345,19 @@ $c9:#999;
 @function wt($opacity) {  
     @return rgba(255, 255, 255, $opacity);
 }  
+
+// 背景图路径
+@mixin bgi ($name){
+	background-image: url('../images/'+$name);
+}
+
+
+// rem  px -> rem
+@function rem($px,$rate:100){
+	@return $px/$rate + 'rem';
+}
+
+// path 路径
+@function path($name,$root:'../images/'){
+	@return $root+$name;
+}
