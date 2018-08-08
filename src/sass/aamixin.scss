@@ -229,9 +229,7 @@ $c9:#999;
 }
 
 // 单行文本省略  -- 单行文本优先使用，无兼容问题；
-@mixin ol($lh) {
-    height: $lh;
-    line-height: $lh;
+@mixin ol() {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -345,6 +343,7 @@ $c9:#999;
 @function wt($opacity) {  
     @return rgba(255, 255, 255, $opacity);
 }  
+<<<<<<< HEAD
 
 // 背景图路径
 @mixin bgi ($name){
@@ -361,3 +360,5 @@ $c9:#999;
 @function path($name,$root:'../images/'){
 	@return $root+$name;
 }
+=======
+>>>>>>> refs/remotes/origin/master
