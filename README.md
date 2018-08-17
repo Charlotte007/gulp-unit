@@ -27,7 +27,7 @@ gulp构建工具的日常维护
 #### 移动端点击空白 IOS的兼容
 ```` css
 html{
-    cursor； pointer;
+    cursor: pointer;
 }
 ````
 
@@ -104,4 +104,3 @@ css3动画效果：
 
 效果网站
 + https://tympanus.net/codrops/
-

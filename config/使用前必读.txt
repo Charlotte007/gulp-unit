@@ -59,7 +59,7 @@
 	重点：关心网站栏目数据，与数据填充的便利性合理性
 	
 9、使用步骤：
-  cnpm install
-gulp dev
-gulp build
+cnpm install
+gulp dev
+gulp build
 	
