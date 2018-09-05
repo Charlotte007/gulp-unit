@@ -74,12 +74,14 @@ css3动画效果：
 + [滚动动效 wow + animate.css](https://github.com/matthieua/WOW)
 + [jquery懒加载插件 jquery_lazyload.js](https://github.com/tuupola/jquery_lazyload)
 + [seo友好的懒加载插件+响应式图片 lazysizes.js](https://github.com/aFarkas/lazysizes)
++ [滚动动效 scrollreveal](https://github.com/scrollreveal/scrollreveal)
 
 瀑布流加载：
 
 + [masonry 响应式,无限加载,不同排序](https://github.com/desandro/masonry)
++ [isotope 过滤、排序、瀑布流](https://github.com/metafizzy/isotope)
 + [Wookmark-jQuery](https://github.com/germanysbestkeptsecret/Wookmark-jQuery)
-+ [辅助:imagesloaded 图片加载回调](https://github.com/desandro/imagesloaded)
++ [辅助:imagesloaded 图片加载回调 $.Deferred](https://github.com/desandro/imagesloaded)
 
 弹窗：
 
@@ -97,10 +99,32 @@ css3动画效果：
 
 事件相关：
 
-+ 滚轮滚动事件
-+ 拖拽，滑动
++ [滚轮滚动 jquery-mousewheel](https://github.com/jquery/jquery-mousewheel)
++ [拖拽]
++ [多点触控 hammer.js](https://github.com/hammerjs/hammer.js)
 
 ### 网站收藏
++  [效果网站 tympanus.net]https://tympanus.net/codrops/
 
-效果网站
-+ https://tympanus.net/codrops/
+### 表单验证
++ http://validform.rjboy.cn/
+
+### 搜索关键字高亮
++ [mark.js](https://github.com/julmot/mark.js)
+
+### 源码解析
++ [underscore.js源码解析]
++ [loadsh源码解析]
++ [jquery源码解析]
++ [vue2.x源码解析]
++ [react源码解析]
+
+### svg
+
+### canvas
+
+
+### JS Drive Animation
++ [lottie-web + AE +　BodyMovin 骨络图动画](https://github.com/airbnb/lottie-web)
++ [Animate CC + CREATJS 流式动画]
+

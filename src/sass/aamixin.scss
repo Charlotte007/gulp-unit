@@ -343,7 +343,6 @@ $c9:#999;
 @function wt($opacity) {  
     @return rgba(255, 255, 255, $opacity);
 }  
-<<<<<<< HEAD
 
 // 背景图路径
 @mixin bgi ($name){
@@ -360,5 +359,7 @@ $c9:#999;
 @function path($name,$root:'../images/'){
 	@return $root+$name;
 }
-=======
->>>>>>> refs/remotes/origin/master
+
+// ui组件封装（UI框架基础）
+
+
