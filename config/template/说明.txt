@@ -1,0 +1,17 @@
+目前的模板有：
+
+### 把常用需要打包混合的模板页面 放在 /config/templete/mixin的目录下
+
+
+
+###  注意文件的目录顺序 （模板使用的image，css，js）;
+|- webcss
+|- webjs
+|- webimages
+*.html
+
+### 已收集的模板页面
+
+1、新闻详情.html
+2、搜索详情.html
+3、网站地图.html
