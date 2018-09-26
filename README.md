@@ -50,6 +50,7 @@ html{
 
 UI框架:
 + [layui](http://www.layui.com/)
++ [bootstrap](https://github.com/twbs/bootstrap)
 
 css3动画效果：
 + [css3动画库 animate.css](https://github.com/daneden/animate.css)
@@ -60,13 +61,14 @@ css3动画效果：
 轮播图：
 + [移动端响应式 swiper3.4.2](https://github.com/nolimits4web/swiper)
 + [兼容低版本多功能响应轮播 flexslide2.0](https://github.com/woocommerce/FlexSlider)
++ [bxslider-4](https://github.com/stevenwanderski/bxslider-4)
 	
 地址选择器：
 + [jquery.selectcity.js(最新数据+4级地址)](http://jquerywidget.com/jquery-citys/)
 	
 日期选择器：
 
-+ [ bootstrap-datepicker](https://uxsolutions.github.io/bootstrap-datepicker/)
++ [bootstrap-datepicker](https://uxsolutions.github.io/bootstrap-datepicker/)
 + [layui.laydate](http://www.layui.com/)
 	
 滚动效果：
@@ -94,17 +96,16 @@ css3动画效果：
 
 自定义滚动条：
 
-+ 
-+ 
++ [better-scroll](https://github.com/ustbhuangyi/better-scroll)
++ [perfect-scrollbar](https://github.com/utatti/perfect-scrollbar)
 
 事件相关：
 
 + [滚轮滚动 jquery-mousewheel](https://github.com/jquery/jquery-mousewheel)
-+ [拖拽]
-+ [多点触控 hammer.js](https://github.com/hammerjs/hammer.js)
++ [多点触控，拖拽 hammer.js](https://github.com/hammerjs/hammer.js)
 
 ### 网站收藏
-+  [效果网站 tympanus.net]https://tympanus.net/codrops/
++  [效果网站 tympanus.net](https://tympanus.net/codrops/)
 
 ### 表单验证
 + http://validform.rjboy.cn/
@@ -128,3 +129,9 @@ css3动画效果：
 + [lottie-web + AE +　BodyMovin 骨络图动画](https://github.com/airbnb/lottie-web)
 + [Animate CC + CREATJS 流式动画]
 
+### 小程序
+
+### TODO
++ template混合
++ pug
++ performace
