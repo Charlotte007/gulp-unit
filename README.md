@@ -132,6 +132,7 @@ css3动画效果：
 ### 小程序
 
 ### TODO
-+ template混合
++ template 混合
 + pug
 + performace
++ common widget（response-nav，tab-footer，affix，iealert √）;
