@@ -1,7 +1,7 @@
 #ie-alert-overlay {
 	width:100%;
 	height:100%;
-	background-image:url(../images/bg.png);
+	background:url(../images/bg.png) repeat 0 0;
 	position: fixed; 
 	top: 0; 
 	left: 0;
@@ -27,13 +27,16 @@
 	padding:72px 0 0 72px;
 	_position:absolute;  // fixed position hack for IE6
     _top:expression(300+((e=document.documentElement.scrollTop)?e:document.body.scrollTop)+'px');  // top:300px hack for IE6 
-    
  	//   font settings
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	font-weight:bold;
 	color:#333;
 	line-height:1.5em;
 	z-index:10000;
+	box-sizing: content-box;
+	div,p,span,a,img,ul,li{
+		box-sizing: content-box;
+	}
 }
 
 #ie-alert-panel p {
@@ -58,12 +61,12 @@
 	list-style: none;
 	margin:0;
 	padding:0;	
+	overflow: hidden;
 }
 
 #ie-alert-panel li {
 	float:left;
 	margin:0 22px 0 0;
-		
 }
 
 #ie-alert-panel li.last {
@@ -73,6 +76,7 @@
 
 #ie-alert-panel a {
 	display:inline-block;
+	vertical-align: top;
 		
 }
 .browser {
