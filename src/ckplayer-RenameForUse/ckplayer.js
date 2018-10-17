@@ -386,7 +386,7 @@ function ckplayerConfig() {
 				}
 				return false;
 			})();
-			if (!isThirdUrl){
+			if (isThirdUrl){
 				var iframebox = document.getElementById( this.vars['container'].substring(1));
 				iframebox.innerHTML = "<iframe id='third-iframe'  src='"+videoString+"' style='position:absolute;left:0;top:0;z-index:50;width:100%;height:100%;' frameborder=0 width='100%' height='100%' scrolling='no' allowfullscreen></iframe>";
 				// 设置高度
