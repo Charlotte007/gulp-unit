@@ -113,7 +113,10 @@ input:-webkit-autofill {
 }
 // 布局类
 .commonweb{padding:0px 10px;}
-@media (max-width:320px){
-	body{min-width:320px;}
+html body {
+	margin-right: auto;
+    margin-left: auto;
+    min-width: 320px;
+	// max-width: 540px; // 非特殊布局，可以用max-width:540px;提升横屏体验
 }
 /* layout start*/
