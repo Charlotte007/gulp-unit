@@ -1,5 +1,8 @@
 # gulp-unit
 gulp构建工具的日常维护
+### 改动
++ package.json 根据项目放在不同文件夹下，减少不必要的下载
++ 移动端增加px2rem,和px2vw自动转化，默认使用vw（Android4.4 IOS8可兼容），也可可根据项目要求使用rem；使用px2rem时，['font', 'font-size', 'line-height', 'letter-spacing']这些属性不会被转化
 ### 使用
 + 根据项目类型选择配置文件 /config (待改进)
 + cnpm/npm i/install

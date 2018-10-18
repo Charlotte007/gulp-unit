@@ -16,12 +16,12 @@ var concat = require('gulp-concat'); // 同级目录文件合并
 var fileSync = require('gulp-file-sync'); // 文件操作同步（增加、删除、更新）
 var clean = require('gulp-clean'); // 文件清理
 var cssBase64 = require('gulp-css-base64'); // base64
-// 辅助工具
-// var requireDir = require('require-dir')
-// requireDir('./', {
-//     recurse: true
-// })
-// var config = require('./config'); // 配置参数  ,运行一遍就被删了0.0，why？
+
+// 默认使用vw转换，如果项目异常使用rem切换
+var cssunit = require('gulp-css-unit');// px2rem px2vw (使用 px2vw) 
+var px2rem = require('gulp-px2rem'); // px2rem (使用 px2rem)
+
+
 var changed = require('gulp-changed');
 var path = require('path');
 var config = {
@@ -131,6 +131,21 @@ var imagesTaskDev = function () {
             stream: true
         }));
 };
+
+// gulp-px2rem Options
+var px2remOptions = {			// https://github.com/ggkovacs/node-px2rem
+    rootValue: 16, 				// 相对 1rem = 16px
+    unitPrecision: 5, 			// 精度
+    propertyBlackList: ['font', 'font-size', 'line-height', 'letter-spacing'],	// 不参与转化属性
+    propertyWhiteList: [],		// 参与转化属性
+    replace: false,				// 是否替换源文件？？
+    mediaQuery: false,			// 允许在媒体查询中转换px。
+    minPx: 1					// 小于 1像素不参与转换
+};
+var postCssOptions = {			// https://github.com/postcss/postcss
+    map: false  
+}; 
+
 var sassTask = function () {
     var plugins = [cssnext, precss, autoprefixer({
         browsers: ['last 60 versions'],
@@ -144,6 +159,14 @@ var sassTask = function () {
         .pipe(postcss(plugins))
         .pipe(concat(config.sass.filename))
         .pipe(cssBase64())
+		
+		.pipe(cssunit({ // default px2vw
+            type     :    'px-to-vw',
+            width    :    640
+        }))
+		
+		//.pipe(px2rem(px2remOptions, postCssOptions)) // px2rem
+
         .pipe(gulp.dest(config.css.dist));
 };
 var sassTaskDev = function () {
@@ -157,6 +180,12 @@ var sassTaskDev = function () {
         }).on('error', sass.logError))
         .pipe(postcss(plugins))
         .pipe(concat(config.sass.filename))
+		.pipe(cssunit({ // default px2vw
+            type     :    'px-to-vw',
+            width    :    640
+        }))
+		
+		// .pipe(px2rem(px2remOptions, postCssOptions)) // px2rem
         // .pipe(cssBase64())    //  背景图 拷贝的时机不对
         .pipe(gulp.dest(config.css.dist))
         .pipe(reload({
