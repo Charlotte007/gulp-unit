@@ -134,7 +134,7 @@ var imagesTaskDev = function () {
 
 // gulp-px2rem Options
 var px2remOptions = {			// https://github.com/ggkovacs/node-px2rem
-    rootValue: 16, 				// 相对 1rem = 16px
+    rootValue: 64, 				// 相对 1rem = 16px
     unitPrecision: 5, 			// 精度
     propertyBlackList: ['font', 'font-size', 'line-height', 'letter-spacing'],	// 不参与转化属性
     propertyWhiteList: [],		// 参与转化属性
