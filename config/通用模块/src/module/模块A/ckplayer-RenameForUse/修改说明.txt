@@ -1,0 +1,13 @@
+1、视频添加第三方视频iframe播放的形式，注意iframe的样式定义
+
+2、页面风格定义：
+	logo修改：
+		(h5:) line: 80:       logo: {  file: '',} // base64置空
+		(flash:) line:1117   this.css(logoID, {fontSize: '0'} )  //定义logo文字的样式 ;没找到定义位置的
+	
+	播放选中色:
+		(h5:)  line: 883 : 修改  bOverColor = '#0782F5'
+	       	(flash:)
+
+3、可自动判断添加第三方iframe的高度
+	有跨域问题的，会默认 200px的高度

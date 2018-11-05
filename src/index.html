@@ -3,57 +3,11 @@
 
 <head>
 	@@include('include/headResource.html')
-
-	<!-- test.js -->
-	<script>
-		(function flexible(window, document) {
-			var docEl = document.documentElement
-			var dpr = window.devicePixelRatio || 1
-
-			// adjust body font size
-			function setBodyFontSize() {
-				if (document.body) {
-					document.body.style.fontSize = (12 * dpr) + 'px'
-				} else {
-					document.addEventListener('DOMContentLoaded', setBodyFontSize)
-				}
-			}
-			setBodyFontSize();
-
-			// set 1rem = viewWidth / 10
-			function setRemUnit() {
-				var rem = docEl.clientWidth / 10
-				docEl.style.fontSize = rem + 'px'
-			}
-
-			setRemUnit()
-
-			// reset rem unit on page resize
-			window.addEventListener('resize', setRemUnit)
-			window.addEventListener('pageshow', function (e) {
-				if (e.persisted) {
-					setRemUnit()
-				}
-			})
-
-			// detect 0.5px supports
-			if (dpr >= 2) {
-				var fakeBody = document.createElement('body')
-				var testElement = document.createElement('div')
-				testElement.style.border = '.5px solid transparent'
-				fakeBody.appendChild(testElement)
-				docEl.appendChild(fakeBody)
-				if (testElement.offsetHeight === 1) {
-					docEl.classList.add('hairlines')
-				}
-				docEl.removeChild(fakeBody)
-			}
-		}(window, document))
-	</script>
 </head>
 
 <body>
 	@@include('include/header.html')
+
 	<h3 class="title" style="color:#f60;">注意检查项目类型；<br>
 		+ 根目录放置正确的配置文件；<br>
 		+ 项目类型对应的头部，底部，重置样式<br>
@@ -73,6 +27,12 @@
 	{ "title": "Another post", "text": "<p>lorem ipsum...</p>" },
 	{ "title": "One more post", "text": "<p>lorem ipsum...</p>" }
 	])
+
+	<!-- 引入模块A -->
+	@@include('module/模块A/include/module.html')
+
+	<!-- 引入模块B -->
+	@@include('module/模块B/include/module.html')
 
 	@@include('include/footer.html')
 </body>

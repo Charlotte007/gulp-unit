@@ -14,6 +14,7 @@
     "autoprefixer": "^6.7.7",
     "browser-sync": "^2.18.8",
     "cssnext": "^1.8.4",
+    "fs": "^0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-changed": "^3.1.0",
     "gulp-clean": "^0.3.2",
@@ -24,13 +25,16 @@
     "gulp-file-sync": "^1.0.7 ",
     "gulp-imagemin": "^3.2.0",
     "gulp-jshint": "^2.0.4",
+    "gulp-modify-css-urls": "^2.0.0",
     "gulp-postcss": "^6.4.0",
     "gulp-px2rem": "^1.0.13",
+    "gulp-replace-image-src": "^1.0.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.1.2",
     "gulp.spritesmith": "^6.4.0",
     "imagemin-pngquant": "^5.0.0",
     "jshint": "^2.9.4",
+    "path": "^0.12.7",
     "precss": "^1.4.0"
   }
 }
