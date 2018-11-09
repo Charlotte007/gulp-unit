@@ -1,8 +1,8 @@
 ## gulp-unit ignore
 web/
 node_modules/
-*.js
-*.css.handlebars
-*.html
+/*.js
+/*.css.handlebars
+/*.html
 ## head
 src/include/headResource.html

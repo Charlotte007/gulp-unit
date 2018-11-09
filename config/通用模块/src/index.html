@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	@@include('include/headResource.html')
+</head>
+
+<body>
+	@@include('include/header.html')
+
+	<!-- 引入模块A -->
+	@@include('module/模块A/include/module.html')
+
+	<!-- 前景图和背景图的依赖问题 -->
+	<div>
+		前景图和背景图的依赖问题： 静态页的路径不需要解决； 需要解决模块的路径
+		<img src="dist/images/star.png" alt="" title="前景图和背景图的依赖问题">
+		<img src="dist/images/star.png" alt="" title="前景图和背景图的依赖问题">
+		<img src="dist/images/star.png" alt="" title="前景图和背景图的依赖问题">
+	</div>
+	
+	<h3 class="title">注意检查项目类型；<br>
+		+ 根目录放置正确的配置文件；<br>
+		+ 项目类型对应的头部，底部，重置样式<br>
+		+ box-sizing: content-box/border-box;盒模型的区分<br>
+		+ head标签内的meta声明<br>
+		+ JS的版本<br>
+	</h3>
+
+
+	<!-- 内部循环的使用 -->
+	@@include('include/for.html',{
+	"curIndex": 0,
+	"arr":["test01","test02","test03"]
+	})
+	<!--  整体循环  -->
+	@@loop('include/loop.html', [
+	{ "title": "My post title", "text": "<p>lorem ipsum...</p>" },
+	{ "title": "Another post", "text": "<p>lorem ipsum...</p>" },
+	{ "title": "One more post", "text": "<p>lorem ipsum...</p>" }
+	])
+
+
+
+	@@include('include/footer.html')
+</body>
+
+</html>
