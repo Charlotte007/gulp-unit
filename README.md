@@ -139,3 +139,5 @@ css3动画效果：
 + pug
 + performace
 + common widget（response-nav，tab-footer，affix，iealert √）;
+
+### 系统重装后如何提交到github
