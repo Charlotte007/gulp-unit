@@ -3,11 +3,16 @@ gulp构建工具的日常维护
 ### 改动
 + package.json 根据项目放在不同文件夹下，减少不必要的下载
 + 移动端增加px2rem,和px2vw自动转化，默认使用vw（Android4.4 IOS8可兼容），也可可根据项目要求使用rem；使用px2rem时，['font', 'font-size', 'line-height', 'letter-spacing']这些属性不会被转化
++ 增加图片，背景图路径匹配
++ 增加空标签默认值填充
++ 增加开发环境可自定义端口，开启多任务
 ### 使用
 + 根据项目类型选择配置文件 /config (待改进)
-+ cnpm/npm i/install
-+ gulp dev
-+ gulp build
++ cnpm/npm i/install        
++ gulp dev                  开发环境
++ gulp dev --port 4000      自定义端口，开启多任务
++ gulp build                生产环境
++ gulp module               打包模块
 
 #### 新增多行文本溢出省略
 `去掉 word-break: break-all;`对英文排版造成的影响<br>
@@ -35,7 +40,8 @@ html{
 ````
 
 #### 响应式图片的模糊问题
-```` css
+```` css 
+/* transform的导致模糊问题，计算量不是整数像素*/
 @include clearimg1(); // 小图标
 
 @include clearimg2(); // 大图
@@ -126,7 +132,6 @@ css3动画效果：
 ### svg
 
 ### canvas
-
 
 ### JS Drive Animation
 + [lottie-web + AE +　BodyMovin 骨络图动画](https://github.com/airbnb/lottie-web)

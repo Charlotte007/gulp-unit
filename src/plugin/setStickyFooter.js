@@ -43,8 +43,8 @@ function setStickyFooter($footer, $tabsArr) { // loaded  MutationObserver resize
         };
         var footerHeight = 0,
             footerTop = 0;
-         $footer = $footer || $("footer");
-
+        $footer = $footer || $("footer");
+		$footer.css({ visibility: 'visible',position: "static"}); // default for scrollTop	
         footerHeight = $footer.outerHeight();
         footerTop = ($(window).scrollTop() + $(window).height() - footerHeight) + "px";
         if (($(document.body).outerHeight()) < $(window).height()) {

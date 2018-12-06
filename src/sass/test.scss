@@ -4,4 +4,13 @@
     width: 100%;
     height: 640px;
     line-height: 1.5;
+    background-color:gray;
+    background-image: url('../images/star.png'); 
+    background-repeat: repeat; 
+    color:#f60;
+}
+
+body{
+    background-color: #eee;
+    border: 30px solid #333;
 }
