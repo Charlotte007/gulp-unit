@@ -33,7 +33,6 @@
     "gulp.spritesmith": "^6.4.0",
     "imagemin-pngquant": "^5.0.0",
     "jshint": "^2.9.4",
-    "minimist": "^1.2.0",
     "path": "^0.12.7",
     "precss": "^1.4.0"
   }

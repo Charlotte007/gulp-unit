@@ -177,8 +177,6 @@ var cleanTask = function () {
 var htmlIncludeTask = function (src, dist, isDev,imgpath) { // 使用方法  @@include('include/header.html')
     imgpath = imgpath || config.imgPath.imgsrc;
 
-
-    console.log('test:::'+ process.argv.slice(2));
     return gulp.src(src)
         // .pipe(changed(config.root.dist))
         .pipe(fileinclude({
