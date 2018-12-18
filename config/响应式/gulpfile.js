@@ -185,10 +185,11 @@ var htmlIncludeTask = function (src, dist, isDev,imgpath) { // 使用方法  @@i
         }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
         .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="'+imgpath+'$2"'))
-        .pipe(gulp.dest(dist))
+		
         .pipe(gulpif(isDev, reload({
             stream: true
-        })));
+        })))
+		.pipe(gulp.dest(dist));
 }
 var imagesTask = function (src, dist, isDev) {
     return gulp.src(src) // 图片未经合并，需要配合具体路径
@@ -197,10 +198,11 @@ var imagesTask = function (src, dist, isDev) {
             progressive: true,
             use: [pngquant()]
         })))
-        .pipe(gulp.dest(dist))
+        
         .pipe(gulpif(isDev, reload({
             stream: true
-        })));
+        })))
+		.pipe(gulp.dest(dist));
 }
 
 var jsTask = function (src, dist, isDev, isJsmin) {
@@ -214,10 +216,11 @@ var jsTask = function (src, dist, isDev, isJsmin) {
             compress: false, //类型：Boolean 默认：true 是否完全压缩
             preserveComments: 'all' //保留所有注释
         })))
-        .pipe(gulp.dest(dist))
+       
         .pipe(gulpif(isDev, reload({
             stream: true
-        })));
+        })))
+		.pipe(gulp.dest(dist));
 };
 
 var spriteTask = function (src, dist, isDev) {
@@ -229,10 +232,11 @@ var spriteTask = function (src, dist, isDev) {
             algorithm: config.sprite.config.algorithm, // 图标的排序方式
             cssTemplate: config.sprite.config.cssTemplate // 模板
         }))
-        .pipe(gulp.dest(dist)) // 打包到src，作为源文件
+        
         .pipe(gulpif(isDev, reload({
             stream: true
-        })));
+        })))
+		.pipe(gulp.dest(dist)) // 打包到src，作为源文件;
 };
 
 var sassTask = function (src, dist, style, isDev, isbase64,bgurl) {
@@ -251,10 +255,11 @@ var sassTask = function (src, dist, style, isDev, isbase64,bgurl) {
         .pipe(concat(config.sass.filename))
         .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url('+bgurl+'$2)'))
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
-        .pipe(gulp.dest(dist))
+       
         .pipe(gulpif(isDev, reload({
             stream: true
-        })));
+        })))
+		.pipe(gulp.dest(dist));
 };
 
 
@@ -275,7 +280,7 @@ setGulpTask('sprite:dev', function () {
     spriteTask(config.sprite.src, config.sprite.dist, true)
 }, devTaskArr);
 setGulpTask('sass:dev', function () {
-    sassTask(config.sass.src, config.css.dist, false, true)
+    sassTask(config.sass.src, config.css.dist,'', true,false) // src, dist, style, isDev, isbase64,bgurl
 }, devTaskArr);
 
 // 添加 生产任务

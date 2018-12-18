@@ -17,6 +17,7 @@ $c9:#999;
 //		model.HeadOrFoot = 0 (content)
 //		model.HeadOrFoot = -1 (footer)
 
+
 // 参数说明;
 // @param {String} $name 	参数中文说明
 // @param {String} $key  	变量名
@@ -57,11 +58,11 @@ $c9:#999;
 
 // 关于 border，可以组合应用，应减少拆分; 默认值后置，可以减少不必要重写
 
-@mixin bod($name,$key,$color,$width:1px,$type:solid,$derection:''){
+@mixin bod($name,$key,$color,$width:'1px',$type:'solid',$derection:''){
 	border#{$derection}:$width $type $color;
 	/* {"title": "#{$name}","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
 }
-@mixin bod($name,$key,$color,$width:1px,$type:solid,$derection:''){
+@mixin bod($name,$key,$color,$width:'1px',$type:'solid',$derection:''){
 	border#{$derection}:$width $type $color;
 	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
@@ -90,6 +91,7 @@ $c9:#999;
 // + inline-block 居中 hackBefore {display:inline-block;width:0;height:100%;vertical-align:middle;}
 // + flex 注意兼容
 // + 有固定宽高的，可以使用 margin代替
+
 
 @mixin center ($position:absolute,$zIndex:3){
 	position:$position;

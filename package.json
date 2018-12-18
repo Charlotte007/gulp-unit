@@ -26,6 +26,7 @@
     "gulp-imagemin": "^3.2.0",
     "gulp-jshint": "^2.0.4",
     "gulp-postcss": "^6.4.0",
+    "gulp-pug": "^4.0.1",
     "gulp-px2rem": "^1.0.13",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^3.1.0",
