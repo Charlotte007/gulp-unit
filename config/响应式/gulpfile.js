@@ -22,6 +22,9 @@ var spritesmith = require('gulp.spritesmith');
 var fileinclude = require('gulp-file-include'); // HTML代码组件化复用；位置/src/include
 var cssBase64 = require('gulp-css-base64'); // base64
 
+// ### 
+var pug = require('gulp-pug');
+
 // ### 路径替换
 var replace = require('gulp-replace');
 
@@ -30,7 +33,9 @@ var minimist = require('minimist');
 
 var portOptions = {
     string: 'port',
-    default: { port: '3000' }
+    default: {
+        port: '3000'
+    }
 };
 var portParams = minimist(process.argv.slice(2), portOptions);
 
@@ -59,9 +64,9 @@ var config = {
         src: "src",
         dist: "web",
     },
-    imgPath:{ // 图片替换
-        imgsrc:'dist/images/',
-        bgurl:'../images/'
+    imgPath: { // 图片替换
+        imgsrc: 'dist/images/',
+        bgurl: '../images/'
     },
     css: {
         src: 'src/css',
@@ -78,6 +83,9 @@ var config = {
         src: ['src/js/*.js', 'src/module/*/js/*.js'], // 插件使用plugin；js下所有文件参与打包
         dist: 'web/dist/js/',
         filename: 'layout.js'
+    },
+    pug: {
+        src: 'src/*.pug'
     },
     html: {
         src: 'src/*.html' // 默认静态页使用模板的方式； @@include
@@ -174,9 +182,8 @@ var cleanTask = function () {
         .pipe(clean());
 };
 
-var htmlIncludeTask = function (src, dist, isDev,imgpath) { // 使用方法  @@include('include/header.html')
+var htmlIncludeTask = function (src, dist, isDev, imgpath) { // 使用方法  @@include('include/header.html')
     imgpath = imgpath || config.imgPath.imgsrc;
-
     return gulp.src(src)
         // .pipe(changed(config.root.dist))
         .pipe(fileinclude({
@@ -184,13 +191,27 @@ var htmlIncludeTask = function (src, dist, isDev,imgpath) { // 使用方法  @@i
             basepath: '@file'
         }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
-        .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="'+imgpath+'$2"'))
-		
+        .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="' + imgpath + '$2"'))
+       
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
 		.pipe(gulp.dest(dist));
 }
+var pugTask = function (src, dist, isDev, imgpath) {
+    imgpath = imgpath || config.imgPath.imgsrc;
+    return gulp.src(src)
+        .pipe(pug({pretty:true}))
+        .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
+        .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="' + imgpath + '$2"'))
+        
+        .pipe(gulpif(isDev, reload({
+            stream: true
+        })))
+		.pipe(gulp.dest(dist));
+}
+
+
 var imagesTask = function (src, dist, isDev) {
     return gulp.src(src) // 图片未经合并，需要配合具体路径
         .pipe(changed(dist))
@@ -198,7 +219,7 @@ var imagesTask = function (src, dist, isDev) {
             progressive: true,
             use: [pngquant()]
         })))
-        
+       
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
@@ -216,7 +237,7 @@ var jsTask = function (src, dist, isDev, isJsmin) {
             compress: false, //类型：Boolean 默认：true 是否完全压缩
             preserveComments: 'all' //保留所有注释
         })))
-       
+        
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
@@ -232,14 +253,14 @@ var spriteTask = function (src, dist, isDev) {
             algorithm: config.sprite.config.algorithm, // 图标的排序方式
             cssTemplate: config.sprite.config.cssTemplate // 模板
         }))
-        
+       
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
 		.pipe(gulp.dest(dist)) // 打包到src，作为源文件;
 };
 
-var sassTask = function (src, dist, style, isDev, isbase64,bgurl) {
+var sassTask = function (src, dist, style, isDev, isbase64, bgurl) {
     bgurl = bgurl || config.imgPath.bgurl;
     var plugins = [cssnext, precss, autoprefixer({
         browsers: ['last 60 versions'],
@@ -253,9 +274,9 @@ var sassTask = function (src, dist, style, isDev, isbase64,bgurl) {
         }).on('error', sass.logError))
         .pipe(postcss(plugins))
         .pipe(concat(config.sass.filename))
-        .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url('+bgurl+'$2)'))
+        .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url(' + bgurl + '$2)'))
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
-       
+        
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
@@ -270,6 +291,11 @@ setGulpTask('cleanall', cleanTask, []);
 setGulpTask('htmlinclude:dev', function () {
     htmlIncludeTask(config.html.src, config.root.dist, true)
 }, devTaskArr);
+
+setGulpTask('pug:dev', function () {
+    pugTask(config.pug.src, config.root.dist, true)
+}, devTaskArr);
+
 setGulpTask('images:dev', function () {
     imagesTask(config.images.src, config.images.dist, true)
 }, devTaskArr);
@@ -280,7 +306,7 @@ setGulpTask('sprite:dev', function () {
     spriteTask(config.sprite.src, config.sprite.dist, true)
 }, devTaskArr);
 setGulpTask('sass:dev', function () {
-    sassTask(config.sass.src, config.css.dist,'', true,false) // src, dist, style, isDev, isbase64,bgurl
+    sassTask(config.sass.src, config.css.dist, false, true)
 }, devTaskArr);
 
 // 添加 生产任务
@@ -303,6 +329,7 @@ setGulpTask('sass', function () {
 // ### 添加　模块任务
 var moduleImgPath = [];
 var moduleImgTask = [];
+var modulePath = [];
 readfiles = function () {
     var fileDirectory = "src/module/";
     var fileM = 'web/';
@@ -317,6 +344,7 @@ readfiles = function () {
             files.forEach(function (filename, i) {
                 var _moduleRoot = fileDirectory + filename; // "src/module/moduleA"
                 var _moduleDist = fileM + filename + '/'; // web/moduleA
+                modulePath.push(_moduleDist);
                 // common copy: dev + build + build: 路径不同
                 copyCommon('modulecssframe' + i, _moduleRoot + '/css/*', config.css.dist);
                 copyCommon('jsPlugin' + i, _moduleRoot + '/plugin/*', config.js.dist)
@@ -339,7 +367,7 @@ readfiles = function () {
                 copyCommon('jsPlugin' + i, _moduleRoot + '/plugin/*', _moduleDist + 'res/webjs', true)
 
                 setGulpTask('modulehtmlinclude' + i, function () { // 替换html中src的路径
-                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist,false,'/res/webimages/')  // src, dist, isDev,imgpath
+                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist, false, '/res/webimages/') // src, dist, isDev,imgpath
                 }, moduleArr);
 
                 setGulpTask('moduleimages' + i, function () {
@@ -347,12 +375,13 @@ readfiles = function () {
                 }, moduleArr);
 
                 setGulpTask('modulesass' + i, function () { // 使用非压缩模式
-                    sassTask(_moduleRoot + '/sass/*.scss', _moduleDist + 'res/webcss', 'expanded', false, false,'/res/webimages/') // src, dist, style, isDev, isbase64,bgurl
+                    sassTask(_moduleRoot + '/sass/*.scss', _moduleDist + 'res/webcss', 'expanded', false, false, '/res/webimages/') // src, dist, style, isDev, isbase64,bgurl
                 }, moduleArr);
 
                 setGulpTask('modulejs' + i, function () {
                     jsTask(_moduleRoot + '/js/*.js', _moduleDist + 'res/webjs')
                 }, moduleArr);
+
             });
         });
     } else {
@@ -378,6 +407,10 @@ gulp.task('dev', ['cleanall'], function () {
     gulp.watch(config.sass.src, ['sass:dev'])
     gulp.watch(config.html.src, ['htmlinclude:dev'])
     gulp.watch(['src/include/*.html', 'src/module/*/include/*.html'], ['htmlinclude:dev'])
+
+    gulp.watch(config.pug.src, ['pug:dev'])
+    gulp.watch(['src/include/*.pug', 'src/module/*/include/*.pug'], ['pug:dev'])
+
     gulp.watch(config.images.src, ['images:dev'])
     // watch module images
     gulp.watch(moduleImgPath, moduleImgTask)
@@ -391,7 +424,42 @@ gulp.task('build', ['cleanall'], function () {
 
 // ---- 模块打包环境   gulp default
 gulp.task('module', ['cleanall'], function () {
-    gulp.start(moduleArr);
+    gulp.start(moduleArr, function () {
+        // 自动生成 cssJson cssTemplate；
+        modulePath.forEach(function (path, index) {
+            console.log(path, index);
+            var cssJsonArr = [];
+            var newJsonArr = [];
+            var data = (fs.readFileSync(path + 'res/webcss/layout.css')).toString();
+
+            // cssTemplate
+            var rep = data.replace(/(\:[^\:\;]+\;)\s*\/\*\s?(\{[^\*]+)\*\//g, function () {
+                var jsonItem = JSON.parse(arguments[2]);
+                cssJsonArr.push(arguments[2]);
+                return arguments[1].replace(jsonItem.value, '' + jsonItem.name);
+            });
+            // cssJson 数组 去重
+            for (var i = 0; i < cssJsonArr.length; i++) {
+                if (newJsonArr.indexOf(cssJsonArr[i]) === -1) {
+                    newJsonArr.push(cssJsonArr[i]);
+                }
+            }
+
+            // 写入操作
+            fs.writeFile(path + 'cssTemplate.txt', rep, function (err) {
+                if (err) {
+                    return console.error(err);
+                }
+                console.log(path + "cssTemplate.txt 数据写入成功！");
+            });
+            fs.writeFile(path + 'cssJson.json', '[' + newJsonArr + ']', function (err) {
+                if (err) {
+                    return console.error(err);
+                }
+                console.log(path + "cssJson.json 数据写入成功！");
+            });
+        });
+    });
 });
 // 测试说明：
 /*
@@ -421,13 +489,12 @@ gulp.task('module', ['cleanall'], function () {
     作为模块：
 
     注意事项：
-
+	
     1、单独插件 和 单独css 需要在 模板 和使用的静态页中使用； 可以考虑sea.js
     2、所有使用到第三方插件的；都必须添加上 插件是否存在的判断
         （目前确认的 jq.js  swiper.3.js）===> swiper 统一使用 3.x的版本；统一之前的模块调用方式
     3、模块中禁止使用：（为保证单个模块的完整性；）
         重置样式  禁止混入
-
 
     待添加功能：
     1、常用的模块如，搜索模板页，网站地图模板页要混入；        --- 功能已添加，待混入
@@ -435,6 +502,7 @@ gulp.task('module', ['cleanall'], function () {
     3、空属性值：  href=""                              --- 已修改
     4、img  和 background-images 手动替换               --- 已修改
 
-    5、模块打包直接生成  cssJson 和 cssTemplate            需要使用写入的操作
+    5、模块打包直接生成  cssJson 和 cssTemplate           -- 需要使用写入的操作
+	6、是否引入pug                                       -- pug的传参问题
 
 */

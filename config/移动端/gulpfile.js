@@ -235,8 +235,7 @@ var sassTask = function (src, dist, style, isDev, isbase64, bgurl) {
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
         .pipe(gulpif(isRem,px2rem(px2remOptions, postCssOptions)))
         .pipe(gulpif(!isRem, cssunit({ type: 'px-to-vw', width: 750 })))
-        .pipe(replace('pt','px'))   // pt防止转化
-       
+        .pipe(replace(/pt\s?\;/,'px;'))   // pt防止转化; 防止其他 字符 转化
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
