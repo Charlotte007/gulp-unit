@@ -1,0 +1,30 @@
+@import 'aamixin.scss';
+
+@media (min-width:1260px){
+    .full-newsdetailB-container .single-page{
+        max-width: 840px;
+        padding: 0;
+        margin: 0 auto;
+    }
+    .full-newsdetailB-container {
+        .newsdetailB-bdshare {
+            // position: absolute;
+            // right: auto;
+            // left: 0;
+            // top: 76px;
+            // z-index: 50;
+            //  顶部跟随
+            &.js-fixed-top{
+                position: fixed;
+                left: 50%;
+                margin-left: -590px;
+            }
+            &.js-absolute-bottom{
+                position: absolute;
+                left: 0;
+                top: auto;
+                margin-left: 0;
+            }
+        }
+    }
+}

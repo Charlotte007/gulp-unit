@@ -1,0 +1,88 @@
+@import 'aamixin.scss';
+
+@media (min-width:1024px) {
+    .full-newsdetailB-container {
+        @include pd('栏目全局', 'gnewsdetailBcol', 75px 0 78px);
+        .article-tilte {
+            @include fz('新闻详细B标题', 'newsdetailBtilte', 24px);
+            @include mg('新闻详细B标题下', 'newsdetailBtilte',0 0 18px);
+            line-height: 32px;
+        }
+
+        .date {
+            @include mg('新闻详细B日期下', 'newsdetailBdate',0 0 40px);
+            font-size: 24px;
+        }
+
+        .newsdetailB-article {
+            padding: 72px 0 55px;
+            margin-bottom: 42px;
+        }
+        .single-page{
+            // max-width: 840px;
+            // margin: 0 auto;
+            padding: 0 100px ;
+        }
+        .newsdetailB-bdshare {
+            position: absolute;
+            right: auto;
+            left: 0;
+            top: 76px;
+            z-index: 50;
+            //  顶部跟随
+            &.js-fixed-top{
+                position: fixed;
+                left: 40px;
+            }
+            &.js-absolute-bottom{
+                position: absolute;
+                left: 0;
+                top: auto;
+                bottom: 55px;
+            }
+            a {
+                float: none;
+                width: 72px;
+                height: 72px;
+                margin: 0 0 1px 0;
+                transition: all ease .3s;
+            }
+            .bds_weixin{
+                &:hover{
+                    @include bgimg('新闻详情A微信分享','newsdetailAsharewx','newsdetailBwxicoac.jpg');
+                }
+            }
+            .bds_tsina{
+                &:hover{
+                    @include bgimg('新闻详情A新浪分享','newsdetailAsharesn','newsdetailBsnicoac.jpg');
+                }
+            }
+            .bds_sqq{
+                &:hover{
+                    @include bgimg('新闻详情A企鹅分享','newsdetailAshareqq','newsdetailBqqicoac.jpg');
+                }
+            }
+        }
+        .newsdetailB-ctrl {
+            position: relative;
+            padding-right: 200px;
+            .page-ctrl {
+                margin-bottom: 0;
+                a{
+                    &:hover{
+                        @include cl('新闻详细B上下页','newsdetailBpage',#de0012);
+                    }
+                }
+            }
+            .return {
+                position: absolute;
+                right: 0;
+                top: 5px;
+                z-index: 3;
+                width: 145px;
+                height: 50px;
+                line-height: 50px;
+            }
+        }
+    }
+}

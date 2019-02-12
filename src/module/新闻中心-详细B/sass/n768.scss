@@ -1,0 +1,16 @@
+@import 'aamixin.scss';
+
+@media (min-width:768px) {
+    .full-newsB-container {
+        .newsB-list{
+            ul{
+                margin: 0 -10px;
+            }
+            li{
+                width: 50%;
+                padding: 0 10px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

@@ -1,3 +1,9 @@
+// ### 响应式比例
+/*
+    1024/1200   = 0.85
+    768/1200    = 0.64
+    640/1200    = 0.53
+*/
 // ### 工具
 var gulp = require('gulp');
 var clean = require('gulp-clean');
@@ -23,7 +29,7 @@ var fileinclude = require('gulp-file-include'); // HTML代码组件化复用；�
 var cssBase64 = require('gulp-css-base64'); // base64
 
 // ### 
-var pug = require('gulp-pug');
+var pug = require('gulp-pug');  // html-tempalte  需要对报错做进一步处理； 
 
 // ### 路径替换
 var replace = require('gulp-replace');
@@ -39,11 +45,9 @@ var portOptions = {
 };
 var portParams = minimist(process.argv.slice(2), portOptions);
 
-// ### 计划  使用node可以直接把 css替换成 ===> cssJSon && cssTemplte;
 
 // ## 任务统计
 // htmlinclude[copy,include]  images[min]  css[copy]    scss[sass,contact,sprite]     js[copy]   
-
 
 /*
 1、模块正常项目中使用 @include 引用方式 使用正常打包
@@ -54,10 +58,12 @@ var portParams = minimist(process.argv.slice(2), portOptions);
 
 4、模块分块打包的问题：
 */
+
 /*
     规则：
     1、插件类的统一放在 各自页面使用的 plugin的目录
-    2、放在 js/ 的所有文件都会打包
+    2、放在 js/ 的所有文件都会打包合并到 layout.js文件中
+    3、src/css 中的样式文件，会复制到 dist/css 中；src/sass中文件合并到 layout.css
 */
 var config = {
     root: {
@@ -70,19 +76,21 @@ var config = {
     },
     css: {
         src: 'src/css',
-        dist: 'web/dist/css/'
+        dist: 'web/dist/css/',
+        cssLink:'dist/css/'
     },
     sass: { // 合并所有*.scss到 layout.css
         src: ['src/sass/*.scss', 'src/module/*/sass/*.scss'],
         outputStyleAll: ['nested', 'expanded', 'compact', 'compressed'],
-        outputStyle: 'compressed', // dev build 使用去除注释；去除mixin的注释
+        outputStyle: 'expanded', // dev build 使用去除注释；去除mixin的注释
         contactPath: '',
         filename: 'layout.css'
     },
     js: { // 合并所有*.js到 layout.js
         src: ['src/js/*.js', 'src/module/*/js/*.js'], // 插件使用plugin；js下所有文件参与打包
         dist: 'web/dist/js/',
-        filename: 'layout.js'
+        filename: 'layout.js',
+        jsSrc:'dist/js/'
     },
     pug: {
         src: 'src/*.pug'
@@ -142,7 +150,7 @@ var moduleArr = [];
  * @param Sting srcPath     资源路径
  * @param Sting destPath    打包路径
  * @param Object base       相对路径
- * @param Boolean ifAddMoudle  是否加入 模块打包任务
+ * @param Boolean ifAddMoudle  是否加入模块打包任务
  */
 var copyCommon = function (taskName, srcPath, destPath, ifAddMoudle) {
     gulp.task(taskName, function () {
@@ -174,7 +182,6 @@ copyCommon('googlemap', 'src/google/*', config.root.dist + "/googlemap");
 copyCommon('fonts', 'src/fonts/*', config.root.dist + "/fonts");
 
 // ### 环境区分 dev ：build
-
 var cleanTask = function () {
     return gulp.src(config.root.dist, {
             read: false
@@ -182,36 +189,65 @@ var cleanTask = function () {
         .pipe(clean());
 };
 
-var htmlIncludeTask = function (src, dist, isDev, imgpath) { // 使用方法  @@include('include/header.html')
+/**
+ * ### html文件处理
+ * @param {Sting} src       源文件路径
+ * @param {Sting} dist      打包后路径
+ * @param {Boolean} isDev   是否开发环境
+ * @param {Sting} imgpath   统一替换后的路径
+ * @returns  {Object}       
+ */
+var htmlIncludeTask = function (src, dist, isDev, imgpath,cssLink,jsSrc) { // 使用方法  @@include('include/header.html')
     imgpath = imgpath || config.imgPath.imgsrc;
+    cssLink = cssLink || config.css.cssLink;
+    jsSrc = jsSrc || config.js.jsSrc;
     return gulp.src(src)
         // .pipe(changed(config.root.dist))
         .pipe(fileinclude({
             prefix: '@@',
-            basepath: '@file'
+            basepath: '@file',
         }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
-        .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="' + imgpath + '$2"'))
-       
+        .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+)\.(?:jpg|png|gif|ico))\"/g, 'src="' + imgpath + '$2"')) // img:src
+        .pipe(replace(/src=\s*\"([\w\/]*\/)?((?:[^\/]+)\.js(?:\?[\w\=]*)?)\"/g,'src="'+jsSrc+'$2"'))  // js: src
+        .pipe(replace(/href=\s*\"([\w\/]*\/)?((?:[^\/]+)\.css(?:\?[\w\=]*)?)\"/g,'href="'+cssLink+'$2"'))  // css： link   
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 }
+
+/**
+ * ### pug文件处理
+ * @param {Sting} src       源文件路径
+ * @param {Sting} dist      打包后路径
+ * @param {Boolean} isDev   是否开发环境
+ * @param {Sting} imgpath   统一替换后的路径
+ * @returns  {Object}       
+ */
+
 var pugTask = function (src, dist, isDev, imgpath) {
     imgpath = imgpath || config.imgPath.imgsrc;
     return gulp.src(src)
-        .pipe(pug({pretty:true}))
+        .pipe(pug({
+            pretty: true
+        }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
         .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))"/g, 'src="' + imgpath + '$2"'))
-        
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 }
 
 
+/**
+ * ### 图片压缩拷贝
+ * @param {Sting} src       源文件路径
+ * @param {Sting} dist      打包后路径
+ * @param {Boolean} isDev   是否开发环境
+ * @returns
+ */
 var imagesTask = function (src, dist, isDev) {
     return gulp.src(src) // 图片未经合并，需要配合具体路径
         .pipe(changed(dist))
@@ -219,13 +255,21 @@ var imagesTask = function (src, dist, isDev) {
             progressive: true,
             use: [pngquant()]
         })))
-       
+
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 }
 
+/**
+ * ### js文件合并压缩
+ * @param {Sting} src           源文件路径
+ * @param {Sting} dist          打包后路径
+ * @param {Boolean} isDev       是否开发环境
+ * @param {Boolean} isJsmin     是否开启压缩
+ * @returns
+ */
 var jsTask = function (src, dist, isDev, isJsmin) {
     return gulp.src(src)
         .pipe(changed(dist))
@@ -237,13 +281,20 @@ var jsTask = function (src, dist, isDev, isJsmin) {
             compress: false, //类型：Boolean 默认：true 是否完全压缩
             preserveComments: 'all' //保留所有注释
         })))
-        
+
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 };
 
+/**
+ * ### 精灵图
+ * @param {Sting} src       源文件路径
+ * @param {Sting} dist      打包后路径
+ * @param {Boolean} isDev   是否开发环境
+ * @returns
+ */
 var spriteTask = function (src, dist, isDev) {
     return gulp.src(src)
         .pipe(spritesmith({
@@ -253,20 +304,31 @@ var spriteTask = function (src, dist, isDev) {
             algorithm: config.sprite.config.algorithm, // 图标的排序方式
             cssTemplate: config.sprite.config.cssTemplate // 模板
         }))
-       
+
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist)) // 打包到src，作为源文件;
+        .pipe(gulp.dest(dist)) // 打包到src，作为源文件;
 };
 
-var sassTask = function (src, dist, style, isDev, isbase64, bgurl) {
+/**
+ * ### Sass任务处理
+ * @param {Sting} src           源文件路径
+ * @param {Sting} dist          打包后路径
+ * @param {Sting} style         样式打包形式
+ * @param {Boolean} isDev       是否开发环境
+ * @param {Boolean} isbase64    是否使用base64
+ * @param {Sting} bgurl         替换后背景图路径     
+ * @param {Boolean} isModule         模块生成环境
+ */
+var sassTask = function (src, dist, style, isDev, isbase64, bgurl, isModule) {
     bgurl = bgurl || config.imgPath.bgurl;
     var plugins = [cssnext, precss, autoprefixer({
         browsers: ['last 60 versions'],
         cascade: false
     })]; // 参数配置参考 <https://github.com/ai/browserslist>
     var style = style || config.sass.outputStyle;
+
     return gulp.src(src)
         .pipe(changed(dist))
         .pipe(sass({
@@ -275,21 +337,22 @@ var sassTask = function (src, dist, style, isDev, isbase64, bgurl) {
         .pipe(postcss(plugins))
         .pipe(concat(config.sass.filename))
         .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url(' + bgurl + '$2)'))
+        .pipe(replace(/\@charset \"UTF-8\"\;/g, ''))
+        .pipe(gulpif(isModule, replace(/\n/g, '')))
+        .pipe(gulpif(isModule, replace(/\@media/g, '\n@media'))) // \n 成为锚点
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
-        
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
-		.pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist));
 };
-
 
 // 共用任务
 setGulpTask('cleanall', cleanTask, []);
 
 // 添加 开发任务
 setGulpTask('htmlinclude:dev', function () {
-    htmlIncludeTask(config.html.src, config.root.dist, true)
+    htmlIncludeTask(config.html.src, config.root.dist, true);
 }, devTaskArr);
 
 setGulpTask('pug:dev', function () {
@@ -326,7 +389,7 @@ setGulpTask('sass', function () {
     sassTask(config.sass.src, config.css.dist, 'compressed', false, true) // 压缩css 转换华base64
 }, buildTaskArr);
 
-// ### 添加　模块任务
+// ### 读取文件添加　模块任务
 var moduleImgPath = [];
 var moduleImgTask = [];
 var modulePath = [];
@@ -340,15 +403,31 @@ readfiles = function () {
                 console.error(err);
                 return;
             }
+            var testIndex = 0;
+            function testOnlyNum(num){
+                testIndex++;
+                if (testIndex > num) return;
+            }
+
+            function testOnlyName(filename,name){
+                if(filename.indexOf(name) ===-1) return;
+            }
+
             // 模块分层执行
-            files.forEach(function (filename, i) {
+            files.forEach(function (filename, i) {  //  return return false break continue
+
+                // testOnlyNum(2);
+                // testOnlyName(filename,'联系我们');
+               
+                if(filename.indexOf('.git')!==-1) return;
+
                 var _moduleRoot = fileDirectory + filename; // "src/module/moduleA"
                 var _moduleDist = fileM + filename + '/'; // web/moduleA
                 modulePath.push(_moduleDist);
+
                 // common copy: dev + build + build: 路径不同
                 copyCommon('modulecssframe' + i, _moduleRoot + '/css/*', config.css.dist);
                 copyCommon('jsPlugin' + i, _moduleRoot + '/plugin/*', config.js.dist)
-
                 // dev: 
                 setGulpTask('moduleimages_dev' + i, function () { // 需要base
                     imagesTask(_moduleRoot + '/images/*.{png,jpg,gif,ico}', config.images.dist, true)
@@ -363,19 +442,19 @@ readfiles = function () {
                 }, buildTaskArr); // images:  static + module
 
                 // module build: copy html img sass js
-                copyCommon('modulecssframe' + i, _moduleRoot + '/css/*', _moduleDist + 'res/webcss', true);
-                copyCommon('jsPlugin' + i, _moduleRoot + '/plugin/*', _moduleDist + 'res/webjs', true)
+                copyCommon('modulecssframe_md' + i, _moduleRoot + '/css/*', _moduleDist + 'res/webcss', true);
+                copyCommon('jsPlugin_md' + i, _moduleRoot + '/plugin/*', _moduleDist + 'res/webjs', true)
 
                 setGulpTask('modulehtmlinclude' + i, function () { // 替换html中src的路径
-                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist, false, '/res/webimages/') // src, dist, isDev,imgpath
+                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist, false, '/res/webimages/','/res/webcss/','/res/webjs/') // src, dist, isDev,imgpath
                 }, moduleArr);
 
                 setGulpTask('moduleimages' + i, function () {
-                    imagesTask(_moduleRoot + '/images/*.{png,jpg,gif,ico}', _moduleDist + 'res/webimages')
+                    imagesTask(_moduleRoot + '/images/*.{png,jpg,gif,ico}', _moduleDist + 'res/webimages', true)
                 }, moduleArr);
 
-                setGulpTask('modulesass' + i, function () { // 使用非压缩模式
-                    sassTask(_moduleRoot + '/sass/*.scss', _moduleDist + 'res/webcss', 'expanded', false, false, '/res/webimages/') // src, dist, style, isDev, isbase64,bgurl
+                setGulpTask('modulesass' + i, function () { // 使用非压缩模式： 需要保留注释  只能采用单行模式，
+                    sassTask(_moduleRoot + '/sass/*.scss', _moduleDist + 'res/webcss', 'compact', false, false, '/res/webimages/', true) // src, dist, style, isDev, isbase64,bgurl isModule
                 }, moduleArr);
 
                 setGulpTask('modulejs' + i, function () {
@@ -388,7 +467,21 @@ readfiles = function () {
         console.error(fileDirectory + "  Not Found!");
     }
 }
+
 readfiles();
+// ### 监听文件变动  //  
+// fs.watch('src/module/', function (event, filename) {
+//     console.log('event is: ' + event);
+//     if (filename) {
+//         console.log('filename provided: ' + filename);
+//         moduleImgPath = [];
+//         moduleImgTask = [];
+//         modulePath = [];
+//         readfiles();
+//     } else {
+//         console.log('filename not provided');
+//     }
+// });
 
 // - 开发环境 -- 开发
 gulp.task('dev', ['cleanall'], function () {
@@ -403,6 +496,7 @@ gulp.task('dev', ['cleanall'], function () {
         notify: false, // 开启静默模式
         port: portParams.port
     });
+
     gulp.watch(config.js.src, ['js:dev'])
     gulp.watch(config.sass.src, ['sass:dev'])
     gulp.watch(config.html.src, ['htmlinclude:dev'])
@@ -412,7 +506,8 @@ gulp.task('dev', ['cleanall'], function () {
     gulp.watch(['src/include/*.pug', 'src/module/*/include/*.pug'], ['pug:dev'])
 
     gulp.watch(config.images.src, ['images:dev'])
-    // watch module images
+
+    // watch module images   新增模块文件夹，需要 重新push moduleImgPath
     gulp.watch(moduleImgPath, moduleImgTask)
     gulp.watch(config.sprite.src, ['sprite:dev'])
 
@@ -428,31 +523,77 @@ gulp.task('module', ['cleanall'], function () {
         // 自动生成 cssJson cssTemplate；
         modulePath.forEach(function (path, index) {
             console.log(path, index);
-            var cssJsonArr = [];
-            var newJsonArr = [];
+            var cssJsonStr = '';    // json
+            var cssTempStr = '';    // css
+            var testJsonArr = [];
+
+            // 需要保留注释
             var data = (fs.readFileSync(path + 'res/webcss/layout.css')).toString();
+            // cssTemplate  选择器去掉伪类，伪元素
+            var pseudoReg = /(\)\s\{\s?|^\s*|[\:]{1,3}after|[\:]{1,3}before|\:active|\:focus|\:hover|\:link|\:visited|\:lang|\:first-letter|\:first-line|(\s*$))/g; // 注意顺序
 
-            // cssTemplate
-            var rep = data.replace(/(\:[^\:\;]+\;)\s*\/\*\s?(\{[^\*]+)\*\//g, function () {
-                var jsonItem = JSON.parse(arguments[2]);
-                cssJsonArr.push(arguments[2]);
-                return arguments[1].replace(jsonItem.value, '' + jsonItem.name);
+            // 思路： selector{}  拆成单项逐一匹配
+            // fixup: selector:'@charset \"UTF-8\";\n@media (min-width: 1024px){.selector {}}';
+            // fixup: 选择器单项；因为添加区间标题，导致样式同行；区间匹配不能与选择器样式匹配同行；属于嵌套关系
+
+            var mediaMatchArr = data.split('\n'); 
+           
+            mediaMatchArr.forEach(function (item, index) { // .selector  @media() {} 
+               
+                // var mediaCssStr = item.replace(/\s*([^\{\)]*|@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*))\s?\{(.*)\}/g, function () { // .select {} | @media (min-width: ) {
+
+                // 样式分区间添加标题;'
+                var mediaCssStr = item.replace(/\s*([^\{\)]*|@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*))\s?\{(.*)\}/g, function () { // .select {} | @media (min-width: ) {
+                    // 不可选择 替换伪类，伪元素
+                    // m: .slector { ... }   media： @media (....) {...}
+                    var blockName = '//### 手机端样式\n';
+                 
+                    var blockCssJson = [];
+                    if (arguments[3]) { // 匹配@media 区间名称
+                        blockSlector = arguments[3]
+                        blockName = '//### ' + arguments[2] + '\n';
+                    }
+
+                    var blockStyle = arguments[0].replace(/\}(?!\*)/g,'\}\n'); // class单行,方便匹配; 反向匹配; 锚点： \}(?!\*) 非注释的\}
+                    // 样式每个区间
+                    var itemStyle = blockStyle.replace(/((?:\)\s\{\s?)?[^\{\n)]*)\s?\{(.*)\}/g,function(){ // 锚点： \n 实现单行匹配
+                        var selector = arguments[1].replace(pseudoReg, '');
+                        // selector && selectorStyle
+                        var selectStyle = arguments[2].replace(/(\:[^\:\;]+\;)\s*\/\*\s?(\{[^\*]+)\*\//g, function () { // 锚点：\:attribute;/*...*/
+                            var jsonItem = JSON.parse(arguments[2]); // 配置项
+                            jsonItem.selector = selector;
+                            var jsonItemStr = JSON.stringify(jsonItem) + '\n';
+
+                            // object to string 去重
+                            if (testJsonArr.indexOf(jsonItemStr) === -1) { // 不存在
+                                testJsonArr.push(jsonItemStr);
+                                blockCssJson.push(jsonItemStr); // 字符串化
+                            }
+                            // 返回 selectStyle 参数化后
+                            return arguments[1].replace(jsonItem.value, jsonItem.name);
+                        });
+
+                        // 需要保证匹配 === 替换;
+                        return arguments[1] + '{' + selectStyle + '}'; // online
+                    });
+
+                     // 合并变量替换后的 css 
+                     cssTempStr += itemStyle;  // 返回的样式中 缺少
+                     // 合并 去重后 添加区间名称的 json文件
+                     cssJsonStr = cssJsonStr + blockName + '[\n' + blockCssJson.toString() + ']\n\n';
+                });
             });
-            // cssJson 数组 去重
-            for (var i = 0; i < cssJsonArr.length; i++) {
-                if (newJsonArr.indexOf(cssJsonArr[i]) === -1) {
-                    newJsonArr.push(cssJsonArr[i]);
-                }
-            }
+            // @media 标签多行css; 方便查看
+            var mediaCssMl = cssTempStr.replace(/\@media/g, '\n\n@media');
 
-            // 写入操作
-            fs.writeFile(path + 'cssTemplate.txt', rep, function (err) {
+            // 写入操作 
+            fs.writeFile(path + 'cssTemplate.txt', mediaCssMl, function (err) {
                 if (err) {
                     return console.error(err);
                 }
                 console.log(path + "cssTemplate.txt 数据写入成功！");
             });
-            fs.writeFile(path + 'cssJson.json', '[' + newJsonArr + ']', function (err) {
+            fs.writeFile(path + 'cssJson.txt', cssJsonStr, function (err) {
                 if (err) {
                     return console.error(err);
                 }
@@ -461,13 +602,15 @@ gulp.task('module', ['cleanall'], function () {
         });
     });
 });
+
 // 测试说明：
 /*
     作为静态页
     1、sass文件打包  ok；   去除base 64;不开启压缩
     2、import  有备注版本 和 无备注版本？？     ---     使用时：压缩，去除所有注释；cms模块打包时: 放出注释
-    
+
     3、 背景图的相对路径问题  (统一替换路径)    ---     对应已有的模块路径
+
         |- res          （已经固定）
             |- webcss/
             |- webimages/
@@ -476,33 +619,61 @@ gulp.task('module', ['cleanall'], function () {
 
     4、开发环境：
 
-
     5、模块中的图片引用：
 
         背景图：使用相对路径已解决 （注意：模块中的背景图，不要放在 静态页中src/images）
 
         前景图： static:  dist/webimages/*.jpg  module:  res/webimages/*.jpg
 
+    6、base64的转化问题：  -- 已修改
 
-    6、base64的转化问题： 待解决
+    8、团队管理C，测试 参数重复的问题？   select 不同去不了重复？但是变量相同！ bug
 
     作为模块：
 
     注意事项：
 	
     1、单独插件 和 单独css 需要在 模板 和使用的静态页中使用； 可以考虑sea.js
-    2、所有使用到第三方插件的；都必须添加上 插件是否存在的判断
+
+    2、所有使用到第三方插件的；都必须添加上 插件是否存在的判断；
         （目前确认的 jq.js  swiper.3.js）===> swiper 统一使用 3.x的版本；统一之前的模块调用方式
+
     3、模块中禁止使用：（为保证单个模块的完整性；）
         重置样式  禁止混入
 
+    4、注意sass的参数，@mixin参数的格式，决定匹配生成 cssTemplate cssJSon
+
+    5、百度地图使用  html参数去优化； 需要处理一个 google地图版本
+
+    6、通用的JS， placeholder.js  jquery.min.js 无需加密
+
+    7、注意使用 padding margin 对  commonweb的影响
+        css：   dist/css/*.css  res/webcss/*.css    排除 http://
+        js：    dist/js/*.js    res/js/*.js         排除 http://
+
+    
+
+    9、变量参数的问题；
+
     待添加功能：
-    1、常用的模块如，搜索模板页，网站地图模板页要混入；        --- 功能已添加，待混入
-    2、支持多端口开启，支持自定义传参                        ---  已添加
-    3、空属性值：  href=""                              --- 已修改
-    4、img  和 background-images 手动替换               --- 已修改
+    1、常用的模块如，搜索模板页，网站地图模板页要混入；              --- 功能已添加，待混入
+    2、支持多端口开启，支持自定义传参                              ---  已添加
+    3、空属性值：  href=""                                       --- 已修改
+    4、img  和 background-images 手动替换                        --- 已修改
+    5、模块打包直接生成  cssJson 和 cssTemplate                   --- 已添加，可以自动生成
+	6、是否引入pug                                               --- 已添加pug，报错需要处理
+    7、发现问题：  比如 linear-gradent是有问题的                   --- 没有值 会影响编译的,不能配置
+    8、依赖的插件和js资源，没有批量替换    比如 city.js  map.js   datapicker
+    9、swiper.3.x 响应的问题；  IE9+ 不能初始化
 
-    5、模块打包直接生成  cssJson 和 cssTemplate           -- 需要使用写入的操作
-	6、是否引入pug                                       -- pug的传参问题
+    8、分页的位置？ 需要统一调整； 手机端加载更多 和 PC端分页的切换；   
 
+
+    维护原则：  
+    1、 本地CMS源码必须保证为最新版本；方便对照CMS模块；
+    2、 cms后台覆盖原则； 1260 > 1024 > 768 > m  
+    3、 约定全局主题色：@clcur @clrgbcur  @bgccur  @bgrgbcur @bdcur @bdrgbcur
+    4、 下载中心A中的mixin.scss作为最全面的引入
+    5、 栏目标题类的，间距类需要统一
+    6、 sass 中禁止使用 \/* 注释 *\/   防止与 sass中配置参数冲突; 样式必须按照区间写！！！
 */

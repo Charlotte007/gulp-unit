@@ -115,6 +115,7 @@ css3动画效果：
 
 ### 网站收藏
 +  [效果网站 tympanus.net](https://tympanus.net/codrops/)
++  [banner效果 revolution](https://revolution.themepunch.com/examples/)
 
 ### 表单验证
 + http://validform.rjboy.cn/
@@ -130,8 +131,17 @@ css3动画效果：
 + [react源码解析]
 
 ### svg
++ 
+
+
+### flex
++ 
+
 
 ### canvas
++ [canvas封装库：konva](https://github.com/konvajs/konva)
++ [canvas矢量图片：paper.js](https://github.com/paperjs/paper.js)
++ [canvas封装库：fabric.js](https://github.com/fabricjs/fabric.js)
 
 ### JS Drive Animation
 + [lottie-web + AE +　BodyMovin 骨络图动画](https://github.com/airbnb/lottie-web)
@@ -146,3 +156,11 @@ css3动画效果：
 + common widget（response-nav，tab-footer，affix，iealert √）;
 
 ### 系统重装后如何提交到github
++ window中的凭证管理
++ githooks自动发布
++ jenkins自动化部署
+
+
+
+
+
