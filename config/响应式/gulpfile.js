@@ -29,7 +29,7 @@ var fileinclude = require('gulp-file-include'); // HTML代码组件化复用；�
 var cssBase64 = require('gulp-css-base64'); // base64
 
 // ### 
-var pug = require('gulp-pug');  // html-tempalte  需要对报错做进一步处理； 
+var pug = require('gulp-pug'); // html-tempalte  需要对报错做进一步处理； 
 
 // ### 路径替换
 var replace = require('gulp-replace');
@@ -77,7 +77,7 @@ var config = {
     css: {
         src: 'src/css',
         dist: 'web/dist/css/',
-        cssLink:'dist/css/'
+        cssLink: 'dist/css/'
     },
     sass: { // 合并所有*.scss到 layout.css
         src: ['src/sass/*.scss', 'src/module/*/sass/*.scss'],
@@ -90,7 +90,7 @@ var config = {
         src: ['src/js/*.js', 'src/module/*/js/*.js'], // 插件使用plugin；js下所有文件参与打包
         dist: 'web/dist/js/',
         filename: 'layout.js',
-        jsSrc:'dist/js/'
+        jsSrc: 'dist/js/'
     },
     pug: {
         src: 'src/*.pug'
@@ -197,7 +197,7 @@ var cleanTask = function () {
  * @param {Sting} imgpath   统一替换后的路径
  * @returns  {Object}       
  */
-var htmlIncludeTask = function (src, dist, isDev, imgpath,cssLink,jsSrc) { // 使用方法  @@include('include/header.html')
+var htmlIncludeTask = function (src, dist, isDev, imgpath, cssLink, jsSrc) { // 使用方法  @@include('include/header.html')
     imgpath = imgpath || config.imgPath.imgsrc;
     cssLink = cssLink || config.css.cssLink;
     jsSrc = jsSrc || config.js.jsSrc;
@@ -209,8 +209,8 @@ var htmlIncludeTask = function (src, dist, isDev, imgpath,cssLink,jsSrc) { // �
         }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
         .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+)\.(?:jpg|png|gif|ico))\"/g, 'src="' + imgpath + '$2"')) // img:src
-        .pipe(replace(/src=\s*\"([\w\/]*\/)?((?:[^\/]+)\.js(?:\?[\w\=]*)?)\"/g,'src="'+jsSrc+'$2"'))  // js: src
-        .pipe(replace(/href=\s*\"([\w\/]*\/)?((?:[^\/]+)\.css(?:\?[\w\=]*)?)\"/g,'href="'+cssLink+'$2"'))  // css： link   
+        .pipe(replace(/src=\s*\"([\w\/]*\/)?((?:[^\/]+)\.js(?:\?[\w\=]*)?)\"/g, 'src="' + jsSrc + '$2"')) // js: src
+        .pipe(replace(/href=\s*\"([\w\/]*\/)?((?:[^\/]+)\.css(?:\?[\w\=]*)?)\"/g, 'href="' + cssLink + '$2"')) // css： link   
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
@@ -404,22 +404,13 @@ readfiles = function () {
                 return;
             }
             var testIndex = 0;
-            function testOnlyNum(num){
-                testIndex++;
-                if (testIndex > num) return;
-            }
-
-            function testOnlyName(filename,name){
-                if(filename.indexOf(name) ===-1) return;
-            }
-
             // 模块分层执行
-            files.forEach(function (filename, i) {  //  return return false break continue
+            files.forEach(function (filename, i) { //  return return false break continue
 
-                // testOnlyNum(2);
-                // testOnlyName(filename,'联系我们');
-               
-                if(filename.indexOf('.git')!==-1) return;
+                // testIndex++;
+                // if (testIndex > 2) return false;
+
+                if (filename.indexOf('.git') !== -1) return;
 
                 var _moduleRoot = fileDirectory + filename; // "src/module/moduleA"
                 var _moduleDist = fileM + filename + '/'; // web/moduleA
@@ -446,7 +437,7 @@ readfiles = function () {
                 copyCommon('jsPlugin_md' + i, _moduleRoot + '/plugin/*', _moduleDist + 'res/webjs', true)
 
                 setGulpTask('modulehtmlinclude' + i, function () { // 替换html中src的路径
-                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist, false, '/res/webimages/','/res/webcss/','/res/webjs/') // src, dist, isDev,imgpath
+                    htmlIncludeTask(_moduleRoot + '/*.html', _moduleDist, false, '/res/webimages/', '/res/webcss/', '/res/webjs/') // src, dist, isDev,imgpath
                 }, moduleArr);
 
                 setGulpTask('moduleimages' + i, function () {
@@ -522,10 +513,9 @@ gulp.task('module', ['cleanall'], function () {
     gulp.start(moduleArr, function () {
         // 自动生成 cssJson cssTemplate；
         modulePath.forEach(function (path, index) {
-            console.log(path, index);
-            var cssJsonStr = '';    // json
-            var cssTempStr = '';    // css
-            var testJsonArr = [];
+            var cssJsonStr = ''; // json
+            var cssTempStr = ''; // css
+            // var testJsonArr = [];
 
             // 需要保留注释
             var data = (fs.readFileSync(path + 'res/webcss/layout.css')).toString();
@@ -536,10 +526,10 @@ gulp.task('module', ['cleanall'], function () {
             // fixup: selector:'@charset \"UTF-8\";\n@media (min-width: 1024px){.selector {}}';
             // fixup: 选择器单项；因为添加区间标题，导致样式同行；区间匹配不能与选择器样式匹配同行；属于嵌套关系
 
-            var mediaMatchArr = data.split('\n'); 
-           
+            var mediaMatchArr = data.split('\n');
+
             mediaMatchArr.forEach(function (item, index) { // .selector  @media() {} 
-               
+
                 // var mediaCssStr = item.replace(/\s*([^\{\)]*|@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*))\s?\{(.*)\}/g, function () { // .select {} | @media (min-width: ) {
 
                 // 样式分区间添加标题;'
@@ -547,40 +537,52 @@ gulp.task('module', ['cleanall'], function () {
                     // 不可选择 替换伪类，伪元素
                     // m: .slector { ... }   media： @media (....) {...}
                     var blockName = '//### 手机端样式\n';
-                 
+
+                    var testJsonArr = []; // 对应block
                     var blockCssJson = [];
                     if (arguments[3]) { // 匹配@media 区间名称
                         blockSlector = arguments[3]
                         blockName = '//### ' + arguments[2] + '\n';
                     }
 
-                    var blockStyle = arguments[0].replace(/\}(?!\*)/g,'\}\n'); // class单行,方便匹配; 反向匹配; 锚点： \}(?!\*) 非注释的\}
+                    var blockStyle = arguments[0].replace(/\}(?!\*)/g, '\}\n'); // class单行,方便匹配; 反向匹配; 锚点： \}(?!\*) 非注释的\}
                     // 样式每个区间
-                    var itemStyle = blockStyle.replace(/((?:\)\s\{\s?)?[^\{\n)]*)\s?\{(.*)\}/g,function(){ // 锚点： \n 实现单行匹配
+                    var itemStyle = blockStyle.replace(/((?:\)\s\{\s?)?[^\{\n)]*)\s?\{(.*)\}/g, function () { // 锚点： \n 实现单行匹配
                         var selector = arguments[1].replace(pseudoReg, '');
                         // selector && selectorStyle
                         var selectStyle = arguments[2].replace(/(\:[^\:\;]+\;)\s*\/\*\s?(\{[^\*]+)\*\//g, function () { // 锚点：\:attribute;/*...*/
+
+
                             var jsonItem = JSON.parse(arguments[2]); // 配置项
-                            jsonItem.selector = selector;
                             var jsonItemStr = JSON.stringify(jsonItem) + '\n';
 
+                                jsonItem.selector = selector;
+                            var selectorItemStr = JSON.stringify(jsonItem) + '\n';
+
+                            // fixup: 同样的名称和变量名称，但是selector是不同的不能去重；去除名称变量相同的，合并selector
+
                             // object to string 去重
-                            if (testJsonArr.indexOf(jsonItemStr) === -1) { // 不存在
+                            var testindex = testJsonArr.indexOf(jsonItemStr);
+                            if ( testindex === -1) {
                                 testJsonArr.push(jsonItemStr);
-                                blockCssJson.push(jsonItemStr); // 字符串化
+                                blockCssJson.push(selectorItemStr); // 字符串化
+                            }else{ // 合并重复项selector
+                               
+                                blockCssJson[testindex] = blockCssJson[testindex].replace(/"selector":"([^"]+)"/,'"selector":"$1,'+jsonItem.selector+'"');
+                                console.log(blockCssJson[testindex]);
                             }
+                            
                             // 返回 selectStyle 参数化后
                             return arguments[1].replace(jsonItem.value, jsonItem.name);
                         });
-
                         // 需要保证匹配 === 替换;
                         return arguments[1] + '{' + selectStyle + '}'; // online
                     });
 
-                     // 合并变量替换后的 css 
-                     cssTempStr += itemStyle;  // 返回的样式中 缺少
-                     // 合并 去重后 添加区间名称的 json文件
-                     cssJsonStr = cssJsonStr + blockName + '[\n' + blockCssJson.toString() + ']\n\n';
+                    // 合并变量替换后的 css 
+                    cssTempStr += itemStyle; // 返回的样式中 缺少
+                    // 合并 去重后 添加区间名称的 json文件
+                    cssJsonStr = cssJsonStr + blockName + '[\n' + blockCssJson.toString() + ']\n\n';
                 });
             });
             // @media 标签多行css; 方便查看
@@ -627,7 +629,6 @@ gulp.task('module', ['cleanall'], function () {
 
     6、base64的转化问题：  -- 已修改
 
-    8、团队管理C，测试 参数重复的问题？   select 不同去不了重复？但是变量相同！ bug
 
     作为模块：
 
@@ -650,9 +651,7 @@ gulp.task('module', ['cleanall'], function () {
     7、注意使用 padding margin 对  commonweb的影响
         css：   dist/css/*.css  res/webcss/*.css    排除 http://
         js：    dist/js/*.js    res/js/*.js         排除 http://
-
     
-
     9、变量参数的问题；
 
     待添加功能：
@@ -665,9 +664,8 @@ gulp.task('module', ['cleanall'], function () {
     7、发现问题：  比如 linear-gradent是有问题的                   --- 没有值 会影响编译的,不能配置
     8、依赖的插件和js资源，没有批量替换    比如 city.js  map.js   datapicker
     9、swiper.3.x 响应的问题；  IE9+ 不能初始化
-
-    8、分页的位置？ 需要统一调整； 手机端加载更多 和 PC端分页的切换；   
-
+    10、分页的位置？ 需要统一调整； 手机端加载更多 和 PC端分页的切换；  
+    11、重复项合并selector                                        --- 已修改 -fixup
 
     维护原则：  
     1、 本地CMS源码必须保证为最新版本；方便对照CMS模块；

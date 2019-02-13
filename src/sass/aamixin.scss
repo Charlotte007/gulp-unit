@@ -8,7 +8,6 @@ $c9:#999;
 //----------------------------------------------
 // 模块专用： 命名 + 属性 -- 注意@变量命名；实际调用 不用@，默认已配置区分前缀 @cl#{$key}
 
-
 //	+ 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
 //	+ 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
 	
@@ -17,6 +16,7 @@ $c9:#999;
 //		model.HeadOrFoot = 0 (content)
 //		model.HeadOrFoot = -1 (footer)
 
+
 // 参数说明;
 // @param {String} $name 	参数中文说明
 // @param {String} $key  	变量名
@@ -24,52 +24,114 @@ $c9:#999;
 
 @mixin cl($name,$key,$color){
     color: $color;
-   /* {"title": "#{$name}","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
+   /* {"title": "#{$name}文本色","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
 }
 @mixin clrgba($name,$key,$color){
     color: $color;
-   /* {"title": "#{$name}","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
+   /* {"title": "#{$name}文本色","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
 }
 @mixin bgc($name,$key,$color){
     background-color: $color;
-    /* {"title": "#{$name}","type":"color","name": "@bgc#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}背景色","type":"color","name": "@bgc#{$key}","value": "#{$color}"}*/
 }
 @mixin bgcrgba($name,$key,$color){
     background-color: $color;
-    /* {"title": "#{$name}","type":"rgbcolor","name": "@bgrgb#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}背景色","type":"rgbcolor","name": "@bgrgb#{$key}","value": "#{$color}"}*/
 }
 
 @mixin bgimg($name,$key,$path){
     background-image:url($path); 
-    /* {"title": "#{$name}","type":"image","name": "@img#{$key}","value": "url(#{$path})"}*/
+    /* {"title": "#{$name}背景图","type":"image","name": "@img#{$key}","value": "url(#{$path})"}*/
 }
 
 // 需要短横线 ‘-’，  rgbcolor 和  color 有区别？   // @include bod('手机边框','@main',#ff660,'-bottom')
-
-@mixin bod($name,$key,$color,$derection:''){
-	border#{$derection}-color:$color;
-	/* {"title": "#{$name}","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
-}
-@mixin bodrgba($name,$key,$color,$derection:''){
-	border#{$derection}-color:$color;
-	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
-}
-
-// 关于 border，可以组合应用，应减少拆分; 默认值后置，可以减少不必要重写
-
-@mixin bod($name,$key,$color,$width:1px,$type:solid,$derection:''){
+@mixin bod($name,$key,$color,$derection:'',$width:1px,$type:solid){
 	border#{$derection}:$width $type $color;
-	/* {"title": "#{$name}","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
+	/* {"title": "#{$name}边框色","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
 }
-@mixin bod($name,$key,$color,$width:1px,$type:solid,$derection:''){
+@mixin bodrgba($name,$key,$color,$derection:'',$width:1px,$type:solid){
 	border#{$derection}:$width $type $color;
-	/* {"title": "#{$name}","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
+	/* {"title": "#{$name}边框色","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
 
-// 不能使用函数 返回注释
-// @function color($name,$key,$color) {  
-//     @return $color ; /* {"title": "#{$name}","type":"color","name": "@#{$key}","value": "#{$color}"}*/
-// }
+// ### hover的样式； + cur
+@mixin clhv($name,$key,$color){
+    color: $color;
+   /* {"title": "#{$name}选中文本色","type":"color","name": "@clcur#{$key}","value": "#{$color}"}*/
+}
+@mixin clrgbahv($name,$key,$color){
+    color: $color;
+   /* {"title": "#{$name}选中文本色","type":"rgbcolor","name": "@clrgbcur#{$key}","value": "#{$color}"}*/
+}
+@mixin bgchv($name,$key,$color){
+    background-color: $color;
+    /* {"title": "#{$name}选中背景色","type":"color","name": "@bgccur#{$key}","value": "#{$color}"}*/
+}
+@mixin bgcrgbahv($name,$key,$color){
+    background-color: $color;
+    /* {"title": "#{$name}选中背景色","type":"rgbcolor","name": "@bgrgbcur#{$key}","value": "#{$color}"}*/
+}
+@mixin bgimghv($name,$key,$path){
+    background-image:url($path); 
+    /* {"title": "#{$name}选中背景图","type":"image","name": "@imgcur#{$key}","value": "url(#{$path})"}*/
+}
+
+@mixin bodhv($name,$key,$color,$derection:''){
+	border#{$derection}-color:$color;
+	/* {"title": "#{$name}选中边框色","type":"color","name": "@bdcur#{$key}","value": "#{$color}"}*/
+}
+@mixin bodrgbahv($name,$key,$color,$derection:''){
+	border#{$derection}-color:$color;
+	/* {"title": "#{$name}选中边框色","type":"rgbcolor","name": "@bdrgbcur#{$key}","value": "#{$color}"}*/
+}
+
+// ### 间距 margin padding font-size; 为方便间距调整，不能使用 带方向的间距
+@mixin pd($name,$key,$px){  
+    padding: $px;
+    /* {"title": "#{$name}内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+@mixin pdt($name,$key,$px){  
+    padding-top: $px;
+    /* {"title": "#{$name}上填充","type":"text","name": "@pdt#{$key}","value": "#{$px}"}*/
+}
+@mixin pdr($name,$key,$px){  
+    padding-top: $px;
+    /* {"title": "#{$name}右填充","type":"text","name": "@pdr#{$key}","value": "#{$px}"}*/
+}
+@mixin pdb($name,$key,$px){  
+    padding-bottom: $px;
+    /* {"title": "#{$name}下填充","type":"text","name": "@pdb#{$key}","value": "#{$px}"}*/
+}
+@mixin pdl($name,$key,$px){  
+    padding-bottom: $px;
+    /* {"title": "#{$name}左填充","type":"text","name": "@pdl#{$key}","value": "#{$px}"}*/
+}
+
+@mixin mg($name,$key,$px){
+    margin: $px;
+    /* {"title": "#{$name}外间距","type":"text","name": "@mg#{$key}","value": "#{$px}"}*/
+}
+@mixin mgt($name,$key,$px){
+    margin-top: $px;
+    /* {"title": "#{$name}上间距","type":"text","name": "@mgt#{$key}","value": "#{$px}"}*/
+}
+@mixin mgr($name,$key,$px){
+    margin-top: $px;
+    /* {"title": "#{$name}右间距","type":"text","name": "@mgr#{$key}","value": "#{$px}"}*/
+}
+@mixin mgb($name,$key,$px){
+    margin-bottom: $px;
+    /* {"title": "#{$name}下间距","type":"text","name": "@mgb#{$key}","value": "#{$px}"}*/
+}
+@mixin mgl($name,$key,$px){
+    margin-bottom: $px;
+    /* {"title": "#{$name}左间距","type":"text","name": "@mgl#{$key}","value": "#{$px}"}*/
+}
+@mixin fz($name,$key,$px){
+    font-size: $px;
+    /* {"title": "#{$name}字号","type":"text","name": "@fz#{$key}","value": "#{$px}"}*/
+}
+
 
 //------------------------------------------------ 混合： @include
 // 前缀   -- gulp中已经配置  
@@ -90,6 +152,7 @@ $c9:#999;
 // + inline-block 居中 hackBefore {display:inline-block;width:0;height:100%;vertical-align:middle;}
 // + flex 注意兼容
 // + 有固定宽高的，可以使用 margin代替
+
 
 @mixin center ($position:absolute,$zIndex:3){
 	position:$position;
@@ -190,14 +253,14 @@ $c9:#999;
 	transform: perspective(1px) translateZ(0);
 }
 
-// ---------透明度
+// opacity 兼容IE7
 @mixin opacity($opacity) {  
     opacity: $opacity;  
     $opacity-ie: $opacity * 100;  
     filter: alpha(opacity=$opacity-ie); //IE8  
 }  
 
-// 转inline-block
+// inline-block  兼容IE7
 @mixin dib() {
     display: inline-block;
     vertical-align: top;
@@ -233,7 +296,7 @@ $c9:#999;
     overflow: hidden;
 }
 
-@mixin olh($lh) {
+@mixin lh($lh) {
 	height: $lh;
     line-height: $lh;
 }
@@ -244,16 +307,20 @@ $c9:#999;
     max-height: $lh*$line;
     line-height: $lh;
     display: -webkit-box;
-   // word-break: break-all; 英文版的多行文本异常，去掉
     text-overflow: ellipsis;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
 }
+@mixin mlmaxh($lh, $line) {
+    max-height: $lh*$line;
+    line-height: $lh;
+    -webkit-line-clamp: $line;
+}
+
 // -- 推荐等高列表使用，依靠高度实现布局的
 @mixin ml($lh, $line) {
 	// display:block;  // 注意：行内元素时，-webkit-box, height不生效
-	
 	display: -webkit-box;
     height: $lh*$line;
     line-height: $lh;
@@ -295,7 +362,6 @@ $c9:#999;
     user-select: none;
 }
 
-
 //------------------- // 三角箭头
 // -- 正三角通用属性
 %triangleBase {  
@@ -304,7 +370,6 @@ $c9:#999;
     _overflow: hidden;  
     width: 0;  
     height: 0;  
-      
 } 
 // --正三角正文
 @mixin san($derection:bottom, $color: #000, $width: 20px) {  // 默认值： 向下，黑色，20px
