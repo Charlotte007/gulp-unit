@@ -10,7 +10,7 @@ $c9:#999;
 
 //	+ 不能存在  @bgcolor  @bgcolorcur （×） 前面字段重合名称的形式；
 //	+ 正确用法，把状态区分前置  @bgcolor  @curbgcolor （√）
-	
+
 //	+ 添加头部底部；（控制台配置参数）
 //		model.HeadOrFoot = 1(header)
 //		model.HeadOrFoot = 0 (content)
@@ -22,112 +22,130 @@ $c9:#999;
 // @param {String} $key  	变量名
 // @param {String} $color 	色值
 
-@mixin cl($name,$key,$color){
+@mixin cl($name, $key, $color) {
     color: $color;
-   /* {"title": "#{$name}文本色","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}文本色","type":"color","name": "@cl#{$key}","value": "#{$color}"}*/
 }
-@mixin clrgba($name,$key,$color){
+
+@mixin clrgba($name, $key, $color) {
     color: $color;
-   /* {"title": "#{$name}文本色","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}文本色","type":"rgbcolor","name": "@clrgb#{$key}","value": "#{$color}"}*/
 }
-@mixin bgc($name,$key,$color){
+
+@mixin bgc($name, $key, $color) {
     background-color: $color;
     /* {"title": "#{$name}背景色","type":"color","name": "@bgc#{$key}","value": "#{$color}"}*/
 }
-@mixin bgcrgba($name,$key,$color){
+
+@mixin bgcrgba($name, $key, $color) {
     background-color: $color;
     /* {"title": "#{$name}背景色","type":"rgbcolor","name": "@bgrgb#{$key}","value": "#{$color}"}*/
 }
 
-@mixin bgimg($name,$key,$path){
-    background-image:url($path); 
+@mixin bgimg($name, $key, $path) {
+    background-image: url($path);
     /* {"title": "#{$name}背景图","type":"image","name": "@img#{$key}","value": "url(#{$path})"}*/
 }
 
 // 需要短横线 ‘-’，  rgbcolor 和  color 有区别？   // @include bod('手机边框','@main',#ff660,'-bottom')
-@mixin bod($name,$key,$color,$derection:'',$width:1px,$type:solid){
-	border#{$derection}:$width $type $color;
-	/* {"title": "#{$name}边框色","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
+@mixin bod($name, $key, $color, $derection:'', $width:1px, $type:solid) {
+    border#{$derection}: $width $type $color;
+    /* {"title": "#{$name}边框色","type":"color","name": "@bd#{$key}","value": "#{$color}"}*/
 }
-@mixin bodrgba($name,$key,$color,$derection:'',$width:1px,$type:solid){
-	border#{$derection}:$width $type $color;
-	/* {"title": "#{$name}边框色","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
+
+@mixin bodrgba($name, $key, $color, $derection:'', $width:1px, $type:solid) {
+    border#{$derection}: $width $type $color;
+    /* {"title": "#{$name}边框色","type":"rgbcolor","name": "@bdrgb#{$key}","value": "#{$color}"}*/
 }
 
 // ### hover的样式； + cur
-@mixin clhv($name,$key,$color){
+@mixin clhv($name, $key, $color) {
     color: $color;
-   /* {"title": "#{$name}选中文本色","type":"color","name": "@clcur#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}选中文本色","type":"color","name": "@clcur#{$key}","value": "#{$color}"}*/
 }
-@mixin clrgbahv($name,$key,$color){
+
+@mixin clrgbahv($name, $key, $color) {
     color: $color;
-   /* {"title": "#{$name}选中文本色","type":"rgbcolor","name": "@clrgbcur#{$key}","value": "#{$color}"}*/
+    /* {"title": "#{$name}选中文本色","type":"rgbcolor","name": "@clrgbcur#{$key}","value": "#{$color}"}*/
 }
-@mixin bgchv($name,$key,$color){
+
+@mixin bgchv($name, $key, $color) {
     background-color: $color;
     /* {"title": "#{$name}选中背景色","type":"color","name": "@bgccur#{$key}","value": "#{$color}"}*/
 }
-@mixin bgcrgbahv($name,$key,$color){
+
+@mixin bgcrgbahv($name, $key, $color) {
     background-color: $color;
     /* {"title": "#{$name}选中背景色","type":"rgbcolor","name": "@bgrgbcur#{$key}","value": "#{$color}"}*/
 }
-@mixin bgimghv($name,$key,$path){
-    background-image:url($path); 
+
+@mixin bgimghv($name, $key, $path) {
+    background-image: url($path);
     /* {"title": "#{$name}选中背景图","type":"image","name": "@imgcur#{$key}","value": "url(#{$path})"}*/
 }
 
-@mixin bodhv($name,$key,$color,$derection:''){
-	border#{$derection}-color:$color;
-	/* {"title": "#{$name}选中边框色","type":"color","name": "@bdcur#{$key}","value": "#{$color}"}*/
+@mixin bodhv($name, $key, $color, $derection:'') {
+    border#{$derection}-color: $color;
+    /* {"title": "#{$name}选中边框色","type":"color","name": "@bdcur#{$key}","value": "#{$color}"}*/
 }
-@mixin bodrgbahv($name,$key,$color,$derection:''){
-	border#{$derection}-color:$color;
-	/* {"title": "#{$name}选中边框色","type":"rgbcolor","name": "@bdrgbcur#{$key}","value": "#{$color}"}*/
+
+@mixin bodrgbahv($name, $key, $color, $derection:'') {
+    border#{$derection}-color: $color;
+    /* {"title": "#{$name}选中边框色","type":"rgbcolor","name": "@bdrgbcur#{$key}","value": "#{$color}"}*/
 }
 
 // ### 间距 margin padding font-size; 为方便间距调整，不能使用 带方向的间距
-@mixin pd($name,$key,$px){  
+@mixin pd($name, $key, $px) {
     padding: $px;
     /* {"title": "#{$name}内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
 }
-@mixin pdt($name,$key,$px){  
+
+@mixin pdt($name, $key, $px) {
     padding-top: $px;
     /* {"title": "#{$name}上填充","type":"text","name": "@pdt#{$key}","value": "#{$px}"}*/
 }
-@mixin pdr($name,$key,$px){  
+
+@mixin pdr($name, $key, $px) {
     padding-top: $px;
     /* {"title": "#{$name}右填充","type":"text","name": "@pdr#{$key}","value": "#{$px}"}*/
 }
-@mixin pdb($name,$key,$px){  
+
+@mixin pdb($name, $key, $px) {
     padding-bottom: $px;
     /* {"title": "#{$name}下填充","type":"text","name": "@pdb#{$key}","value": "#{$px}"}*/
 }
-@mixin pdl($name,$key,$px){  
+
+@mixin pdl($name, $key, $px) {
     padding-bottom: $px;
     /* {"title": "#{$name}左填充","type":"text","name": "@pdl#{$key}","value": "#{$px}"}*/
 }
 
-@mixin mg($name,$key,$px){
+@mixin mg($name, $key, $px) {
     margin: $px;
     /* {"title": "#{$name}外间距","type":"text","name": "@mg#{$key}","value": "#{$px}"}*/
 }
-@mixin mgt($name,$key,$px){
+
+@mixin mgt($name, $key, $px) {
     margin-top: $px;
     /* {"title": "#{$name}上间距","type":"text","name": "@mgt#{$key}","value": "#{$px}"}*/
 }
-@mixin mgr($name,$key,$px){
+
+@mixin mgr($name, $key, $px) {
     margin-top: $px;
     /* {"title": "#{$name}右间距","type":"text","name": "@mgr#{$key}","value": "#{$px}"}*/
 }
-@mixin mgb($name,$key,$px){
+
+@mixin mgb($name, $key, $px) {
     margin-bottom: $px;
     /* {"title": "#{$name}下间距","type":"text","name": "@mgb#{$key}","value": "#{$px}"}*/
 }
-@mixin mgl($name,$key,$px){
+
+@mixin mgl($name, $key, $px) {
     margin-bottom: $px;
     /* {"title": "#{$name}左间距","type":"text","name": "@mgl#{$key}","value": "#{$px}"}*/
 }
-@mixin fz($name,$key,$px){
+
+@mixin fz($name, $key, $px) {
     font-size: $px;
     /* {"title": "#{$name}字号","type":"text","name": "@fz#{$key}","value": "#{$px}"}*/
 }
@@ -135,15 +153,17 @@ $c9:#999;
 
 //------------------------------------------------ 混合： @include
 // 前缀   -- gulp中已经配置  
-@mixin css3($property, $value) {  
-    @each $prefix in -webkit-,  
-    -moz-,  
-    -ms-,  
-    -o-,  
-    '' {  
-        #{$prefix}#{$property}: $value;  
-    }  
-}  
+@mixin css3($property, $value) {
+
+    @each $prefix in -webkit-,
+    -moz-,
+    -ms-,
+    -o-,
+    '' {
+        #{$prefix}#{$property}: $value;
+    }
+}
+
 // 各种居中	----------  注意（定位方式，层级）
 
 // translate导致模糊的原因： translate计算的值 最小单元为 1px，非整数，会导致模糊；
@@ -153,112 +173,129 @@ $c9:#999;
 // + flex 注意兼容
 // + 有固定宽高的，可以使用 margin代替
 
+@mixin center ($position:absolute, $zIndex:3) {
+    position: $position;
+    z-index: $zIndex;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 
-@mixin center ($position:absolute,$zIndex:3){
-	position:$position;
-	z-index:$zIndex;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
+@mixin xcenter ($position:absolute, $zIndex:3) {
+    position: $position;
+    z-index: $zIndex;
+    left: 50%;
+    transform: translateX(-50%);
 }
-@mixin xcenter ($position:absolute,$zIndex:3){
-	position:$position;
-	z-index:$zIndex;
-	left:50%;
-	transform:translateX(-50%);
+
+@mixin ycenter ($position:absolute, $zIndex:3) {
+    position: $position;
+    z-index: $zIndex;
+    top: 50%;
+    transform: translateY(-50%);
 }
-@mixin ycenter ($position:absolute,$zIndex:3){
-	position:$position;
-	z-index:$zIndex;
-	top:50%;
-	transform:translateY(-50%);
-}
+
 // hack：不定高的垂直居中；兼容 IE7+
-// html: .wrapper > [&:before]/.hack + .middle
-@mixin ymiddle (){
-	font-size:0;
-	&::before,
-	.hack{
-		width:0;
-		height:100%;
-		display: inline-block;
-		vertical-align: middle;
-		*display: inline;
-		*zoom: 1;
-	}
-	&::before{
-		content:'';
-	}
-	.middle{
-		display: inline-block;
-		vertical-align: middle;
-		*display: inline;
-		*zoom: 1;
-	}
+// html: .wrapper() > [&:before]/.hack + .middle
+@mixin ymiddle () {
+    font-size: 0;
+
+    &::before,
+    .hack {
+        width: 0;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    &::before {
+        content: '';
+    }
+
+    .middle {
+        display: inline-block;
+        vertical-align: middle;
+        *display: inline;
+        *zoom: 1;
+    }
 }
 
-// ----------------------常用的放大效果
-@mixin imgscale (){
-	&:hover{
-		img{
-			-webkit-transform:scale(1.03,1.03);
-			-moz-transform:scale(1.03,1.03);
-			-ms-transform:scale(1.03,1.03);
-			-o-transform:scale(1.03,1.03);
-			transform:scale(1.03,1.03);
-		}
-	}
+// ###  常用的放大效果
+// html: .thumb(:hover) > img
+@mixin imgscale ($scale:1.03,$time:.7s) {
+    overflow: hidden;
+    &:hover {
+        img {
+            transform: scale(scale);
+        }
+    }
+   
+    img {
+        transition: transform ease time;
+    }
 }
-@mixin scalebox (){
-	overflow:hidden;
-	img{
-		-webkit-transition:transform ease 0.7s; // Safari 和 Chrome
-		-moz-transition: transform ease 0.7s;	// FF
-		-ms-transition: transform ease 0.7s;//IE
-		-o-transition:transform ease 0.7s;// Opera 
-		transition: transform ease 0.7s;
-	}
+
+// ### 数量不固定等宽 Equal width
+// html: ul() > li*N
+
+@mixin ew(){
+    display: table;
+    table-layout: fixed;
+    .child{
+        display: table-cell;
+        vertical-align: middle;
+        width: 1%;
+    }
 }
+
+
 // ie--- 3d 翻转 兼容 //  backface-visibility  白屏兼容
 // transition时页面闪动的问题，-webkit-transform-style:preserve-3d;或-webkit-backface-visibility:hidden;
 
-@mixin per3d(){ // 景深，观察视口
-	-webkit-perspective: 1200px;
+@mixin per3d() {
+    // 景深，观察视口
+    -webkit-perspective: 1200px;
     -moz-perspective: 1200px;
     -o-perspective: 1200px;
     perspective: 1200px;
 }
-@mixin st3d(){ // 3d变形开启
+
+@mixin st3d() {
+    // 3d变形开启
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
+
 // transform 抖动
-@mixin ieroll(){ // 
-	-webkit-backface-visibility: hidden;
+@mixin ieroll() {
+    // 
+    -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
     backface-visibility: hidden;
-    transition:transform ease 0s\9;
-	transition: .5s;
+    transition: transform ease 0s\9;
+    transition: .5s;
 }
 
 // 开启硬件加速：减少字体模糊，提高性能
-@mixin hardwareAccel(){
-	-webkit-transform: perspective(1px) translateZ(0);
-	-moz-transform: perspective(1px) translateZ(0);
-	-ms-transform: perspective(1px) translateZ(0);
-	-o-transform: perspective(1px) translateZ(0);
-	transform: perspective(1px) translateZ(0);
+@mixin hardwareAccel() {
+    -webkit-transform: perspective(1px) translateZ(0);
+    -moz-transform: perspective(1px) translateZ(0);
+    -ms-transform: perspective(1px) translateZ(0);
+    -o-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
 }
 
 // opacity 兼容IE7
-@mixin opacity($opacity) {  
-    opacity: $opacity;  
-    $opacity-ie: $opacity * 100;  
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
     filter: alpha(opacity=$opacity-ie); //IE8  
-}  
+}
 
 // inline-block  兼容IE7
 @mixin dib() {
@@ -275,15 +312,16 @@ $c9:#999;
 
 // 小图
 @mixin clearimg1() {
-	image-rendering: -moz-crisp-edges; /* Firefox /
-	image-rendering: -o-crisp-edges; / Opera /
-	image-rendering: -webkit-optimize-contrast;/ Webkit (non-standard naming) /
-	image-rendering: crisp-edges;
-	-ms-interpolation-mode: nearest-neighbor; / IE (non-standard property) */
+    image-rendering: -moz-crisp-edges; // Firefox 
+    image-rendering: -o-crisp-edges; // Opera
+    image-rendering: -webkit-optimize-contrast; // Webkit (non-standard naming)
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor; // IE (non-standard property)
 }
+
 // 大图
-@mixin clearimg2(){
-	-ms-interpolation-mode: nearest-neighbor;
+@mixin clearimg2() {
+    -ms-interpolation-mode: nearest-neighbor;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: -moz-crisp-edges;
     image-rendering: pixelated;
@@ -297,7 +335,7 @@ $c9:#999;
 }
 
 @mixin lh($lh) {
-	height: $lh;
+    height: $lh;
     line-height: $lh;
 }
 
@@ -312,6 +350,7 @@ $c9:#999;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
 }
+
 @mixin mlmaxh($lh, $line) {
     max-height: $lh*$line;
     line-height: $lh;
@@ -320,8 +359,8 @@ $c9:#999;
 
 // -- 推荐等高列表使用，依靠高度实现布局的
 @mixin ml($lh, $line) {
-	// display:block;  // 注意：行内元素时，-webkit-box, height不生效
-	display: -webkit-box;
+    // display:block;  // 注意：行内元素时，-webkit-box, height不生效
+    display: -webkit-box;
     height: $lh*$line;
     line-height: $lh;
     // word-break: break-all; 英文版的多行文本异常，去掉
@@ -330,33 +369,68 @@ $c9:#999;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
 }
+
 @mixin mlh($lh, $line) {
-	height: $lh*$line;
+    height: $lh*$line;
     line-height: $lh;
-	-webkit-line-clamp: $line;
+    -webkit-line-clamp: $line;
 }
 
 // placeholder 
 @mixin ph($color: #999) {
+
     // 使用webkit内核的浏览器
     &::-webkit-input-placeholder {
         color: $color;
-    } // Firefox版本4-18
+    }
+
+    // Firefox版本4-18
     &:-moz-placeholder {
         color: $color;
-    } // Firefox版本19+
+    }
+
+    // Firefox版本19+
     &::-moz-placeholder {
         color: $color;
-    } // IE浏览器
+    }
+
+    // IE浏览器
     &:-ms-input-placeholder {
         color: $color;
     }
 }
+
+// scrollbar 自定义滚动条  仅仅支持 webkit
+@mixin scrollbar() {
+
+    // 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 16-8px;
+        background-color: #fff;
+    }
+
+    // 定义滚动条轨道 内阴影+圆角
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+        background-color: #fff;
+    }
+
+    // 定义滑块 内阴影+圆角
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, .1);
+        background-color: #f2a6b7;
+    }
+}
+
+
 // 文本不选中 (文字按钮或指定文本)
 
 // 直接作用域全局 会导致mac表单无法选中 =》  *:not(input,select,textarea){...}
-@mixin noselect (){
-	-webkit-user-select: none;
+@mixin noselect () {
+    -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -364,61 +438,52 @@ $c9:#999;
 
 //------------------- // 三角箭头
 // -- 正三角通用属性
-%triangleBase {  
-    _font-size: 0;  
-    _line-height: 0;  
-    _overflow: hidden;  
-    width: 0;  
-    height: 0;  
-} 
+%triangleBase {
+    _font-size: 0;
+    _line-height: 0;
+    _overflow: hidden;
+    width: 0;
+    height: 0;
+}
+
 // --正三角正文
-@mixin san($derection:bottom, $color: #000, $width: 20px) {  // 默认值： 向下，黑色，20px
-    @extend %triangleBase;  
-    border-width: $width;  
+@mixin san($derection:bottom, $color: #000, $width: 20px) {
+    // 默认值： 向下，黑色，20px
+    @extend %triangleBase;
+    border-width: $width;
+
     //向右  
-    @if $derection==right {  
-        border-style: dashed dashed dashed solid;  
-        border-color: transparent transparent transparent $color;  
-    }  
+    @if $derection==right {
+        border-style: dashed dashed dashed solid;
+        border-color: transparent transparent transparent $color;
+    }
+
     //向左  
-    @if $derection==left {  
-        border-style: dashed solid dashed dashed;  
-        border-color: transparent $color transparent transparent;  
-    }  
+    @if $derection==left {
+        border-style: dashed solid dashed dashed;
+        border-color: transparent $color transparent transparent;
+    }
+
     //向上  
-    @if $derection==top {  
-        border-style: dashed dashed solid dashed;  
-        border-color: transparent transparent $color transparent;  
-    }  
+    @if $derection==top {
+        border-style: dashed dashed solid dashed;
+        border-color: transparent transparent $color transparent;
+    }
+
     //向下  
-    @if $derection==bottom {  
-        border-style: solid dashed dashed dashed;  
-        border-color: $color transparent transparent transparent;  
-    }  
-} 
+    @if $derection==bottom {
+        border-style: solid dashed dashed dashed;
+        border-color: $color transparent transparent transparent;
+    }
+}
 
-//------- 函数使用： color:wt(0.9);} ------- // 
+//------- 函数使用： color:wt(.9);} =>  color: rgba(255, 255, 255, .9) ------- // 
 // 黑 black
-@function bk($opacity) {  
+@function bk($opacity) {
     @return rgba(0, 0, 0, $opacity);
-}  
+}
+
 // 白 white
-@function wt($opacity) {  
+@function wt($opacity) {
     @return rgba(255, 255, 255, $opacity);
-}  
-
-// 背景图路径
-@mixin bgi ($name){
-	background-image: url('../images/'+$name);
-}
-
-
-// rem  px -> rem
-@function rem($px,$rate:100){
-	@return $px/$rate + 'rem';
-}
-
-// path 路径
-@function path($name,$root:'../images/'){
-	@return $root+$name;
 }
