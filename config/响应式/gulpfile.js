@@ -90,7 +90,8 @@ var config = {
         src: ['src/js/*.js', 'src/module/*/js/*.js'], // 插件使用plugin；js下所有文件参与打包
         dist: 'web/dist/js/',
         filename: 'layout.js',
-        jsSrc: 'dist/js/'
+        jsSrc: 'dist/js/',
+        except:''  // 部分插件有自己目录结构 比如： ckplayer,layer,city 需要手动引入;
     },
     pug: {
         src: 'src/*.pug'
@@ -209,7 +210,7 @@ var htmlIncludeTask = function (src, dist, isDev, imgpath, cssLink, jsSrc) { // 
         }))
         .pipe(replace(/href=\"[\s\#]?\"/g, 'href="javascript:;"'))
         .pipe(replace(/src\s*=\s*"([\w\/]*\/)?((?:[^\.\/]+)\.(?:jpg|png|gif|ico))\"/g, 'src="' + imgpath + '$2"')) // img:src
-        .pipe(replace(/src=\s*\"([\w\/]*\/)?((?:[^\/]+)\.js(?:\?[\w\=]*)?)\"/g, 'src="' + jsSrc + '$2"')) // js: src
+        .pipe(replace(/src=\s*\"([\w\/]*\/)?((?!ckplayer|layui|datepicker|laypage)(?:[^\/]+)\.js(?:\?[\w\=]*)?)\"/g, 'src="' + jsSrc + '$2"')) // js: src 正向否定预查  插件自有结构除外： ckplayer|layui|datepicker|laypage
         .pipe(replace(/href=\s*\"([\w\/]*\/)?((?:[^\/]+)\.css(?:\?[\w\=]*)?)\"/g, 'href="' + cssLink + '$2"')) // css： link   
         .pipe(gulpif(isDev, reload({
             stream: true
@@ -239,7 +240,6 @@ var pugTask = function (src, dist, isDev, imgpath) {
         })))
         .pipe(gulp.dest(dist));
 }
-
 
 /**
  * ### 图片压缩拷贝
@@ -672,6 +672,7 @@ gulp.task('module', ['cleanall'], function () {
     2、 cms后台覆盖原则； 1260 > 1024 > 768 > m  
     3、 约定全局主题色：@clcur @clrgbcur  @bgccur  @bgrgbcur @bdcur @bdrgbcur
     4、 下载中心A中的mixin.scss作为最全面的引入
-    5、 栏目标题类的，间距类需要统一
-    6、 sass 中禁止使用 \/* 注释 *\/   防止与 sass中配置参数冲突; 样式必须按照区间写！！！
+    5、 因每个模块中使用 mixin.scss 的版本不同，所以不可统一替换 aamixin.scss 文件；防止宝座
+    6、 栏目标题类的，间距类需要统一
+    7、 sass 中禁止使用 \/* 注释 *\/   防止与 sass中配置参数冲突; 样式必须按照区间写！！！
 */
