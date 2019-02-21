@@ -82,7 +82,7 @@ var config = {
     sass: { // 合并所有*.scss到 layout.css
         src: ['src/sass/*.scss', 'src/module/*/sass/*.scss'],
         outputStyleAll: ['nested', 'expanded', 'compact', 'compressed'],
-        outputStyle: 'expanded', // dev build 使用去除注释；去除mixin的注释
+        outputStyle: 'compact', // dev build 使用去除注释；去除mixin的注释
         contactPath: '',
         filename: 'layout.css'
     },
@@ -91,7 +91,7 @@ var config = {
         dist: 'web/dist/js/',
         filename: 'layout.js',
         jsSrc: 'dist/js/',
-        except:''  // 部分插件有自己目录结构 比如： ckplayer,layer,city 需要手动引入;
+        except:'ckplayer|layui|datepicker|laypage'  // 部分插件有自己目录结构 比如： ckplayer,layer,city 需要手动引入;
     },
     pug: {
         src: 'src/*.pug'
@@ -675,4 +675,7 @@ gulp.task('module', ['cleanall'], function () {
     5、 因每个模块中使用 mixin.scss 的版本不同，所以不可统一替换 aamixin.scss 文件；防止宝座
     6、 栏目标题类的，间距类需要统一
     7、 sass 中禁止使用 \/* 注释 *\/   防止与 sass中配置参数冲突; 样式必须按照区间写！！！
+	
+	8、建立模板的规则，先从栏目最多的去添加
+    9、相同参数去重，注意书写顺序，方便提供正确的 选择器，以方便后面提示
 */
