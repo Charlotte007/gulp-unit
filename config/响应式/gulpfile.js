@@ -178,8 +178,8 @@ var setGulpTask = function (taskName, taskFn, TaskEnvArr) {
 // ### copy:  Dev + Build  -- 自定义添加调用
 copyCommon('cssframe', 'src/css/*', config.css.dist); // 复制UI css
 copyCommon('jsPlugin', 'src/plugin/*', config.js.dist); // 复制插件 js
-copyCommon('ckplayer', 'src/ckplayer/*', config.root.dist + "/ckplayer");
-copyCommon('googlemap', 'src/google/*', config.root.dist + "/googlemap");
+copyCommon('ckplayer', 'src/ckplayer/*', config.root.dist + "/js/ckplayer"); // 为方便 seajs调用
+copyCommon('googlemap', 'src/google/*', config.root.dist + "/js/googlemap");
 copyCommon('fonts', 'src/fonts/*', config.root.dist + "/fonts");
 
 // ### 环境区分 dev ：build
@@ -273,7 +273,7 @@ var imagesTask = function (src, dist, isDev) {
 var jsTask = function (src, dist, isDev, isJsmin) {
     return gulp.src(src)
         .pipe(changed(dist))
-        .pipe(jshint(isJsmin)) // 进行检查
+        .pipe(jshint()) // 进行检查
         .pipe(jshint.reporter('default')) // 对代码进行报错提示
         .pipe(concat(config.js.filename)) // 合并src下所有  js/*.js
         .pipe(gulpif(isJsmin, uglify({

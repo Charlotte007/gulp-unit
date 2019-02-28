@@ -172,7 +172,7 @@ var imagesTask = function (src, dist, isDev) {
 var jsTask = function (src, dist, isDev, isJsmin) {
     return gulp.src(src)
         .pipe(changed(dist))
-        .pipe(jshint(isJsmin)) // 进行检查
+        .pipe(jshint()) // 进行检查
         .pipe(jshint.reporter('default')) // 对代码进行报错提示
         .pipe(concat(config.js.filename)) // 合并src下所有  js/*.js
         .pipe(gulpif(isJsmin, uglify({
@@ -235,7 +235,7 @@ var sassTask = function (src, dist, style, isDev, isbase64, bgurl) {
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
         .pipe(gulpif(isRem,px2rem(px2remOptions, postCssOptions)))
         .pipe(gulpif(!isRem, cssunit({ type: 'px-to-vw', width: 750 })))
-        .pipe(replace(/pt\s?\;/,'px;'))   // pt防止转化; 防止其他 字符 转化
+		.pipe(replace(/(?<=[0-9%.]+)pt/g,'px'))   // pt防止转化; 防止其他 字符 转化 ; 建议 1px ,固定像素，使用pt-> px,而不是一味地使用vw
         .pipe(gulpif(isDev, reload({
             stream: true
         })))

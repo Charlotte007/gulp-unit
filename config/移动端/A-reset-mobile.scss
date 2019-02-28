@@ -1,5 +1,5 @@
 ﻿/*--公共部分--*/
-
+// 小于3px的必须使用 pt代替 -> 3px
 html{
 -webkit-text-size-adjust: 100%;
 -ms-text-size-adjust: 100%;
@@ -14,7 +14,7 @@ body,form,img,ul,ol,li,dl,dt,dd,p,tr,td,strong,span,pre{margin:0; padding:0; bor
 h1,h2,h3,h4,h5,h6,p{ margin:0; padding:0; font-weight:normal;}
 
 // 字体
-body,button,input,select,textarea{font-size:14px;line-height:1.5;color:#333; font-family: Arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
+body,button,input,select,textarea{font-size:14pt;line-height:1.5;color:#333; font-family: Arial, 'Microsoft YaHei','Hiragino Sans GB', sans-serif;}
 ul,li{ list-style:none;}
 // em,i,b{ font-style:normal;} 编辑器不可用
 img{border:0px;max-width: 100%;}
@@ -78,6 +78,7 @@ input[type="text"],
 input[type="password"],
 input[type="button"],
 input[type="submit"],
+button,
 select,
 textarea {
     outline-style: none;
@@ -88,7 +89,7 @@ textarea {
 }
 // 自动填充的  autocomplete off/ new-password
 input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+	-webkit-box-shadow: 0 0 0px 1000pt white inset !important;
 }
 
 
@@ -112,11 +113,149 @@ input:-webkit-autofill {
   display: none !important;
 }
 // 布局类
-.commonweb{padding:0px 10px;}
+.commonweb{padding:0px 15pt;}
 html body {
+	
 	margin-right: auto;
     margin-left: auto;
-    min-width: 320px;
-	// max-width: 540px; // 非特殊布局，可以用max-width:540px;提升横屏体验
+    min-width: 320pt;
+	background-color:#fff; // 某些浏览器会默认灰色背景，重置一下
 }
 /* layout start*/
+
+.swiper-container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.swiper-container-no-flexbox .swiper-slide {
+    float: left;
+}
+
+.swiper-container-vertical > .swiper-wrapper {
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: -webkit-transform;
+    -moz-transition-property: transform,-moz-transform;
+    transition-property: transform;
+    transition-property: transform,-webkit-transform,-moz-transform,-o-transform;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.swiper-container-android .swiper-slide, .swiper-wrapper {
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -o-transform: translate(0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.swiper-container-multirow > .swiper-wrapper {
+    -webkit-box-lines: multiple;
+    -moz-box-lines: multiple;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.swiper-container-free-mode > .swiper-wrapper {
+    -webkit-transition-timing-function: ease-out;
+    -moz-transition-timing-function: ease-out;
+    -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    margin: 0 auto;
+}
+
+.swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swiper-container-autoheight, .swiper-container-autoheight .swiper-slide {
+    height: auto;
+}
+
+    .swiper-container-autoheight .swiper-wrapper {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        -moz-box-align: start;
+        align-items: flex-start;
+        -webkit-transition-property: -webkit-transform,height;
+        -moz-transition-property: -moz-transform;
+        -o-transition-property: -o-transform;
+        -webkit-transition-property: height,-webkit-transform;
+        transition-property: height,-webkit-transform;
+        -o-transition-property: height,-o-transform;
+        -moz-transition-property: transform,height,-moz-transform;
+        transition-property: transform,height;
+        transition-property: transform,height,-webkit-transform,-moz-transform,-o-transform;
+    }
+
+.swiper-container .swiper-notification {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: -1000;
+}
+
+.swiper-wp8-horizontal {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+}
+
+.swiper-wp8-vertical {
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 27px;
+    height: 44px;
+    margin-top: -22px;
+    z-index: 10;
+    cursor: pointer;
+    -moz-background-size: 27px 44px;
+    -o-background-size: 27px 44px;
+    background-size: 27px 44px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+	opacity: .35;
+	cursor: auto;
+	pointer-events: none;
+}
