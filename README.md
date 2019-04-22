@@ -47,7 +47,6 @@ html{
 @include clearimg2(); // 大图
 
 ````
-### img{max-width:100%;}处理
 
 #### 微软雅黑字体说明（方正邮件回复）
 
