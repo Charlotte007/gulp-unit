@@ -40,8 +40,6 @@ var portOptions = {
 };
 var portParams = minimist(process.argv.slice(2), portOptions);
 
-
-
 // css
 var isRem = false;
 var cssOptions = {
@@ -171,7 +169,7 @@ var imagesTask = function (src, dist, isDev) {
 
 var jsTask = function (src, dist, isDev, isJsmin) {
     return gulp.src(src)
-        .pipe(changed(dist))
+        // .pipe(changed(dist)) // fixup：多文件监听合并缺少文件
         .pipe(jshint()) // 进行检查
         .pipe(jshint.reporter('default')) // 对代码进行报错提示
         .pipe(concat(config.js.filename)) // 合并src下所有  js/*.js

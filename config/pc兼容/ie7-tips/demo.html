@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -13,8 +14,42 @@
 
 <body>
 	<div style="margin:200px auto; width:500px;  border:1px #eee dashed; padding:20px;">
-		<h1>默认是低于IE8浏览器都会弹出提示框，大家想看到效果就用IE6、IE7来打开运行</h1>
+		<h1 id="btn">
+			默认是低于IE8浏览器都会弹出提示框，大家想看到效果就用IE6、IE7来打开运行
+		</h1>
 	</div>
 </body>
+<script>
+	var arr = [1, 2, 3, 6, 11, 0, 5, 10, 7, 8, 9];
+
+	function bubbleSort_02(arr) {
+		var len = arr.length,
+			temp,
+			isSwap = false,
+			lastSwapIndex = len - 1, // 记录每轮最后一次交换位置的较小值位置（大值已交换变为右端点片区有序）
+			inTime = lastSwapIndex;
+
+		for (let i = 0; i < len - 1; i++) {
+			for (let j = 0; j < inTime; j++) { // lastSwapIndex VS len-i-1 
+				if (arr[j] > arr[j + 1]) {
+					isSwap = true; // 发生交换
+					lastSwapIndex = j; // 该轮结束后，更新到最后一个位置
+					console.log(i, lastSwapIndex);
+					temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+				}
+			}
+
+			// 每轮对比后
+			if (!isSwap) return arr; // 该轮未出现交换，说明已完成排序
+			inTime = lastSwapIndex; // 最后一次交换，说明 lastSwapIndex+1 ~ len 已经有序，更新对比交换区间
+
+		}
+		return arr;
+	}
+
+	bubbleSort_02(arr);
+</script>
 
 </html>

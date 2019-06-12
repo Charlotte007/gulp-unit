@@ -272,7 +272,7 @@ var imagesTask = function (src, dist, isDev) {
  */
 var jsTask = function (src, dist, isDev, isJsmin) {
     return gulp.src(src)
-        .pipe(changed(dist))
+        // .pipe(changed(dist))  // fixup：多文件监听合并缺少文件
         .pipe(jshint()) // 进行检查
         .pipe(jshint.reporter('default')) // 对代码进行报错提示
         .pipe(concat(config.js.filename)) // 合并src下所有  js/*.js
@@ -320,8 +320,9 @@ var spriteTask = function (src, dist, isDev) {
  * @param {Boolean} isbase64    是否使用base64
  * @param {Sting} bgurl         替换后背景图路径     
  * @param {Boolean} isModule         模块生成环境
+ * @param {Boolean} isBuild         打包环境，去除mixin的注释
  */
-var sassTask = function (src, dist, style, isDev, isbase64, bgurl, isModule) {
+var sassTask = function (src, dist, style, isDev, isbase64, bgurl, isModule,isBuild) {
     bgurl = bgurl || config.imgPath.bgurl;
     var plugins = [cssnext, precss, autoprefixer({
         browsers: ['last 60 versions'],
@@ -341,9 +342,11 @@ var sassTask = function (src, dist, style, isDev, isbase64, bgurl, isModule) {
         .pipe(gulpif(isModule, replace(/\n/g, '')))
         .pipe(gulpif(isModule, replace(/\@media/g, '\n@media'))) // \n 成为锚点
         .pipe(gulpif(isbase64, cssBase64())) // base64 only build
+		.pipe(gulpif(isBuild, replace(/\/\*\s*\{[^\*]*\s*\*\//g,''))) // build 删除 模块中注释
         .pipe(gulpif(isDev, reload({
             stream: true
         })))
+		
         .pipe(gulp.dest(dist));
 };
 
@@ -386,7 +389,8 @@ setGulpTask('sprite', function () {
     spriteTask(config.sprite.src, config.sprite.dist)
 }, buildTaskArr);
 setGulpTask('sass', function () {
-    sassTask(config.sass.src, config.css.dist, 'compressed', false, true) // 压缩css 转换华base64
+	// sassTask(src, dist, style, isDev, isbase64, bgurl, isModule,isBuild)
+    sassTask(config.sass.src, config.css.dist, 'compressed', false, true,false,false,true) // 压缩css 转换华base64
 }, buildTaskArr);
 
 // ### 读取文件添加　模块任务

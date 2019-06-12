@@ -71,7 +71,14 @@ css3动画效果：
 + [移动端响应式 swiper3.4.2](https://github.com/nolimits4web/swiper)
 + [兼容低版本多功能响应轮播 flexslide2.0](https://github.com/woocommerce/FlexSlider)
 + [bxslider-4](https://github.com/stevenwanderski/bxslider-4)
+
+3D轮播效果
++ 
 	
+自定义轮播效果：
++ [slideREVOLUTION](https://revolution.themepunch.com/)
++ [design]
+
 地址选择器：
 + [jquery.selectcity.js(最新数据+4级地址)](http://jquerywidget.com/jquery-citys/)
 	
@@ -98,6 +105,18 @@ css3动画效果：
 
 + [图片整屏弹窗PhotoSwipe.js](https://github.com/dimsemenov/PhotoSwipe)
 + [layui](http://layer.layui.com/)
++ [pc弹窗 手机上自由缩放]
+
+翻书效果：
++ [翻书效果}(http://www.rohrbacher.de/90/)
++ [翻书H5]()
+
+视频播放：
++ [ckplayerx](http://www.ckplayer.com/)
++ [video canvas 同步播放](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Manipulating_video_using_canvas)
+
+创意网站：
++ [awwwards](https://www.awwwards.com/aristidebenoist/)
 
 视差效果：
 
@@ -107,6 +126,10 @@ css3动画效果：
 
 + [better-scroll](https://github.com/ustbhuangyi/better-scroll)
 + [perfect-scrollbar](https://github.com/utatti/perfect-scrollbar)
+
+正则表达式：
++ [正则教程](https://www.cnblogs.com/tsql/p/6386218.html)
++ [正则可视化](https://regexper.com/#%5E%5B%5Cu4e00-%5Cu9fa5%5D%7B0%2C%7D%24)
 
 事件相关：
 
@@ -118,7 +141,7 @@ css3动画效果：
 +  [banner效果 revolution](https://revolution.themepunch.com/examples/)
 
 ### 表单验证
-+ http://validform.rjboy.cn/
++ [validform](http://validform.club/index.html)
 
 ### 搜索关键字高亮
 + [mark.js](https://github.com/julmot/mark.js)
@@ -131,11 +154,11 @@ css3动画效果：
 + [react源码解析]
 
 ### svg
-+ 
++ [svg基础文档](http://know.webhek.com/svg/svg-polygon.html)
 
 
 ### flex
-+ 
++ [flex的常见应用](https://magic-akari.github.io/solved-by-flexbox/)
 
 
 ### canvas
@@ -150,17 +173,27 @@ css3动画效果：
 ### 小程序
 
 ### TODO
-+ template 混合
 + pug
 + performace
-+ common widget（response-nav，tab-footer，affix，iealert √）;
++ webpack4
 
 ### 系统重装后如何提交到github
 + window中的凭证管理
 + githooks自动发布
 + jenkins自动化部署
 
+### 百度地图
++ [百度短码](https://dwz.cn/console/apidoc)
++ [二维码生成](https://github.com/davidshimjs/qrcodejs)
+	+ 注意：字符串的长度问题，如果链接过长或者包含中文，推荐做短码处理，保证二维码正常
++ [移动端百度地图导航](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)
++ [定位](http://lbsyun.baidu.com/index.php?title=webapi/ip-api)
 
+### 设计模式
++ [自定义事件-发布订阅模式]()
++ [js状态机-状态管理模式]()
+
+### 算法
 
 
 

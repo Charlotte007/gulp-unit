@@ -57,7 +57,7 @@ li {
 
 // em,i,b{ font-style:normal;} 编辑器不可用
 img {
-	border: 0px;
+	border: 0;
 	vertical-align: middle;
 }
 
@@ -113,6 +113,14 @@ input[type="submit"],
 input[type="reset"] {
 	cursor: pointer;
 }
+
+// input[type="number"]
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"]{-moz-appearance:textfield;}
 
 // -- sub sup
 sub,
