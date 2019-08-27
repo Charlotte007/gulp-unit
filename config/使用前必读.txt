@@ -62,4 +62,7 @@
 cnpm install
 gulp dev
 gulp build
+
+
+10、多个语言版本切换
 	

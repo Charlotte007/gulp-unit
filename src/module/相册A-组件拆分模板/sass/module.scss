@@ -1,0 +1,33 @@
+@import 'aamixin.scss';
+
+.fixbug{
+    &:nth-child(odd){
+        @include bgc('栏目全局', 'galbumAcol', #ffffff);
+    }
+    &::after{
+        @include bgc('栏目全局', 'galbumAcol', #ffffff);
+    }
+    &:last-child{
+        @include bgc('栏目全局', 'galbumAcol', #ffffff);
+    }
+    &[type="text"]{
+        @include bgc('栏目全局', 'galbumAcol', #ffffff);
+    }
+}
+
+@media(min-width:1024px) {
+    .fixbug{
+        &::after{
+            @include bgc('栏目全局', 'galbumAcol', #000);
+        }
+        &:last-child{
+            @include bgc('栏目全局', 'galbumAcol', #000);
+        }
+        &[type="text"]{
+            @include bgc('栏目全局', 'galbumAcol', #000);
+        }
+        &:nth-child(odd){
+            @include bgc('栏目全局', 'galbumAcol', #000);
+        }
+    }
+}

@@ -1,0 +1,15 @@
+// 组件的相对路径
+@import '../../sass/aamixin.scss';
+
+.albumAchl-title {
+    font-size: 30-12px;
+    line-height: 1.4;
+    @include cl('栏目标题', 'albumAchltitle', #00b9ef);
+}
+
+@media(min-width:1024px) {
+    .albumAchl-title {
+        @include fz('栏目标题', 'albumAchltitle', 30px);
+        @include pd('栏目标题', 'albumAchltitle', 0);
+    }
+}

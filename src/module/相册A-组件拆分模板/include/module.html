@@ -1,0 +1,82 @@
+<!-- 需要重点解决的 组件组合的问题 -->
+
+<div class="full-albumA-container">
+    <div class="commonweb">
+        <!-- 组件A -->
+        @@include('../components/栏目标题/unit.html')
+
+        <!-- 组件B -->
+        @@include('../components/栏目概述/unit.html')
+
+        <!-- 弹窗列表 如何组装？ -->
+        <div class="albumA-list">
+            <ul class="clearfix">
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA01.jpg" alt="三八妇女节前往医院看望女性患者">
+                        </div>
+                        <h2 class="title"><span>三八妇女节前往医院看望女性患者</span></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA02.jpg" alt="2017年东城植树节活动">
+                        </div>
+                        <h2 class="title"><span>2017年东城植树节活动</span></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA03.jpg" alt="20171112-爱心徒步">
+                        </div>
+                        <h2 class="title"><span>20171112-爱心徒步</span></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA01.jpg" alt="20171112-爱心徒步">
+                        </div>
+                        <h2 class="title"><span>20171128-志愿者培训-合照</span></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA02.jpg" alt="20171112-爱心徒步">
+                        </div>
+                        <h2 class="title"><span>20171228-岭南庙会-志愿者合照</span></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="thumb">
+                            <img src="albumA03.jpg" alt="20171112-爱心徒步">
+                        </div>
+                        <h2 class="title"><span>五四20周年公益跑志愿者合照</span></h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="loadmore">
+            <a href="javascript:;">浏览更多</a>
+        </div>
+    </div>
+</div>
+
+ <!-- 弹窗列表 如何组装？ -->
+<div class="full-albumA-popup">
+    <div class="albumA-wrap">
+        <div class="albumA-popupsw swiper-container">
+            <ul class="swiper-wrapper albumAsw-wrapper"></ul>
+        </div>
+        <a class="albumApop-ctrl albumApop-prev" href=""></a>
+        <a class="albumApop-ctrl albumApop-next" href=""></a>
+        <div class="albumApop-pages"></div>
+        <a href="javascript:;" class="albumA-close"></a>
+    </div>
+</div>

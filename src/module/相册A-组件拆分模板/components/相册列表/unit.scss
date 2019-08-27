@@ -1,0 +1,241 @@
+// 组件的相对路径
+@import '../../sass/aamixin.scss';
+
+.albumA-loadmore {
+    overflow: hidden;
+    padding: 10px 0;
+    a {
+        display: block;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: center;
+        @include cl('加载更多', 'albumAloadmore', #333);
+        @include bgc('加载更多', 'albumAloadmore', #e1e1e1);
+    }
+}
+
+.albumA-list {
+    ul {
+        margin: 0 -5px;
+        font-size: 0;
+    }
+
+    li {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        padding: 0 5px;
+        margin-bottom: 10px;
+        a {
+            display: block;
+        }
+    }
+
+    .thumb {
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            padding-bottom: (250%/3.86);
+        }
+
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 3;
+            width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    .title {
+        box-sizing: content-box;
+        padding: 3px 7px;
+        height: 44px;
+        font-size: 0;
+        line-height: 22px;
+        overflow: hidden;
+        @include cl('相册列表标题', 'albumAitemtitle', #9d9da2);
+        @include bod('相册列表标题', 'albumAitemtitle', #eee);
+        border-top: 0;
+
+        &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16-3px;
+            max-height: 44px;
+            overflow: hidden;
+        }
+    }
+}
+// 弹窗
+.full-albumA-popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: bk(0.5);
+    .albumA-wrap {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        width: 94%;
+        height: 80%;
+        max-width: 800px;
+
+        li {
+            text-align: center;
+            font-size: 0;
+
+            &:before {
+                content: '';
+                display: inline-block;
+                vertical-align: middle;
+                width: 0;
+                height: 100%;
+            }
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                height: auto;
+                max-width: 100%; // 应该拉大
+                width: 100%;
+                &.lanky {
+                    // 过分瘦长
+                    width: auto;
+                    max-height: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .albumA-popupsw {
+        height: 100%;
+    }
+
+    .albumA-pages{
+        display: none;
+    }
+
+    .albumApop-ctrl{
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 38px;
+        height: 74px;
+        background-size: 15px auto;
+        margin-top: -37px;
+    }
+    .albumApop-prev{
+        left: -5px;
+        @include bgimg('荣誉弹窗左切换','albumApopprev','honorDpopprev.png');
+    }
+    .albumApop-next{
+        right: -5px;
+        @include bgimg('荣誉弹窗右切换','albumApopnext','honorDpopnext.png');
+    }
+
+    .albumApop-popupsw {
+        height: 100%;
+    }
+    .albumA-close {
+        position: absolute;
+        top: -40px;
+        right: 0px;
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        background-repeat: no-repeat;
+        background-position: center;
+        @include bgimg('荣誉弹窗关闭','albumApopclose','honorDpopclose.png');
+    }
+}
+
+
+
+
+
+@media(min-width:1024px) {
+
+    .full-albumA-popup .albumApop-prev {
+        left: -80px;
+    }
+    .full-albumA-popup .albumApop-next {
+        right: -80px;
+    }
+    .full-albumA-popup .albumApop-ctrl{
+        background-size: auto;
+    }
+
+    .albumA-loadmore {
+        @include pd('加载更多', 'albumAloadmore', 10px 0);
+        a{
+            @include lh('加载更多', 'albumAloadmore', 50px);
+            transition: all ease .3s;
+            &:hover{
+                @include clhv('加载更多', 'albumAloadmore', #fff);
+                @include bgchv('加载更多', 'albumAloadmore', #00b9ef);
+            }
+        }
+    }
+
+    .albumA-list {
+        ul {
+            margin: 0 -10px;
+        }
+
+        li {
+            width: 33.3333%;
+            padding: 0 10px;
+            margin-bottom: 20px;
+            a:hover {
+                img {
+                    transform: scale(1.03);
+                }
+                .title {
+                    @include clhv('相册列表标题', 'albumAitemtitle', #00b9ef);
+                    @include bodhv('相册列表标题', 'albumAitemtitle', #9dc815);
+                }
+            }
+        }
+
+        .thumb {
+            img {
+                transition: transform ease .7s;
+            }
+        }
+        .title {
+            transition: all ease .7s;
+            @include pd('相册列表标题', 'albumAitemtitle', 28-12px 30px);
+            border-width: 2px;
+            span {
+                font-size: 16px;
+                @include fz('相册列表标题', 'albumAitemtitle', 16px);
+            }
+        }
+    }
+}

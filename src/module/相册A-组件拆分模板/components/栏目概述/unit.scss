@@ -1,0 +1,15 @@
+@import '../../sass/aamixin.scss';
+
+.albumAchl-desc {
+    padding: 9px 0 18px;
+    font-size: 16-2px;
+    line-height: 1.5;
+    @include cl('栏目介绍', 'albumAdesc', #9d9da2);
+}
+
+@media(min-width:1024px) {
+    .albumAchl-desc {
+        @include pd('栏目介绍', 'albumAdesc', 18px 0 40px);
+        @include fz('栏目介绍', 'albumAdesc', 16px);
+    }
+}

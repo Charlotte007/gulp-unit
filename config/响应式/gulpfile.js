@@ -337,7 +337,7 @@ var sassTask = function (src, dist, style, isDev, isbase64, bgurl, isModule,isBu
         }).on('error', sass.logError))
         .pipe(postcss(plugins))
         .pipe(concat(config.sass.filename))
-        .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url(' + bgurl + '$2)'))
+        .pipe(replace(/url\(["']?([\w\/\.]*\/)?((?!ckplayer|layui|datepicker|laypage)(?:[^\.\/]+).(?:jpg|png|gif|ico))["']?\)/g, 'url(' + bgurl + '$2)'))
         .pipe(replace(/\@charset \"UTF-8\"\;/g, ''))
         .pipe(gulpif(isModule, replace(/\n/g, '')))
         .pipe(gulpif(isModule, replace(/\@media/g, '\n@media'))) // \n 成为锚点
