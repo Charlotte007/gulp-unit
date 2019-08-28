@@ -53,10 +53,8 @@ button,
 input,
 select,
 textarea {
-    font-size: 14pt;
-    line-height: 1.5;
-    color: #333;
-    font-family: Arial, 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+	font: 14pt/1.5 Arial, 'PingFang SC','Microsoft JhengHei','Microsoft YaHei', sans-serif; // 适配 h1-h6 默认的字体行高；提高编辑器中字体还原度
+	color: #333;
 }
 
 ul,
