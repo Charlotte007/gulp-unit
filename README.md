@@ -91,7 +91,10 @@ css3动画效果：
 + [滚动动效 wow + animate.css](https://github.com/matthieua/WOW)
 + [jquery懒加载插件 jquery_lazyload.js](https://github.com/tuupola/jquery_lazyload)
 + [seo友好的懒加载插件+响应式图片 lazysizes.js](https://github.com/aFarkas/lazysizes)
-+ [滚动动效 scrollreveal](https://github.com/scrollreveal/scrollreveal)
++ [滚动动效排版 scrollreveal](https://github.com/scrollreveal/scrollreveal)
++ [滚动视差 skrollr](https://github.com/Prinzhorn/skrollr)
++ [window扩展平滑滚动 smoothscroll](https://github.com/iamdustan/smoothscroll)
++ [滚动节点 Waypoints](https://github.com/imakewebthings/waypoints)
 
 瀑布流加载：
 
