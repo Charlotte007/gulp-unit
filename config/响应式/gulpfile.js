@@ -181,6 +181,7 @@ var setGulpTask = function (taskName, taskFn, TaskEnvArr) {
 };
 // ### copy:  Dev + Build  -- 自定义添加调用
 copyCommon('cssframe', 'src/css/*', config.css.dist); // 复制UI css
+copyCommon('video', 'src/images/*.mp4', config.images.dist); // src/images/*.mp4
 copyCommon('jsPlugin', 'src/plugin/*', config.js.dist); // 复制插件 js  -> 统一到 seajs中
 copyCommon('ckplayer', 'src/ckplayer/*', config.root.dist + "/dist/js/ckplayer");
 copyCommon('googlemap', 'src/google/*', config.root.dist + "/googlemap");
