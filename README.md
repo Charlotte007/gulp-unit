@@ -13,40 +13,9 @@ gulp构建工具的日常维护
 + gulp dev --port 4000      自定义端口，开启多任务
 + gulp build                生产环境
 + gulp module               打包模块
-
-#### 新增多行文本溢出省略
-`去掉 word-break: break-all;`对英文排版造成的影响<br>
-`display: -webkit-box;`是兼容性较差，行内元素不要直接使用；首选 display: block/inline-block; 再调用`多行文本溢出省略`
-
-```` css
-@include ml(line-height,line)     // height: lineHeight * line   固定高度
-
-@include mlmax(line-height,line)  // max-height: lineHeight * line  限制最大高度
-````
-
-#### 3d翻转兼容IE的翻转内容白屏
-```` css
-@mixin ieroll(){
-    backface-visibility: hidden;
-    transition: 0s\9; // IE过渡时间重置为零
-    transition:transform ease .7s;
-}
-````
-#### 移动端点击空白 IOS的兼容
-```` css
-html{
-    cursor: pointer;
-}
-````
-
-#### 响应式图片的模糊问题
-```` css 
-/* transform的导致模糊问题，计算量不是整数像素*/
-@include clearimg1(); // 小图标
-
-@include clearimg2(); // 大图
-
-````
++ gulp module --isroot true|false     是否使用绝对路径打包，默认：true
++ gulp dev --css vw|rem		移动端自适应单位 vw | rem  （px会自动转换为vw|rem，pt会转换为px）
+	+ vw： 后台编辑器字体过大，真机测试计算精度问题
 
 #### 微软雅黑字体说明（方正邮件回复）
 
@@ -80,9 +49,9 @@ css3动画效果：
 
 地址选择器：
 + [jquery.selectcity.js(最新数据+4级地址)](http://jquerywidget.com/jquery-citys/)
++ [常用插件集 widget](https://jquerywidget.com)
 	
 日期选择器：
-
 + [bootstrap-datepicker](https://uxsolutions.github.io/bootstrap-datepicker/)
 + [layui.laydate](http://www.layui.com/)
 	
@@ -92,19 +61,17 @@ css3动画效果：
 + [jquery懒加载插件 jquery_lazyload.js](https://github.com/tuupola/jquery_lazyload)
 + [seo友好的懒加载插件+响应式图片 lazysizes.js](https://github.com/aFarkas/lazysizes)
 + [滚动动效排版 scrollreveal](https://github.com/scrollreveal/scrollreveal)
-+ [滚动视差 skrollr](https://github.com/Prinzhorn/skrollr)
++ [滚动视差css3 skrollr](https://github.com/Prinzhorn/skrollr)
 + [window扩展平滑滚动 smoothscroll](https://github.com/iamdustan/smoothscroll)
 + [滚动节点 Waypoints](https://github.com/imakewebthings/waypoints)
 
 瀑布流加载：
-
 + [masonry 响应式,无限加载,不同排序](https://github.com/desandro/masonry)
 + [isotope 过滤、排序、瀑布流](https://github.com/metafizzy/isotope)
 + [Wookmark-jQuery](https://github.com/germanysbestkeptsecret/Wookmark-jQuery)
 + [辅助:imagesloaded 图片加载回调 $.Deferred](https://github.com/desandro/imagesloaded)
 
 弹窗：
-
 + [图片整屏弹窗PhotoSwipe.js](https://github.com/dimsemenov/PhotoSwipe)
 + [layui](http://layer.layui.com/)
 + [pc弹窗 手机上自由缩放]
@@ -121,20 +88,17 @@ css3动画效果：
 + [awwwards](https://www.awwwards.com/aristidebenoist/)
 
 视差效果：
-
 + [简单的视差滚动效果 parallax.js](https://github.com/pixelcog/parallax.js) [DEMO](http://www.jq22.com/yanshi178)
 
 自定义滚动条：
-
 + [better-scroll](https://github.com/ustbhuangyi/better-scroll)
 + [perfect-scrollbar](https://github.com/utatti/perfect-scrollbar)
 
 正则表达式：
 + [正则教程](https://www.cnblogs.com/tsql/p/6386218.html)
-+ [正则可视化](https://regexper.com/#%5E%5B%5Cu4e00-%5Cu9fa5%5D%7B0%2C%7D%24)
++ [正则可视化 regexper](https://regexper.com/#%5E%5B%5Cu4e00-%5Cu9fa5%5D%7B0%2C%7D%24)
 
 事件相关：
-
 + [滚轮滚动 jquery-mousewheel](https://github.com/jquery/jquery-mousewheel)
 + [多点触控，拖拽 hammer.js](https://github.com/hammerjs/hammer.js)
 
@@ -158,7 +122,6 @@ css3动画效果：
 ### svg
 + [svg基础文档](http://know.webhek.com/svg/svg-polygon.html)
 
-
 ### flex
 + [flex的常见应用](https://magic-akari.github.io/solved-by-flexbox/)
 
@@ -173,6 +136,8 @@ css3动画效果：
 + [Animate CC + CREATJS 流式动画]
 
 ### 小程序
++ [uni-app 小程序模板+vue框架 构建多端应用](https://uniapp.dcloud.io/)
++ [小程序官方文档](https://developers.weixin.qq.com/miniprogram/dev/framework/)
 
 ### TODO
 + pug
@@ -196,6 +161,9 @@ css3动画效果：
 + [js状态机-状态管理模式]()
 
 ### 算法
-
-
-
++ [常见排序算法 算法可视化](https://visualgo.net/zh)
++ [分治]()
++ [动态划分]()
++ [贪心]()
++ [回溯]()
++ [分支界限]()

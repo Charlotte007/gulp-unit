@@ -466,33 +466,26 @@ readfiles = function () {
                 *  + 打包如何形成一个完整的页面? 而且要保证目录一直，
                 *      fixup：1、需要有个引入的页面，固定index.html
                 *  + 模块下混合样式，以及js
+                *  +  modulePath.push(_unitDist);目录中 文件打包出错
+                *  + 优化组件的写法，一个组件包含 html + scss + js；需要优化
                */
-
+            
                 if (fs.existsSync(_subComRoot)) {
-                    fs.readdir(_subComRoot, function (err, files) {
-                        console.log(err);
-                        console.log(files);
+                    fs.readdirSync(_subComRoot, function (err, files) { // fixup：同步
                         files.forEach(function (subfile, j) {
-
-                            var _unitRoot = _subComRoot + subfile;
+                            var _unitRoot = _subComRoot + subfile; 
                             var _unitDist = fileM + filename + '-' + subfile + '/';
-
 
                             modulePath.push(_unitDist);
 
-                            copyCommon('modulecssframe_md_unit' + j, _moduleRoot + '/css/*', _unitDist + 'res/webcss', true);
-                            copyCommon('jsPlugin_md_unit' + j, _moduleRoot + '/plugin/*', _unitDist + 'res/webjs', true);
+                            // copyCommon('modulecssframe_md_unit' + j, _moduleRoot + '/css/*', _unitDist + 'res/webcss', true);
+                            // copyCommon('jsPlugin_md_unit' + j, _moduleRoot + '/plugin/*', _unitDist + 'res/webjs', true);
 
                             // 使用 /index.html 固定座封面引入页面
                             setGulpTask('modulehtmlinclude_unit' + j, function () { // 替换html中src的路径
                                 htmlIncludeTask(_unitRoot + '/index.html', _unitDist, false, config.modulePath + 'res/webimages/', config.modulePath + 'res/webcss/', config.modulePath + 'res/webjs/')
                                 // src, dist, isDev,imgpath
                             }, moduleArr);
-
-                            // 减少 重复图片复制
-                            // setGulpTask('moduleimages' + j, function () {
-                            //     imagesTask(_moduleRoot + '/images/*.{png,jpg,gif,ico}', _moduleDist + 'res/webimages', true)
-                            // }, moduleArr);
 
                             setGulpTask('modulesass_unit' + j, function () { // 使用非压缩模式： 需要保留注释  只能采用单行模式，
                                 sassTask(_unitRoot + '/*.scss', _unitDist + 'res/webcss', 'compact', false, false, config.modulePath ? config.modulePath + 'res/webimages/' : '../webimages/', true)
@@ -543,8 +536,7 @@ gulp.task('dev', ['cleanall'], function () {
     });
 
     gulp.watch(config.js.src, ['js:dev'])
-	gulp.watch(['src/plugin/*.js'], ['jsPlugin'])
-	
+	gulp.watch(['src/plugin/*.js'], ['jsPlugin']) // add： 添加插件监听
 	
     gulp.watch(config.sass.src, ['sass:dev'])
     gulp.watch(config.html.src, ['htmlinclude:dev'])
@@ -642,7 +634,7 @@ gulp.task('module', ['cleanall'], function () {
                                 blockCssJson.push(selectorItemStr); // 字符串化
                             } else { // 合并重复项selector; // bug: 合併，select重複
                                 blockCssJson[testindex] = blockCssJson[testindex].replace(/"selector":"([^"]+)"/, '"selector":"$1,' + jsonItem.selector + '"');
-                                console.log(blockCssJson[testindex]);
+                                // console.log(blockCssJson[testindex]);
                             }
 
                             // 返回 selectStyle 参数化后
