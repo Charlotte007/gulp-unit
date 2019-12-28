@@ -34,6 +34,7 @@ css3动画效果：
 + [按钮的鼠标效果 hover.css](http://ianlunn.github.io/Hover/)
 + [图文切换效果 ihover.css](http://gudh.github.io/ihover/dist/index.html)
 + [图文效果 HoverEffectIdeas](https://tympanus.net/Development/HoverEffectIdeas/)
++ [输入框效果 TextInputEffects](https://tympanus.net/Development/TextInputEffects/index2.html)
 
 轮播图：
 + [移动端响应式 swiper3.4.2](https://github.com/nolimits4web/swiper)
@@ -45,7 +46,6 @@ css3动画效果：
 	
 自定义轮播效果：
 + [slideREVOLUTION](https://revolution.themepunch.com/)
-+ [design]
 
 地址选择器：
 + [jquery.selectcity.js(最新数据+4级地址)](http://jquerywidget.com/jquery-citys/)
@@ -70,6 +70,7 @@ css3动画效果：
 + [isotope 过滤、排序、瀑布流](https://github.com/metafizzy/isotope)
 + [Wookmark-jQuery](https://github.com/germanysbestkeptsecret/Wookmark-jQuery)
 + [辅助:imagesloaded 图片加载回调 $.Deferred](https://github.com/desandro/imagesloaded)
+
 
 弹窗：
 + [图片整屏弹窗PhotoSwipe.js](https://github.com/dimsemenov/PhotoSwipe)

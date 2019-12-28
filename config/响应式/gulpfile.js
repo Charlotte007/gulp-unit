@@ -508,19 +508,6 @@ readfiles = function () {
 }
 
 readfiles();
-// ### 监听文件变动  //  
-// fs.watch('src/module/', function (event, filename) {
-//     console.log('event is: ' + event);
-//     if (filename) {
-//         console.log('filename provided: ' + filename);
-//         moduleImgPath = [];
-//         moduleImgTask = [];
-//         modulePath = [];
-//         readfiles();
-//     } else {
-//         console.log('filename not provided');
-//     }
-// });
 
 // - 开发环境 -- 开发
 gulp.task('dev', ['cleanall'], function () {
@@ -537,7 +524,9 @@ gulp.task('dev', ['cleanall'], function () {
     });
 
     gulp.watch(config.js.src, ['js:dev'])
-	gulp.watch(['src/plugin/*.js'], ['jsPlugin']) // add： 添加插件监听
+	
+	gulp.watch(['src/plugin/*.js'], ['jsPlugin']) // add：添加插件监听
+	gulp.watch(['src/css/*.css'], ['cssframe']) // add：添加静态css监听
 	
     gulp.watch(config.sass.src, ['sass:dev'])
     gulp.watch(config.html.src, ['htmlinclude:dev'])
@@ -548,7 +537,7 @@ gulp.task('dev', ['cleanall'], function () {
 
     gulp.watch(config.images.src, ['images:dev'])
 
-    // watch module images   新增模块文件夹，需要 重新push moduleImgPath
+    // watch module images  新增模块文件夹，需要 重新push moduleImgPath
     gulp.watch(moduleImgPath, moduleImgTask)
     gulp.watch(config.sprite.src, ['sprite:dev'])
 
@@ -569,7 +558,7 @@ gulp.task('module', ['cleanall'], function () {
 
             // 需要保留注释
             var data = (fs.readFileSync(path + 'res/webcss/layout.css')).toString();
-            // cssTemplate  选择器去掉伪类，伪元素 
+            // cssTemplate  选择器去掉伪类，伪元素 ，js中无法选择的元素
             // fixup: remove \)\s\{\s?|
             var pseudoReg = /(^\s*|[\:]{1,3}after|[\:]{1,3}before|\:active|\:focus|\:hover|\:link|\:visited|\:lang|\[type=\"[\w\-]*\"\]|\:first-letter|\:first-line|\:first-child|\:last-child|\:nth-child\([\w\+]*\)|(\s*$))/g; // 注意顺序
 
@@ -578,7 +567,8 @@ gulp.task('module', ['cleanall'], function () {
             // fixup: 选择器单项；因为添加区间标题，导致样式同行；区间匹配不能与选择器样式匹配同行；属于嵌套关系
 
             // 錨點：@meida{} 區間的樣式換行
-            var mediaMatchArr = data.split('\n');
+			// fixup: m 768 1014混排，会导致依赖media 做分割的出现问题
+			var mediaMatchArr = data.replace(/\}\s\}/g,'} }\n').split('\n');;
 
             mediaMatchArr.forEach(function (item, index) { // .selector  @media() {} 
 
@@ -727,7 +717,9 @@ gulp.task('module', ['cleanall'], function () {
     4、img  和 background-images 手动替换                        --- 已修改
     5、模块打包直接生成  cssJson 和 cssTemplate                   --- 已添加，可以自动生成
 	6、是否引入  pug                                               --- 已添加pug，报错需要处理
+	
     7、发现问题：  比如 linear-gradent是有问题的                  --- 没有值 会影响编译的,不能配置
+	
     8、依赖的插件和js资源，没有批量替换    比如 city.js  map.js    datapicker
     9、swiper.3.x 响应的问题；  IE9+ 不能初始化
     10、分页的位置？ 需要统一调整； 手机端加载更多 和 PC端分页的切换；
@@ -745,9 +737,12 @@ gulp.task('module', ['cleanall'], function () {
     2、 cms后台覆盖原则； 1260 > 1024 > 768 > m
     3、 约定全局主题色：@clcur @clrgbcur  @bgccur  @bgrgbcur @bdcur @bdrgbcur
     4、 下载中心A中的mixin.scss作为最全面的引入
-    5、 因每个模块中使用 mixin.scss 的版本不同，所以不可统一替换 aamixin.scss 文件；防止宝座
+    5、 因每个模块中使用 mixin.scss 的版本不同，所以不可统一替换 aamixin.scss 文件；防止报错
     6、 栏目标题类的，间距类需要统一
     7、 sass 中禁止使用 \/* 注释 *\/   防止与 sass中配置参数冲突; 样式必须按照区间写！！！
     8、 建立模板的规则，先从栏目最多的去添加
     9、 使用seaJS加载，针对文件合并后，需要保证按需加载，否则会全部加载的;
+	
+	### 如何界定模块拆分与组装；
+		+ 
 */

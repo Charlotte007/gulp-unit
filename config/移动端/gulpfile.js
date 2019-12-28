@@ -202,8 +202,11 @@ var spriteTask = function (src, dist, isDev) {
 
 
 // ### gulp-px2rem Options
+// TODO: 打包后应该隐藏原有的 px
+
 var px2remOptions = { // https://github.com/ggkovacs/node-px2rem
-    rootValue: 64, // 相对 1rem = 16px
+    rootValue: 64,  // htmlFontSize = docEl.clientWidth / 10; 即：10rem == 100vw; 10倍关系 rootValue/设计稿宽度 = 10；
+					// 最简单的设置方式：将静态页预览尺寸调整到设计稿大小，rootValue 设置为html下fontSize的大小；保证缩放比例相同
     unitPrecision: 5, // 精度
     propertyBlackList: ['font', 'font-size', 'line-height', 'letter-spacing'], // 不参与转化属性
     propertyWhiteList: [], // 参与转化属性
