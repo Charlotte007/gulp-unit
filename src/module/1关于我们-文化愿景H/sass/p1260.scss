@@ -1,0 +1,104 @@
+
+@import 'aamixin.scss';
+@import 'aamixin02.scss';
+
+
+
+@media (min-width:1260px){
+    
+    .culturalHfull-container{
+
+    }
+    .culturalH-container{
+
+        // padding-top: 40px;
+        // padding-bottom: 120px;
+        @include pdtop("页面顶部","culturalHPaddingTop",60px);
+        @include pdbottom("页面底部部","culturalHPaddingBottom",260px);
+
+        .culturalH-title{
+            // padding-bottom: 22px;
+            @include pdbottom("标题距离","culturalHMainTitleSlideBottom",30px);
+            &:after{
+                @include width("标题下方横线","culturalHlineWidth",20px);
+                @include height("标题下方横线","culturalHlineHeight",3px);
+            }
+            .sup{
+                @include fz("英文标题","culturalHEnTitleSize",50px);
+            }
+            .title{
+                @include fz("中文标题","culturalHCnTitleSize",30px);
+            }
+        }
+
+        .culturalH-tab{
+            @include pdtop("切换选项","culturalHTabPaddingTop",30px);
+            @include pdbottom("切换选项","culturalHTabPaddingBottom",10px);
+            ul{
+               
+                li{
+                    a{
+                        @include fz("切换选项文字","culturalHTabTitleSize",16px);
+                    }
+                }
+                
+            }
+        }
+
+
+        .culturalH-list{
+
+            ul{
+                li{
+                    
+                    .cell{
+
+                    }
+
+                    .thumb{
+    
+                        
+                    }
+                    .word{
+                        // padding: 20px 0;
+                        // padding-top: 10px;
+                        // padding-bottom: 0px;
+                        // padding-left: 10px;
+                        // padding-right: 10px;
+                        // padding: 10px 10px 0;
+                        // padding: (60/400)*100% (35/400)*100% 0;
+                        .title{
+                            // font-size: 26px;
+                            @include fz("栅格文本标题","culturalHsquareTitleFont",32px);
+                        }
+                        .txtcon{
+                            padding-top: 25px;
+                            @include fz("栅格文本描述","culturalHsquareTxtFont",16px);
+                        }
+                        .text{
+                            
+                        }
+                        .dots{
+                            >p,>*{
+                               padding-left: 15px;
+                            }
+                        }
+                        .letter{
+                            // margin-top: -5px;
+                            // font-size: 26px;
+                            @include fz("栅格标点字母","culturalHsquareLetterFont",30px);
+                            // letter-spacing: 2px;
+                        }
+                        
+                    }
+                    .icon {
+                        // display: block;
+                        img{
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

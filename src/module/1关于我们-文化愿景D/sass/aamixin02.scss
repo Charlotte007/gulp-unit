@@ -1,0 +1,61 @@
+
+@mixin width($name,$key,$px){  
+    width: $px;
+    /* {"title": "#{$name}宽度","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+@mixin pdtop($name,$key,$px){  
+    padding-top: $px;
+    /* {"title": "#{$name}上内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+@mixin pdbottom($name,$key,$px){  
+    padding-bottom: $px;
+    /* {"title": "#{$name}下内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+
+@mixin pdleft($name,$key,$px){  
+    padding-left: $px;
+    /* {"title": "#{$name}左内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+@mixin pdright($name,$key,$px){  
+    padding-right: $px;
+    /* {"title": "#{$name}右内填充","type":"text","name": "@pd#{$key}","value": "#{$px}"}*/
+}
+
+@mixin mgtop($name,$key,$px){
+    margin-top: $px;
+    /* {"title": "#{$name}上外间距","type":"text","name": "@mg#{$key}","value": "#{$px}"}*/
+}
+
+@mixin mgbottom($name,$key,$px){
+    margin-bottom: $px;
+    /* {"title": "#{$name}下外间距","type":"text","name": "@mg#{$key}","value": "#{$px}"}*/
+}
+
+@mixin txth($name,$key,$px){
+    height: $px;
+    /* {"title": "#{$name}文本高度","type":"text","name": "@lh#{$key}","value": "#{$px}"}*/
+}
+@mixin height($name,$key,$px){  
+    height: $px;
+    /* {"title": "#{$name}高度","type":"text","name": "@hg#{$key}","value": "#{$px}"}*/
+}
+@mixin top($name,$key,$px){
+    top: $px;
+    /* {"title": "#{$name}上定位","type":"text","name": "@top#{$key}","value": "#{$px}"}*/
+}
+
+@mixin right($name,$key,$px){
+    right: $px;
+    /* {"title": "#{$name}右定位","type":"text","name": "@right#{$key}","value": "#{$px}"}*/
+}
+
+
+@mixin borderColor($name,$key,$color){
+    border-color: $color;
+    /* {"title": "#{$name}边框颜色","type":"color","name": "@bc#{$key}","value": "#{$color}"}*/
+}
+
+@mixin lineClamp($name,$key,$num){
+    -webkit-line-clamp: $num;
+    /* {"title": "#{$name}文本限制行数","type":"text","name": "@lc#{$key}","value": "#{$num}"}*/
+}

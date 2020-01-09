@@ -8,5 +8,5 @@ node_modules/
 src/include/headResource.html
 
 ## 模块仅仅保留 低版本浏览器提示 和 新闻中心-详细Brc/module/*
-## !/src/module/新闻中心-详细B
-## !/src/module/低版本浏览器提示
+!/src/module/新闻中心-详细B
+!/src/module/低版本浏览器提示

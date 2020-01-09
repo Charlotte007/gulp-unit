@@ -1,0 +1,119 @@
+@import "aamixin";
+@media (min-width: 1024px) {
+  .information-top {
+    .area-title {
+      @include mgb('资讯页面上部分标题','information-top>area-title',30px);
+    }
+  }
+  .newsList-K {
+    @include pdt('资讯页面内容区','information-list',60px);
+    @include pdb('资讯页面内容区','information-list',60px);
+    .area-title {
+      @include fz('资讯页面小栏目标题','information-list',30px);
+      @include pdl('资讯页面小栏目标题','information-list',27px);
+      &::before {
+        width: 7px;
+      }
+    }
+    .info {
+      @include pd('资讯页面详细','info',20px 15px 15px);
+      .name {
+        @include fz('资讯页面详细标题','info',20px);
+      }
+      .desc {
+        @include fz('资讯页面详细描述','desc',16px);
+      }
+      .date {
+        @include fz('资讯页面详细日期','date',20px);
+      }
+    }
+  }
+  .information-top-list {
+    ul {
+      @include mg('资讯页面上部分列表容器','information-top-list',0 -14px);
+    }
+    li {
+      @include mgb('资讯页面上部分列表项','information-top-list>li',33px);
+      @include pd('资讯页面上部分列表项','information-top-list>li',0 14px);
+      a {
+        &:hover {
+          box-shadow: 10px 10px 30px #e5e5e5;
+          transform: translateY(-5px);
+          .thumb {
+            img {
+              transform: scale(1.03);
+            }
+          }
+          .name,.date {
+            @include clhv('资讯页面上部分列表项','information-top-list>li>a',#ff5500);
+          }
+        }
+      }
+    }
+  }
+  .information-top {
+    @include pdb('资讯页面上部分','information-top',30px);
+    @include mgb('资讯页面上部分','information-top',60px);
+  }
+  .information-bottom {
+    .area-title {
+      @include mgb('资讯页面下部分栏目标题','information-top',15px);
+    }
+    .all-more-area {
+      @include mgt('资讯页面加载更多按钮','all-more-area',40px);
+    }
+  }
+  .information-bottom-list {
+    a {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      @include pdt('资讯页面下部分列表项','information-bottom-list',20px);
+      @include pdb('资讯页面下部分列表项','information-bottom-list',20px);
+      .thumb {
+        width: (380/1400)*100%;
+        display: table-cell;
+        vertical-align: top;
+      }
+      .info {
+        width: (1020/1400)*100%;
+        display: table-cell;
+        vertical-align: top;
+        position: relative;
+        @include pd('资讯页面下部分详细','information-bottom-list>info',30px 0 0 0);
+        .name {
+          @include mgb('资讯页面下部分详细标题','name',10px);
+          @include pdl('资讯页面下部分详细标题','name',30px);
+        }
+        .desc {
+          @include mgb('资讯页面下部分详细描述','desc',0);
+          @include pdl('资讯页面下部分详细标题','name',30px);
+        }
+        .date {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+        .more {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          @include fz('资讯页面下部分More','information-bottom-list>more',16px);
+        }
+      }
+      &:hover {
+        .thumb {
+          img {
+            transform: scale(1.03);
+          }
+        }
+        .name,.more {
+          @include clhv('资讯页面下部分name和more','information-bottom-list>more,name',#ff5500);
+        }
+        .more {
+          @include bodhv('资讯页面下部分More','information-bottom-list>more',#ff5500);
+        }
+      }
+    }
+  }
+}
