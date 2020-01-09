@@ -426,7 +426,7 @@ readfiles = function () {
                 copyCommon('modulecssframe' + i, _moduleRoot + '/css/*', config.css.dist);
                 copyCommon('jsPlugin' + i, _moduleRoot + '/plugin/*', config.js.dist);
 
-                // dev:    fixup: img 不能通配符获取的问题
+                // dev: fixup: img 不能通配符获取的问题
                 setGulpTask('moduleimages_dev' + i, function () { // 需要base
                     imagesTask(_moduleRoot + '/images/*.{png,jpg,gif,ico}', config.images.dist, true)
                 }, devTaskArr); // images:dev  static
@@ -566,31 +566,21 @@ gulp.task('module', ['cleanall'], function () {
             // fixup: selector:'@charset \"UTF-8\";\n@media (min-width: 1024px){.selector {}}';
             // fixup: 选择器单项；因为添加区间标题，导致样式同行；区间匹配不能与选择器样式匹配同行；属于嵌套关系
 
-            // 錨點：@meida{} 區間的樣式換行
-			// fixup: m 768 1014混排，会导致依赖media 做分割的出现问题
+            // fixup: m 768 1014 m混排，会导致依赖media 做分割的出现问题
 			var mediaMatchArr = data.replace(/\}\s\}/g,'} }\n').split('\n');;
-			
 
             mediaMatchArr.forEach(function (item, index) { // .selector  @media() {} 
-
-                // var mediaCssStr = item.replace(/\s*([^\{\)]*|@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*))\s?\{(.*)\}/g, function () { // .select {} | @media (min-width: ) {
-
                 // 样式分区间添加标题; 单层确认： m xs md lg 
                 // fixup: nth-child() 中的括號 [^\{\)]* => [^\{]*
                 var mediaCssStr = item.replace(/\s*(\@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*)|[^\{\@]*)\s?\{(.*)\}/g, function () {
-                    // item.replace(/\s*([^\{]*|@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*))\s?\{(.*)\}/g, function () { // .select {} |  .select:nth-child {}  | @media (min-width: ) {}
                     // 不可选择 替换伪类，伪元素
-                    // m: .slector { ... }   media： @media (....) {...}
+                    // 判断区间： m: .slector { ... }   media： @media (....) {...}
                     var blockName = '+ CssLg: 1200px及其以上\n+ CssMd: 1024px\n+ CssSm: 768px\n+ CssXs: 768px以下区间\n\n###编辑器快捷键\n+ F7:格式化 F11:全屏\n\n//### 手机端样式\n';
-
 
                     var testJsonArr = []; // 对应block
                     var blockCssJson = [];
 					
-					
-					
                     if (arguments[3]) { // 匹配@media 区间名称; 匹配出 @media(..){ 匹配項 { } }
-						
                         blockSlector = arguments[3]
                         blockName = '//### ' + arguments[2] + '\n';
                     }
@@ -598,24 +588,21 @@ gulp.task('module', ['cleanall'], function () {
                     // 每個區間的樣式，网站的样式分离： @meida的區間 | 有meida的區間 下的 selector { styleName:styleVal;}
                     // 一個選擇器對應一行樣式；.className {...}
 					
-                    var blockStyle = arguments[0].replace(/\}(?!\*)/g, '\}\n') // class单行,方便匹配; 反向匹配; 锚点： \}(?!\*) 非注释的\}
-												.replace(/\)\s?\{/g, '){\n');  // @media(min-width:788px){\n  换行加边界
+                    var blockStyle = arguments[0].replace(/\}(?!\*)/g, '\}\n') // 保证 slector {} 单行,方便匹配; 反向匹配; 锚点： \}(?!\*) 非注释的\}
+												.replace(/\)\s?\{/g, '){\n');  // @media(min-width:768px){\n  换行加边界,保证 slector {} 单行
                     // blockStyle 每個區間的樣式
 						
-					console.log(blockStyle);
-					console.log('\n');
-					
+					// console.log(blockStyle);
+					// console.log('\n');
 
                     // 样式每个区间  ((?:\)\s\{\s?)?[^\{\n)]*)
                     // fixup: @media 匹配的區間會帶有 ) {...
 					// TODO: "selector":"@media (min-width: 1024px)"
                     var itemStyle = blockStyle.replace(/((?:\)\s\{\s?)?[^\{\n\@]*)\s?\{(.*)\}/g, function () { // 锚点： \n 实现单行匹配
-
                         // if(arguments[1].indexOf('.fixbug')!==-1){
                         //     console.log('----');
                         //     console.log(arguments);
                         // }
-
                         var selector = arguments[1].replace(pseudoReg, '');
 
                         // selector && selectorStyle
