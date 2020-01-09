@@ -11,3 +11,4 @@ src/include/headResource.html
 /src/module/*
 !/src/module/新闻中心-详细B
 !/src/module/低版本浏览器提示
+!/src/module/相册A-组件拆分模板
