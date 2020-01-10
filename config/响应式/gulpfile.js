@@ -575,7 +575,7 @@ gulp.task('module', ['cleanall'], function () {
                 var mediaCssStr = item.replace(/\s*(\@media\s?\(([^\(\)]*)\s?\)\s?\{\s?([^\{]*)|[^\{\@]*)\s?\{(.*)\}/g, function () {
                     // 不可选择 替换伪类，伪元素
                     // 判断区间： m: .slector { ... }   media： @media (....) {...}
-                    var blockName = '+ CssLg: 1200px及其以上\n+ CssMd: 1024px\n+ CssSm: 768px\n+ CssXs: 768px以下区间\n\n###编辑器快捷键\n+ F7:格式化 F11:全屏\n\n//### 手机端样式\n';
+                    var blockName = '+ CssLg: 1200px及其以上\n+ CssMd: 1024px\n+ CssSm: 768px\n+ CssXs: 768px以下区间\n\n###编辑器快捷键\n+ F7:格式化 F11:全屏\n\n//### 手机端样式\n提示：所有区间必须一一对应！';
 
                     var testJsonArr = []; // 对应block
                     var blockCssJson = [];
