@@ -228,12 +228,12 @@ $c9:#999;
     overflow: hidden;
     &:hover {
         img {
-            transform: scale(scale);
+            transform: scale($scale);
         }
     }
    
     img {
-        transition: transform ease time;
+        transition: transform ease $time;
     }
 }
 
@@ -243,6 +243,7 @@ $c9:#999;
 @mixin ew(){
     display: table;
     table-layout: fixed;
+    li,
     .child{
         display: table-cell;
         vertical-align: middle;
@@ -307,7 +308,6 @@ $c9:#999;
 
 
 // 图片模糊处理；只是更改了边缘的计算方式，差异太大还是使用dpr倍图
-
 // 注意： 添加image-rendering，再改变图片的尺寸，会有图片改动的波纹
 
 // 小图
@@ -401,27 +401,27 @@ $c9:#999;
 }
 
 // scrollbar 自定义滚动条  仅仅支持 webkit
-@mixin scrollbar() {
+@mixin scrollbar($bar:fff,$track:#fff,$thumb:#ccc) {
 
     // 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸
     &::-webkit-scrollbar {
         width: 4px;
         height: 16-8px;
-        background-color: #fff;
+        background-color: $bar;
     }
 
     // 定义滚动条轨道 内阴影+圆角
     &::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
         border-radius: 2px;
-        background-color: #fff;
+        background-color: $track;
     }
 
     // 定义滑块 内阴影+圆角
     &::-webkit-scrollbar-thumb {
         border-radius: 2px;
         -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, .1);
-        background-color: #f2a6b7;
+        background-color: $thumb;
     }
 }
 
@@ -487,3 +487,53 @@ $c9:#999;
 @function wt($opacity) {
     @return rgba(255, 255, 255, $opacity);
 }
+
+.fz-16{
+    font-size:14px;
+    @media(min-width:1024px){
+         font-size:16px;
+    }
+}
+.fz-18{
+    font-size:16px;
+    @media(min-width:1024px){
+         font-size:18px;
+    }
+}
+.fz-24{
+    font-size:18px;
+    @media(min-width:768px){
+         font-size:20px;
+    }
+    @media(min-width:1024px){
+         font-size:24px;
+    }
+}
+.fz-30{
+    font-size:20px;
+    @media(min-width:768px){
+         font-size:22px;
+    }
+    @media(min-width:1024px){
+         font-size:26px;
+    }
+    @media(min-width:1260px){
+         font-size:30px;
+    }
+}
+.fz-36{
+    font-size:22px;
+    @media(min-width:768px){
+         font-size:26px;
+    }
+    @media(min-width:1024px){
+         font-size:30px;
+    }
+    @media(min-width:1260px){
+         font-size:36px;
+    }
+}
+
+
+
+
